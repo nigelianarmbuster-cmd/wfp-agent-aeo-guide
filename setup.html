@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Set Up Your Own AEO Dashboard</title>
+<meta name="description" content="A step-by-step guide for Washington Fine Properties agents to build and re-run a personal Answer Engine Optimization dashboard. No coding, no API keys.">
+<link rel="stylesheet" href="assets/guide.css">
+<script>
+  // Reveal every collapsed <details> before printing so the print view is complete.
+  // A closed <details> hides its content regardless of CSS (spec: "Choose your setup").
+  window.addEventListener('beforeprint', function () {
+    var items = document.querySelectorAll('details');
+    for (var i = 0; i < items.length; i++) { items[i].open = true; }
+  });
+</script>
+</head>
+<body>
+<!--
+  Design read: educational editorial how-to for non-technical luxury real estate
+  professionals; heritage-premium WFP language; restrained motion; print-first.
+  Dials VARIANCE 4 / MOTION 3 / DENSITY 4. Light-only, logo-only imagery,
+  em-dashes kept (WFP house voice). No external network resources.
+-->
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="index.html">
+      <img class="brand__logo" src="assets/WFP-Logo-Blue-HiRes.png" alt="Washington Fine Properties logo" width="66" height="34">
+      <span class="brand__wordmark">WFP AEO Guide<span>Answer Engine Optimization</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="index.html">The guide</a>
+      <a href="setup.html" aria-current="page">Setup guide</a>
+      <a href="dashboard/index.html">Sample dashboard</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================================================
+       HERO - eyebrow, H1, subtitle, CTAs (4 text elements)
+       ============================================================ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero__inner">
+      <p class="hero__eyebrow">AEO how-to</p>
+      <h1 class="hero__title" id="hero-title">Set Up Your Own AEO Dashboard</h1>
+      <p class="hero__subtitle">Build a personal dashboard that tracks how answer engines describe you, and re-run it every month.</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide/releases/latest/download/dashboard.zip">Download the dashboard</a>
+        <a class="btn btn--secondary" href="dashboard/index.html">Open the sample dashboard</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       1. INTRO - what you'll build
+       ============================================================ -->
+  <section class="section" aria-labelledby="intro-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-head__title" id="intro-title">What you will build</h2>
+      </div>
+      <div class="prose">
+        <p class="lead">A personal AEO dashboard. It is a single web page you open in your browser. It shows how often the major answer engines — ChatGPT, Gemini, Perplexity, Claude, and Google AI Overviews — name you, cite you, and recommend you when someone asks a real estate question in your market.</p>
+        <p>You will run it the same way each time, so you can compare this month to last month and see whether your visibility is improving. The first setup takes about <strong>30 to 60 minutes</strong>. After that, a monthly re-run is much faster.</p>
+        <p>There is <strong>no coding and no API keys</strong>. You or your AI assistant produce one small data file, and the dashboard reads it.</p>
+      </div>
+      <div class="callout callout--info">
+        <span class="callout__title">Before you start</span>
+        <p>Read the main guide first if you have not. It explains what AEO is, why it matters, and the eight principles behind it.</p>
+        <p class="mb-0"><a class="link" href="index.html">Read the AEO guide</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       2. WHAT YOU NEED
+       ============================================================ -->
+  <section class="section" aria-labelledby="needs-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-head__title" id="needs-title">What you need</h2>
+        <p class="section-head__lead">Three things, and one of them does almost all the work.</p>
+      </div>
+
+      <div class="prose prose--wide">
+        <h3 class="subhead mt-0">An AI assistant</h3>
+        <p>The <strong>WFP enterprise Gemini account in the browser</strong> is the recommended path. It is the simplest to set up and the easiest to re-run each month. Any capable assistant works, including Claude Code or OpenCode if you already use them — the setup doc is written for all of them.</p>
+
+        <h3 class="subhead">The dashboard template</h3>
+        <p>Download <code>dashboard.zip</code> from the repository's latest release. It contains the dashboard page, the sample data, and everything it needs to run offline.</p>
+
+        <h3 class="subhead">The setup doc</h3>
+        <p>The file <code>AGENT-AEO-SETUP.md</code> is the instruction set you hand to your assistant. It tells the assistant what to ask you, which queries to run, how to score them, and how to produce your <code>data.js</code>. You can give the assistant the raw link below or paste in the file's contents.</p>
+        <pre><code>https://raw.githubusercontent.com/nigelianarmbuster-cmd/wfp-aeo-guide/main/AGENT-AEO-SETUP.md</code></pre>
+      </div>
+
+      <div class="callout">
+        <span class="callout__title">You edit one small file</span>
+        <p class="mb-0">The only file that changes between runs is <code>data.js</code>. Everything else stays as downloaded.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       3. THE STEPS
+       ============================================================ -->
+  <section class="section" aria-labelledby="steps-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-head__title" id="steps-title">Set it up in six steps</h2>
+      </div>
+
+      <!-- Step 1 -->
+      <article class="step" aria-labelledby="step-1">
+        <h3 class="step__title" id="step-1">Download the dashboard</h3>
+        <div class="step__body prose">
+          <p>Download the template and unzip it somewhere you can find it, such as a folder called <code>AEO</code> in your documents.</p>
+          <div class="callout">
+            <p class="mb-0"><a class="btn btn--link" href="https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide/releases/latest/download/dashboard.zip">Download the dashboard</a></p>
+          </div>
+          <p>You can also browse the project source at <a href="https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide">github.com/nigelianarmbuster-cmd/wfp-aeo-guide</a>.</p>
+        </div>
+      </article>
+
+      <!-- Step 2 -->
+      <article class="step" aria-labelledby="step-2">
+        <h3 class="step__title" id="step-2">Hand the setup doc to your AI assistant</h3>
+        <div class="step__body prose">
+          <p>Open your assistant and give it the setup doc — either the raw URL or the pasted contents of the file. Then send one line:</p>
+          <blockquote><p>Read this setup doc and follow it to build my AEO dashboard.</p></blockquote>
+          <p>If your assistant cannot open links, paste the contents of <code>AGENT-AEO-SETUP.md</code> into the chat instead. If it can read attached files, attach the file.</p>
+        </div>
+      </article>
+
+      <!-- Step 3 -->
+      <article class="step" aria-labelledby="step-3">
+        <h3 class="step__title" id="step-3">Answer the intake questions</h3>
+        <div class="step__body prose">
+          <p>The assistant will ask a short set of questions, one at a time. Have the answers ready:</p>
+          <ol>
+            <li>Your full name, exactly as it should appear in an answer.</li>
+            <li>Your company or brokerage (usually Washington Fine Properties).</li>
+            <li>Whether you have your own website, and its address if so.</li>
+            <li>Where your testimonials and reviews live (Google Business Profile, Zillow, Realtor.com, your own site, or another place).</li>
+            <li>Your service areas and neighborhoods — the places you want to be known for.</li>
+            <li>Your main competitors, two to five of them, ideally other agents or teams in the same neighborhoods.</li>
+            <li>Which answer engines you can access from that list of five.</li>
+          </ol>
+        </div>
+      </article>
+
+      <!-- Step 4 -->
+      <article class="step" aria-labelledby="step-4">
+        <h3 class="step__title" id="step-4">Run the queries</h3>
+        <div class="step__body prose">
+          <p>The assistant runs a fixed set of ten questions — or hands them to you to run and paste back, depending on what it can do. The questions cover how an agent is described, ranked, and compared in your market.</p>
+          <p>The set always includes a <strong>manual check of Google AI Overviews</strong>. AI Overviews do not appear for every query, so any that are not shown are recorded as "not shown."</p>
+          <div class="callout callout--caution">
+            <span class="callout__title">The honesty rule</span>
+            <p>Answers must be quoted verbatim. If the assistant cannot check an engine, that engine is marked <strong>"not evaluated"</strong> and its fields are left blank. Nothing is invented, and nothing is guessed. An engine that cannot be checked is simply left out.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Step 5 -->
+      <article class="step" aria-labelledby="step-5">
+        <h3 class="step__title" id="step-5">Save data.js and open the dashboard</h3>
+        <div class="step__body prose">
+          <p>Save the generated <code>data.js</code> file <strong>next to <code>index.html</code></strong> in the folder you unzipped, overwriting the sample file inside. Then open <code>index.html</code> in your browser.</p>
+          <p>If the dashboard still shows a <strong>SAMPLE</strong> banner at the top, the sample data was not replaced. Check that you overwrote the correct file, and make sure it is named exactly <code>data.js</code>.</p>
+        </div>
+      </article>
+
+      <!-- Step 6 - Choose your setup reveal -->
+      <article class="step" aria-labelledby="step-6">
+        <h3 class="step__title" id="step-6">Choose your setup</h3>
+        <div class="step__body prose">
+          <p>Step 6 is making the run repeatable. Pick the assistant you actually use. The setup doc is the same for all of them — only the way you save and re-run the prompt changes.</p>
+        </div>
+
+        <div class="reveal-group">
+          <details class="reveal">
+            <summary>Gemini in the browser <span class="tag tag--helps">Recommended</span></summary>
+            <div class="reveal__body">
+              <p>Save the run prompt as a Gem (or as a reusable prompt you can paste) so you do not retype it each month.</p>
+              <ol>
+                <li>Create a Gem in the WFP enterprise Gemini workspace and paste in the recurring run prompt from the setup doc.</li>
+                <li>Keep your <code>aeo-state.md</code> and your latest <code>data.js</code> in one folder. Re-attach both each run so the assistant remembers your query set and history.</li>
+                <li>When the run finishes, use Canvas to download the updated <code>data.js</code>.</li>
+                <li>Save it next to <code>index.html</code>, overwriting the old copy, and reopen the dashboard.</li>
+              </ol>
+              <p class="text-muted mb-0">If your enterprise settings limit URL access or Canvas, paste the setup doc text directly and copy the generated file out manually.</p>
+            </div>
+          </details>
+
+          <details class="reveal">
+            <summary>Claude Code</summary>
+            <div class="reveal__body">
+              <p>Create a custom command file at <code>.claude/commands/wfp-aeo-run.md</code> in your project folder and paste in the recurring run prompt. You then type <code>/wfp-aeo-run</code> each month to re-run it.</p>
+              <p class="text-muted mb-0">Note: Claude Code is moving custom commands into skills, so this path may change. The commands path still works today.</p>
+            </div>
+          </details>
+
+          <details class="reveal">
+            <summary>OpenCode</summary>
+            <div class="reveal__body">
+              <p class="mb-0">Create a command file at <code>.opencode/commands/wfp-aeo-run.md</code> in your project folder and paste in the recurring run prompt. The singular folder form, <code>.opencode/command/</code>, also works.</p>
+            </div>
+          </details>
+
+          <details class="reveal">
+            <summary>Any other assistant</summary>
+            <div class="reveal__body">
+              <p>Use this portable prompt. Paste it at the start of each run, along with your current <code>aeo-state.md</code> if you have one.</p>
+              <pre><code>Read this setup doc and follow it to build my AEO dashboard.
+Then run the monthly follow-up: re-run the fixed query set,
+score the results, and produce an updated data.js.
+Keep answers verbatim, mark anything you cannot check as
+"not evaluated", and do not invent results.</code></pre>
+              <p class="text-muted mb-0">Any assistant that can browse the web and produce a file will do the whole run for you. If it cannot browse, it will give you the queries to run by hand.</p>
+            </div>
+          </details>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       4. MAC VS WINDOWS
+       ============================================================ -->
+  <section class="section section--soft" aria-labelledby="os-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-head__title" id="os-title">Mac and Windows</h2>
+        <p class="section-head__lead">The main path is identical on both. The only differences are the folder locations used by the advanced command-line setups.</p>
+      </div>
+      <div class="prose prose--wide">
+        <p>Project folders use the same relative path on both systems, so <code>.claude/commands/</code> and <code>.opencode/commands/</code> are written the same way wherever your project lives.</p>
+        <p>Global configuration folders differ only by how each system names the home folder:</p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table table--keyed">
+          <caption>Configuration folder locations by operating system.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Tool</th>
+              <th scope="col">macOS</th>
+              <th scope="col">Windows</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Claude Code</th>
+              <td><code>~/.claude</code></td>
+              <td><code>%USERPROFILE%\.claude</code></td>
+            </tr>
+            <tr>
+              <th scope="row">OpenCode</th>
+              <td><code>~/.config/opencode</code></td>
+              <td><code>C:\Users\&lt;you&gt;\.config\opencode</code></td>
+            </tr>
+            <tr>
+              <th scope="row">Gemini</th>
+              <td><code>~/.gemini</code></td>
+              <td><code>%USERPROFILE%\.gemini</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="prose prose--wide">
+        <p>When you save any of these files, save them as <strong>UTF-8</strong>. For <code>data.js</code>, keep the content <strong>ASCII-only</strong> — straight quotes and plain hyphens, not curly quotes or typographic dashes. That prevents the dashboard from failing to load.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       5. TROUBLESHOOTING
+       ============================================================ -->
+  <section class="section" aria-labelledby="trouble-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-head__title" id="trouble-title">Troubleshooting</h2>
+      </div>
+      <div class="prose prose--wide">
+        <h3 class="subhead mt-0">The assistant says it cannot browse the web</h3>
+        <p>It will switch to the chat mode and hand you the queries to run yourself. Run them one at a time, paste each answer back, and it will score them and produce your <code>data.js</code>. Nothing is lost — both modes produce the same file.</p>
+
+        <h3 class="subhead">An engine blocks automated checks</h3>
+        <p>Some engines limit automated access. Mark that engine "not evaluated" for the affected queries rather than guessing. Do not scrape a site that blocks automated access.</p>
+
+        <h3 class="subhead">Enterprise Gemini limits URL access or Canvas</h3>
+        <p>Paste the setup doc text directly instead of sharing a link, and copy the generated <code>data.js</code> out of the chat by hand. Your workspace administrator may also need to enable these features.</p>
+
+        <h3 class="subhead">The SAMPLE banner is still showing</h3>
+        <p>Your new <code>data.js</code> was not saved in the right place or with the right name. It must sit next to <code>index.html</code> and be named exactly <code>data.js</code>. Reload the page after saving.</p>
+
+        <h3 class="subhead">The dashboard will not load</h3>
+        <p>Open the browser's developer console and look for an error mentioning <code>data.js</code>. A common cause is a curly quote or a typographic dash that crept into the file. Re-save it as ASCII-only, then reload.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       6. FAQ
+       ============================================================ -->
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-head__title" id="faq-title">Frequently asked questions</h2>
+      </div>
+      <div class="prose prose--wide">
+        <h3 class="subhead mt-0">How often should I run this?</h3>
+        <p>Monthly is recommended. Answer engines change often, and ten queries are a smoke test rather than a measurement. Track the trend across several months instead of over-reading a single run.</p>
+
+        <h3 class="subhead">What should I do with the results?</h3>
+        <p>Use them to find the questions where you are missing from the answer, and which sources are cited instead. Then work on the principles in the main guide — being crawlable, answering directly, keeping your facts consistent, and earning mentions and reviews from other sources. The setup doc also produces a prioritized action plan based on your own material.</p>
+
+        <h3 class="subhead">Can I share my dashboard?</h3>
+        <p>It is built for your own use. The file contains your name and market information, so treat it as internal. The repository's sample dashboard uses fictional data and is the right thing to share as a demonstration.</p>
+
+        <h3 class="subhead">Does this guarantee I will be recommended?</h3>
+        <p>No. No tool and no document can guarantee a specific answer from an answer engine. This gives you a consistent, honest way to see how you currently appear and to track whether your work is moving the needle.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__grid">
+      <div>
+        <div class="site-footer__brand">
+          <img src="assets/WFP-Logo-Blue-HiRes.png" alt="Washington Fine Properties logo" width="66" height="34">
+          <strong>Washington Fine Properties</strong>
+        </div>
+        <p class="site-footer__notice">A practical AEO guide for WFP agents. The sample dashboard contains fictional data for illustration only. Results are directional, and no ranking outcome is guaranteed.</p>
+      </div>
+      <div>
+        <p class="site-footer__col-title">The guide</p>
+        <ul class="site-footer__links">
+          <li><a href="index.html">Answer Engine Optimization</a></li>
+          <li><a href="setup.html">Set up your dashboard</a></li>
+          <li><a href="dashboard/index.html">Sample dashboard</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="site-footer__col-title">Project</p>
+        <ul class="site-footer__links">
+          <li><a href="https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide">Repository</a></li>
+          <li><a href="https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide/releases/latest/download/dashboard.zip">Download the dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="site-footer__legal">Version 1.0.0 · © Washington Fine Properties. Provided for WFP agent use.</p>
+  </div>
+</footer>
+
+</body>
+</html>

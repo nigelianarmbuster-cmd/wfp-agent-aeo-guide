@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Answer engine visibility evaluation dashboard for Alexandra Rivera.">
+<title>Answer Engine Visibility Report — Alexandra Rivera</title>
+<link rel="icon" type="image/png" href="assets/WFP-Logo-Blue-HiRes.png">
+<style>
+/* ============================================================
+   AEO Evaluation Dashboard — Sample (fictional agent data)
+   Self-contained: no external URLs. Classic scripts only.
+   Data contract: window.AEO_DATA = { meta, snapshots[] }
+   (subject-driven: see data.js — sample dataset, replace before use)
+   ============================================================ */
+
+:root {
+  --navy: #27253D;
+  --gold: #A9794D;
+  --white: #FFFFFF;
+  --ink: #1A1830;
+  --border: #E8E6F0;
+  --border-strong: #D6D3E0;
+  --muted: #5A5770;
+  --muted-2: #625E78;
+  --bg-soft: #F7F6FA;
+  --green: #1E7A46;
+  --red: #B3261E;
+  --radius: 6px;
+}
+
+/* ---------- Local fonts ---------- */
+@font-face {
+  font-family: 'Gotham';
+  src: url('fonts/GothamHTFBook.ttf') format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('fonts/GothamHTFMedium.ttf') format('truetype');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('fonts/GothamHTFBold.ttf') format('truetype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Chiswick';
+  src: url('fonts/ChiswickHeadline-Semibold.otf') format('opentype');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Chiswick';
+  src: url('fonts/ChiswickHeadline-Light.otf') format('opentype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+
+/* ---------- Base ---------- */
+html { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: inherit; }
+
+body {
+  margin: 0;
+  font-family: 'Gotham', 'Segoe UI', Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--white);
+  font-variant-numeric: tabular-nums;
+  animation: page-fade 0.45s ease both;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+@keyframes page-fade { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
+  * { transition: none !important; animation: none !important; }
+}
+
+[hidden] { display: none !important; }
+
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: 16px;
+  z-index: 10;
+  background: var(--navy);
+  color: var(--white);
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.skip-link:focus-visible { top: 16px; }
+
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+main { max-width: 1200px; margin: 0 auto; padding: 0 24px 48px; }
+
+/* ---------- Header ---------- */
+.site-header { max-width: 1200px; margin: 0 auto; padding: 24px 24px 0; }
+.header-inner { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+
+.brand { display: flex; align-items: center; gap: 20px; }
+.brand img { height: 56px; width: auto; display: block; }
+.brand h1 {
+  margin: 0;
+  font-family: 'Chiswick', Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 1.2;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.subtitle { margin: 2px 0 0; font-size: 14px; color: var(--muted); }
+
+.controls { margin-left: auto; display: flex; align-items: flex-end; gap: 28px; flex-wrap: wrap; }
+.control-label {
+  display: block; margin-bottom: 6px;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+select#period-select {
+  font-family: inherit; font-size: 14px; color: var(--navy);
+  background: var(--white);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  min-width: 170px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+select#period-select:hover { border-color: var(--gold); }
+.pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill {
+  font-family: inherit; font-size: 13px; font-weight: 500;
+  color: var(--navy); background: var(--white);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.pill:hover { border-color: var(--gold); }
+.pill:active { background: var(--bg-soft); }
+.pill.active {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px var(--gold);
+}
+.pill.active:hover { color: var(--white); }
+.pill.active:active { background: var(--ink); }
+
+.badge-row { display: flex; justify-content: flex-end; margin-top: 14px; }
+.badge {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+  color: #7A5A1F; background: #FFF3DE;
+  border: 1px solid #E6C98A;
+  border-radius: var(--radius);
+  padding: 6px 12px;
+}
+
+.header-hairline { height: 2px; background: var(--gold); margin-top: 18px; }
+
+/* ---------- Notice bar (fallback / status) ---------- */
+.notice-bar {
+  margin: 20px 0 0;
+  padding: 10px 16px;
+  border: 1px solid #E6C98A;
+  background: #FFF7E8;
+  color: #6B4A00;
+  border-radius: var(--radius);
+  font-size: 14px;
+}
+
+/* ---------- Sections ---------- */
+.section { padding-top: 44px; }
+.section-title {
+  margin: 0 0 4px;
+  font-family: 'Chiswick', Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.005em;
+  color: var(--navy);
+  text-wrap: balance;
+}
+.section-sub { margin: 0 0 20px; font-size: 14px; color: var(--muted); }
+
+/* ---------- KPI cards ---------- */
+.kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+.kpi-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  min-height: 128px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 1px 3px rgba(39, 37, 61, 0.05);
+}
+.kpi-label {
+  margin: 0;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.kpi-value {
+  margin: auto 0 0;
+  font-family: 'Chiswick', Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  color: var(--navy);
+}
+.kpi-value--name { font-size: 20px; }
+.kpi-value.up { color: var(--green); }
+.kpi-value.down { color: var(--red); }
+.kpi-note { margin: 0; font-size: 12px; color: var(--muted); }
+
+/* ---------- Chart boxes ---------- */
+.trend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; }
+.chart-box {
+  margin: 0;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(39, 37, 61, 0.05);
+}
+.chart-box figcaption {
+  font-size: 14px; font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 10px;
+  text-wrap: balance;
+}
+.chart-holder { position: relative; height: 300px; }
+.chart-holder--sov { height: 340px; }
+
+.watermark {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Chiswick', Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  font-size: 52px;
+  letter-spacing: 0.35em;
+  color: var(--navy);
+  opacity: 0.08;
+  transform: rotate(-18deg);
+  pointer-events: none;
+  z-index: 2;
+  user-select: none;
+}
+.watermark--sm { font-size: 11px; letter-spacing: 0.14em; opacity: 0.3; transform: rotate(-14deg); }
+
+/* ---------- Tables ---------- */
+.table-wrap { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: 0 1px 3px rgba(39, 37, 61, 0.05); }
+.coverage-note { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
+
+.data-table { width: 100%; border-collapse: collapse; font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.data-table caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 12px;
+  color: var(--muted);
+  padding: 0 0 8px;
+}
+.data-table th, .data-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: middle;
+  line-height: 1.45;
+}
+/* Numeric scorecard columns right-aligned for scanability; sparkline stays centered. */
+#engine-table thead th:nth-child(n+2):nth-child(-n+6),
+#engine-table tbody td:nth-child(n+2):nth-child(-n+6) { text-align: right; }
+.data-table thead th {
+  background: var(--bg-soft);
+  color: var(--navy);
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.data-table tbody tr { transition: background-color 0.15s ease; }
+.data-table tbody tr:hover { background: #FAF9FC; }
+
+.sort-btn {
+  background: none; border: none; padding: 0; margin: 0;
+  font: inherit; color: inherit;
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  transition: color 0.2s ease;
+}
+.sort-btn:hover { color: var(--gold); }
+.sort-btn:active { color: var(--gold); }
+.arrow { font-size: 10px; }
+
+.row-sub { display: block; font-size: 11px; font-weight: 400; color: var(--muted); margin-top: 2px; }
+.row-sub--pending { font-style: italic; color: var(--muted-2); }
+
+.delta { font-weight: 700; font-variant-numeric: tabular-nums; }
+.delta.up { color: var(--green); }
+.delta.down { color: var(--red); }
+.delta.flat { color: var(--muted); }
+
+.spark-cell { position: relative; text-align: center; color: var(--muted); }
+.spark-cell canvas { display: inline-block; vertical-align: middle; }
+
+/* ---------- Heatmap ---------- */
+.heatmap-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(39, 37, 61, 0.05);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) var(--bg-soft);
+}
+.heat-cell { text-align: center; font-weight: 600; min-width: 88px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.heat-cell.r1 { background: #CDB198; }
+.heat-cell.r2 { background: #D4BCA6; }
+.heat-cell.r3 { background: #DBC7B4; }
+.heat-cell.r4 { background: #E2D1C2; }
+.heat-cell.r5 { background: #E9DCD1; }
+.heat-cell.r6 { background: #EFE7DF; }
+.heat-cell.r7 { background: #F6F2ED; }
+.heat-cell.rec { box-shadow: inset 0 0 0 2px var(--navy); }
+.heat-cell.absent { background: #F1F0F5; color: var(--muted-2); font-weight: 500; }
+.cat-cell {
+  font-size: 12px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted);
+  background: var(--bg-soft);
+  border-right: 1px solid var(--border);
+}
+.heat-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; font-size: 12px; color: var(--muted); margin: 10px 0 0; }
+.legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.legend-swatch { display: inline-block; width: 10px; height: 10px; flex: none; }
+.legend-swatch--rank { background: #CDB198; border: 1px solid var(--gold); }
+.legend-swatch--rec { background: var(--white); box-shadow: inset 0 0 0 2px var(--navy); border: 1px solid var(--border); }
+.legend-swatch--absent { background: #F1F0F5; border: 1px solid var(--border-strong); }
+
+/* ---------- Methodology ---------- */
+.method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; }
+.method-block h3 {
+  margin: 0 0 10px;
+  font-size: 13px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--navy);
+}
+.method-block ul { margin: 0; padding-left: 18px; }
+.method-block li { margin: 6px 0; font-size: 14px; color: var(--ink); }
+.method-block p { font-size: 14px; color: var(--ink); margin: 8px 0; }
+.disclaimer {
+  background: var(--bg-soft);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+/* ---------- Footer ---------- */
+.page-footer {
+  border-top: 1px solid var(--border);
+  margin-top: 16px;
+  padding: 20px 24px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1120px) {
+  .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 820px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .trend-grid { grid-template-columns: 1fr; }
+  .method-grid { grid-template-columns: 1fr; }
+  .controls { margin-left: 0; width: 100%; align-items: flex-start; }
+  .brand h1 { font-size: 22px; }
+}
+@media (max-width: 520px) {
+  .kpi-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Print ---------- */
+@media print {
+  body { animation: none; }
+  .controls, .badge-row, .notice-bar, .no-print, .skip-link { display: none !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .kpi-card, .chart-box, .table-wrap, .heatmap-scroll { box-shadow: none; }
+  main { max-width: none; padding: 0; }
+  .site-header { padding: 0; }
+  .section { padding-top: 24px; }
+  .kpi-card, .chart-box, .table-wrap, .data-table, figure, .method-block { break-inside: avoid; page-break-inside: avoid; }
+  .trend-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" data-subject-tokens>
+  <div class="header-inner">
+    <div class="brand">
+      <img src="assets/WFP-Logo-Blue-HiRes.png" alt="Alexandra Rivera logo">
+      <div>
+        <h1>Answer Engine Visibility Report</h1>
+        <p class="subtitle" id="subject-subtitle">Alexandra Rivera · alexrivera.example.com</p>
+      </div>
+    </div>
+    <div class="controls no-print">
+      <div class="control-group">
+        <label for="period-select" class="control-label">Time Period</label>
+        <select id="period-select" aria-label="Select time period"></select>
+      </div>
+      <div class="control-group">
+        <span class="control-label" id="engines-label">Engines</span>
+        <div class="pills" id="engine-pills" role="group" aria-labelledby="engines-label"></div>
+      </div>
+    </div>
+  </div>
+  <div class="badge-row"><span id="data-badge" class="badge" hidden></span></div>
+  <div class="header-hairline" aria-hidden="true"></div>
+</header>
+
+<main id="main" data-subject-tokens>
+  <noscript><p class="notice-bar">This dashboard requires JavaScript to render.</p></noscript>
+
+  <div class="notice-bar" id="fallback-notice" role="status" hidden>Charts unavailable — table fallback.</div>
+
+  <!-- 2. KPI cards -->
+  <section class="section" aria-labelledby="kpis-title">
+    <h2 class="section-title" id="kpis-title">Snapshot at a Glance — <span id="kpi-month-label">—</span></h2>
+    <p class="section-sub" id="kpi-sub">Selected period, computed across the active engines.</p>
+    <div class="kpi-grid">
+      <article class="kpi-card">
+        <p class="kpi-label">Visibility</p>
+        <p class="kpi-value" id="kpi-visibility">—</p>
+        <p class="kpi-note" id="kpi-note-visibility">share of queries where the subject appeared</p>
+      </article>
+      <article class="kpi-card">
+        <p class="kpi-label">Average Rank</p>
+        <p class="kpi-value" id="kpi-rank">—</p>
+        <p class="kpi-note">lower is better · among queries where present</p>
+      </article>
+      <article class="kpi-card">
+        <p class="kpi-label">Citation Share</p>
+        <p class="kpi-value" id="kpi-citation">—</p>
+        <p class="kpi-note" id="kpi-note-citation">subject citations ÷ total citations</p>
+      </article>
+      <article class="kpi-card">
+        <p class="kpi-label">Recommendation Rate</p>
+        <p class="kpi-value" id="kpi-rec">—</p>
+        <p class="kpi-note" id="kpi-note-rec">share of queries where the subject was recommended</p>
+      </article>
+      <article class="kpi-card">
+        <p class="kpi-label">Best-Performing Engine</p>
+        <p class="kpi-value kpi-value--name" id="kpi-best-engine">—</p>
+        <p class="kpi-note">by visibility this period</p>
+      </article>
+      <article class="kpi-card">
+        <p class="kpi-label">Biggest Mover</p>
+        <p class="kpi-value" id="kpi-mover">—</p>
+        <p class="kpi-note" id="kpi-mover-note">visibility vs prior period</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 3. Trend charts (selected period) -->
+  <section class="section" aria-labelledby="trends-title">
+    <h2 class="section-title" id="trends-title">Trends</h2>
+    <p class="section-sub" id="trends-sub">Selected period, one line per engine plus a bold overall line. Engine pills filter these charts.</p>
+    <div class="trend-grid">
+      <figure class="chart-box">
+        <figcaption>Visibility %</figcaption>
+        <div class="chart-holder" id="chart-visibility"></div>
+      </figure>
+      <figure class="chart-box">
+        <figcaption>Average Rank (axis inverted — 1 = first citation)</figcaption>
+        <div class="chart-holder" id="chart-rank"></div>
+      </figure>
+      <figure class="chart-box">
+        <figcaption>Citation Share %</figcaption>
+        <div class="chart-holder" id="chart-citation"></div>
+      </figure>
+      <figure class="chart-box">
+        <figcaption>Recommendation Rate %</figcaption>
+        <div class="chart-holder" id="chart-rec"></div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 4. Engine scorecard -->
+  <section class="section" aria-labelledby="scorecard-title">
+    <h2 class="section-title" id="scorecard-title">Engine Scorecard</h2>
+    <p class="section-sub">One row per engine, sorted by visibility. Click a column header to sort.</p>
+    <div class="table-wrap">
+      <table class="data-table" id="engine-table">
+        <caption id="scorecard-caption">Engine performance.</caption>
+        <thead>
+          <tr>
+            <th scope="col" data-key="engine" aria-sort="none"><button type="button" class="sort-btn" data-key="engine">Engine<span class="arrow" aria-hidden="true"></span></button></th>
+            <th scope="col" data-key="visibility" aria-sort="descending"><button type="button" class="sort-btn" data-key="visibility">Visibility<span class="arrow" aria-hidden="true"></span></button></th>
+            <th scope="col" data-key="rank" aria-sort="none"><button type="button" class="sort-btn" data-key="rank">Avg Rank<span class="arrow" aria-hidden="true"></span></button></th>
+            <th scope="col" data-key="citation" aria-sort="none"><button type="button" class="sort-btn" data-key="citation">Citation Share<span class="arrow" aria-hidden="true"></span></button></th>
+            <th scope="col" data-key="rec" aria-sort="none"><button type="button" class="sort-btn" data-key="rec">Rec Rate<span class="arrow" aria-hidden="true"></span></button></th>
+            <th scope="col" data-key="delta" aria-sort="none"><button type="button" class="sort-btn" data-key="delta">Δ vs Prior<span class="arrow" aria-hidden="true"></span></button></th>
+            <th scope="col">Recent Trend</th>
+          </tr>
+        </thead>
+        <tbody id="engine-table-body"></tbody>
+      </table>
+    </div>
+    <p class="coverage-note" id="scorecard-coverage" hidden></p>
+  </section>
+
+  <!-- 5. Share of voice -->
+  <section class="section" aria-labelledby="sov-title">
+    <h2 class="section-title" id="sov-title">Share of Voice</h2>
+    <p class="section-sub">Always the most recent snapshot, regardless of the selected Time Period. Engine pills still filter the rows feeding this chart.</p>
+    <figure class="chart-box">
+      <figcaption id="sov-caption">Share of Voice — Total tracked mentions · latest snapshot</figcaption>
+      <div class="chart-holder chart-holder--sov" id="sov-overall"></div>
+    </figure>
+  </section>
+
+  <!-- 6. Query heatmap -->
+  <section class="section" aria-labelledby="heatmap-title">
+    <h2 class="section-title" id="heatmap-title">Query Heatmap</h2>
+    <p class="section-sub" id="heatmap-sub">Subject citation rank by query and engine for the selected period. Hover a cell for details.</p>
+    <div class="heatmap-scroll">
+      <table class="data-table" id="heatmap">
+        <caption id="heatmap-caption">Subject rank by engine and query.</caption>
+        <thead id="heatmap-head"></thead>
+        <tbody id="heatmap-body"></tbody>
+      </table>
+    </div>
+    <p class="heat-legend">
+      <span class="legend-item"><span class="legend-swatch legend-swatch--rank" aria-hidden="true"></span>Darker gold = higher citation position (1 = first)</span>
+      <span class="legend-item"><span class="legend-swatch legend-swatch--rec" aria-hidden="true"></span>Navy outline = engine recommended the subject</span>
+      <span class="legend-item"><span class="legend-swatch legend-swatch--absent" aria-hidden="true"></span>Grey dash = subject not cited</span>
+    </p>
+  </section>
+
+  <!-- 7. Methodology & data provenance -->
+  <section class="section" aria-labelledby="methodology-title">
+    <h2 class="section-title" id="methodology-title">Methodology &amp; Data Provenance</h2>
+    <div class="method-grid">
+      <div class="method-block">
+        <h3>Queries Evaluated</h3>
+        <ul id="method-queries"></ul>
+      </div>
+      <div class="method-block">
+        <h3>Answer Engines &amp; Evaluation Method</h3>
+        <ul id="method-engines"></ul>
+        <p id="method-line"></p>
+        <p id="method-month-notes" hidden></p>
+        <p id="method-note"></p>
+      </div>
+      <div class="method-block">
+        <h3>Metric Definitions</h3>
+        <ul>
+          <li><strong>Visibility</strong> — share of the tracked queries captured in that period in which {{subject}} appeared anywhere in the answer's citations.</li>
+          <li><strong>Average Rank</strong> — mean position of {{subject}} among citations, counting only queries where {{subject}} appeared. 1 = first citation; lower is better.</li>
+          <li><strong>Citation Share</strong> — {{subject}} appearances as a percentage of all citations surfaced across the tracked queries.</li>
+          <li><strong>Recommendation Rate</strong> — share of queries in which the engine recommended {{subject}} (a {{subject}} property, agent, or office).</li>
+          <li><strong>Share of Voice</strong> — {{subject}} entity mentions versus mentions of the tracked competitors, across all responses.</li>
+          <li><strong>Per-engine figures</strong> — each engine is asked the same query set; engine-level metrics are computed over that engine's captured rows for the period.</li>
+        </ul>
+      </div>
+      <div class="method-block">
+        <h3>Rank Convention &amp; Dataset</h3>
+        <p>Rank is the position of {{subject}} in the answer's citations for a given query: 1 = first citation. Ranks above 7 are shown as 7. Queries where {{subject}} was not cited are excluded from Average Rank and shown as a grey dash in the heatmap.</p>
+        <p id="dataset-label"></p>
+        <p class="disclaimer" id="dataset-disclaimer" hidden></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="page-footer" data-subject-tokens>{{subject}} · {{site}} · Answer Engine Visibility Report · Dataset provenance described above.</footer>
+
+<script src="data.js"></script>
+<script src="assets/chart.umd.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var DATA = window.AEO_DATA;
+  var HAS_DATA = !!(DATA && DATA.meta && Array.isArray(DATA.snapshots) && DATA.snapshots.length > 0 &&
+                    Array.isArray(DATA.meta.engines) && Array.isArray(DATA.meta.queries));
+  var CHART_OK = (typeof Chart !== 'undefined');
+
+  var ENGINE_COLORS = ['#27253D', '#A9794D', '#2E7D6E', '#2C5F8A', '#B3261E', '#6B5B8E'];
+  var SOV_TINTS = ['#5A5770', '#8B87A0', '#B9B5C9', '#D8D5E3', '#EDEBF2'];
+  var OVERALL_COLOR = '#1A1830';
+  var WFP_COLOR = '#A9794D';
+
+  var TRENDS_META = [
+    { id: 'chart-visibility', title: 'Visibility', metric: 'visibility', rankAxis: false },
+    { id: 'chart-rank', title: 'Average Rank', metric: 'avgRank', rankAxis: true },
+    { id: 'chart-citation', title: 'Citation Share', metric: 'citationShare', rankAxis: false },
+    { id: 'chart-rec', title: 'Recommendation Rate', metric: 'recRate', rankAxis: false }
+  ];
+  var SORT_METRIC = { visibility: 'visibility', rank: 'avgRank', citation: 'citationShare', rec: 'recRate' };
+
+  var state = { period: 'ytd', active: {}, sort: { key: 'visibility', dir: -1 } };
+  var trendCharts = [];
+  var sparkCharts = [];
+  var sovCharts = [];
+
+  function byId(id) { return document.getElementById(id); }
+  function subject() {
+    return (DATA && DATA.meta && DATA.meta.subject) || {};
+  }
+  function subjectName() {
+    var s = subject();
+    return s.name || s.shortName || 'the subject';
+  }
+  function subjectShortName() {
+    var s = subject();
+    return s.shortName || s.name || 'the subject';
+  }
+  function subjectCompany() {
+    return subject().company || '';
+  }
+  function subjectSite() {
+    var s = subject();
+    return s.site || (DATA && DATA.meta && DATA.meta.site) || '';
+  }
+  function applySubjectTokens() {
+    /* Replace {{subject}} / {{company}} / {{site}} tokens in static markup with
+       values from DATA.meta.subject so no subject-specific string is hard-coded. */
+    var map = {
+      '{{subject}}': subjectShortName(),
+      '{{company}}': subjectCompany(),
+      '{{site}}': subjectSite()
+    };
+    var nodes = document.querySelectorAll('[data-subject-tokens]');
+    for (var i = 0; i < nodes.length; i++) {
+      var walker = document.createTreeWalker(nodes[i], 4 /* NodeFilter.SHOW_TEXT */, null, false);
+      var node;
+      while ((node = walker.nextNode())) {
+        var text = node.nodeValue;
+        var changed = false;
+        for (var token in map) {
+          if (map.hasOwnProperty(token) && text.indexOf(token) !== -1) {
+            text = text.split(token).join(map[token]);
+            changed = true;
+          }
+        }
+        if (changed) node.nodeValue = text;
+      }
+    }
+  }
+  function engines() { return (DATA && DATA.meta && DATA.meta.engines) || []; }
+  function queries() { return (DATA && DATA.meta && DATA.meta.queries) || []; }
+  function competitors() { return (DATA && DATA.meta && DATA.meta.competitors) || []; }
+
+  function engineById(id) {
+    var list = engines();
+    for (var i = 0; i < list.length; i++) { if (list[i].id === id) return list[i]; }
+    return { id: id, name: id, model: '' };
+  }
+  function engineName(id) { return engineById(id).name; }
+  function engineColor(id) {
+    var idx = engines().map(function (e) { return e.id; }).indexOf(id);
+    return ENGINE_COLORS[(idx < 0 ? 0 : idx) % ENGINE_COLORS.length];
+  }
+  function activeIds() {
+    return engines().map(function (e) { return e.id; }).filter(function (id) { return state.active[id]; });
+  }
+  function isModelData() {
+    if (!HAS_DATA) return false;
+    if (DATA.meta.dataStatus === 'model') return true;
+    var snap = DATA.snapshots[selectedSnapshotIndex()];
+    return !!(snap && snap.method === 'illustrative');
+  }
+  function snapLabel(s) { return s.label || s.id || ''; }
+
+  function snapTickLabel(s) {
+    /* Trend x-axis / tooltip label: MM/DD from a full ISO date id ("2026-09-01" -> "09/01");
+       ids that are not full dates (e.g. YYYY-MM or unparseable) fall back to the snapshot label. */
+    var m = (typeof s.id === 'string') ? /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s.id).trim()) : null;
+    if (m) return m[2] + '/' + m[3];
+    return snapLabel(s);
+  }
+
+  /* ---------- Time period windowing ---------- */
+  function snapshotDay(id) {
+    /* UTC day number (ms) or null. Tolerates YYYY-MM-DD and YYYY-MM ids. */
+    if (typeof id !== 'string') return null;
+    var s = String(id).trim();
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+    if (m) return Date.UTC(+m[1], +m[2] - 1, +m[3]);
+    var m2 = /^(\d{4})-(\d{2})$/.exec(s);
+    if (m2) return Date.UTC(+m2[1], +m2[2] - 1, 1);
+    return null;
+  }
+  function periodLabel() {
+    if (state.period === '30d') return 'Last 30 Days';
+    if (state.period === '90d') return 'Last 90 Days';
+    if (state.period === '12m') return 'Last 12 Months';
+    return 'Year to Date';
+  }
+  function windowBounds() {
+    /* Window end anchors on the latest snapshot's date (not the wall clock). */
+    var snaps = DATA.snapshots;
+    var endIdx = snaps.length - 1;
+    var endDay = snapshotDay(snaps[endIdx].id);
+    var startDay = null;
+    if (endDay !== null) {
+      if (state.period === 'ytd') {
+        startDay = Date.UTC(new Date(endDay).getUTCFullYear(), 0, 1);
+      } else {
+        var days = state.period === '30d' ? 30 : (state.period === '90d' ? 90 : 365);
+        startDay = endDay - days * 86400000;
+      }
+    }
+    return { endIdx: endIdx, endDay: endDay, startDay: startDay };
+  }
+  function inWindow(snap, idx, b) {
+    /* Unparseable ids fall back to positional order (~weekly cadence). */
+    var positionalSpan = state.period === 'ytd' ? b.endIdx + 1 : (state.period === '30d' ? 5 : (state.period === '90d' ? 13 : 52));
+    if (b.endDay === null || b.startDay === null) return idx > b.endIdx - positionalSpan;
+    var d = snapshotDay(snap.id);
+    if (d === null) return idx > b.endIdx - positionalSpan;
+    return d >= b.startDay && d <= b.endDay;
+  }
+  function windowedSnapshots() {
+    var b = windowBounds();
+    var out = [];
+    for (var i = 0; i < DATA.snapshots.length; i++) {
+      if (inWindow(DATA.snapshots[i], i, b)) out.push(DATA.snapshots[i]);
+    }
+    return out;
+  }
+  function selectedSnapshotIndex() {
+    /* Latest snapshot inside the selected window (anchor = latest snapshot, so never empty). */
+    var b = windowBounds();
+    for (var i = b.endIdx; i >= 0; i--) {
+      if (inWindow(DATA.snapshots[i], i, b)) return i;
+    }
+    return b.endIdx;
+  }
+  function previousInWindowIndex() {
+    var sel = selectedSnapshotIndex();
+    var b = windowBounds();
+    for (var i = sel - 1; i >= 0; i--) {
+      if (inWindow(DATA.snapshots[i], i, b)) return i;
+    }
+    return -1;
+  }
+
+  /* ---------- Derived metrics (computed at load/render, never stored) ---------- */
+  function compute(rows) {
+    var n = rows.length;
+    var present = 0, ranked = 0, rankSum = 0, recommended = 0, totalCitations = 0;
+    var mentions = {};
+    competitors().forEach(function (c) { mentions[c.id] = 0; });
+    rows.forEach(function (r) {
+      if (!r) return;
+      if (r.subjectPresent) {
+        present++;
+        if (typeof r.subjectRank === 'number' && !isNaN(r.subjectRank)) { ranked++; rankSum += r.subjectRank; }
+      }
+      if (r.subjectRecommended) recommended++;
+      if (typeof r.totalCitations === 'number' && isFinite(r.totalCitations)) totalCitations += r.totalCitations;
+      var cm = r.competitorMentions || {};
+      competitors().forEach(function (c) {
+        if (typeof cm[c.id] === 'number') mentions[c.id] += cm[c.id];
+      });
+    });
+    var sovTotal = present;
+    competitors().forEach(function (c) { sovTotal += mentions[c.id]; });
+    return {
+      n: n,
+      present: present,
+      recommended: recommended,
+      totalCitations: totalCitations,
+      visibility: n ? present / n * 100 : 0,
+      avgRank: ranked ? rankSum / ranked : null,
+      citationShare: totalCitations > 0 ? present / totalCitations * 100 : 0,
+      recRate: n ? recommended / n * 100 : 0,
+      mentions: mentions,
+      sovTotal: sovTotal
+    };
+  }
+
+  function rowsFor(snap, ids) {
+    var set = {};
+    ids.forEach(function (id) { set[id] = true; });
+    return (snap.results || []).filter(function (r) { return r && set[r.engine]; });
+  }
+  function overallMetrics(snap) { return compute(rowsFor(snap, activeIds())); }
+  function engineMetrics(snap, engineId) { return compute(rowsFor(snap, [engineId])); }
+  function rowFor(snap, engineId, queryId) {
+    var hits = (snap.results || []).filter(function (r) { return r && r.engine === engineId && r.queryId === queryId; });
+    return hits[0] || null;
+  }
+  function hasEngineRows(snap, engineId) {
+    var hits = (snap.results || []).filter(function (r) { return r && r.engine === engineId; });
+    return hits.length > 0;
+  }
+
+  /* ---------- Formatters ---------- */
+  function fmtPct(x) { return (x === null || x === undefined || isNaN(x)) ? '—' : x.toFixed(1) + '%'; }
+  function fmtRank(x) { return (x === null || x === undefined || isNaN(x)) ? '—' : x.toFixed(1); }
+  function fmtDelta(x) {
+    if (x === null || x === undefined || !isFinite(x)) return '—';
+    if (Math.abs(x) < 0.05) return '±0.0';
+    return (x > 0 ? '+' : '') + x.toFixed(1);
+  }
+  function deltaClass(x) {
+    if (x === null || x === undefined || isNaN(x)) return 'flat';
+    if (x > 0.05) return 'up';
+    if (x < -0.05) return 'down';
+    return 'flat';
+  }
+  function fmtCell(metric, v) { return metric === 'avgRank' ? fmtRank(v) : fmtPct(v); }
+
+  /* ---------- Header: badge, time period select, engine pills ---------- */
+  function renderBadge() {
+    var b = byId('data-badge');
+    if (isModelData()) {
+      b.textContent = 'SAMPLE DASHBOARD — FICTIONAL DATA';
+      b.className = 'badge';
+      b.hidden = false;
+    } else {
+      b.textContent = '';
+      b.hidden = true;
+    }
+  }
+
+  function updateNotice() {
+    byId('fallback-notice').hidden = !(!HAS_DATA || !CHART_OK);
+  }
+
+  function renderPeriodSelect() {
+    var sel = byId('period-select');
+    sel.innerHTML = '';
+    if (!HAS_DATA) {
+      var o = document.createElement('option');
+      o.textContent = 'No data';
+      sel.appendChild(o);
+      sel.disabled = true;
+      return;
+    }
+    [['30d', 'Last 30 Days'], ['90d', 'Last 90 Days'], ['12m', 'Last 12 Months'], ['ytd', 'Year to Date']].forEach(function (pair) {
+      var o = document.createElement('option');
+      o.value = pair[0];
+      o.textContent = pair[1];
+      sel.appendChild(o);
+    });
+    sel.value = state.period;
+    sel.disabled = false;
+  }
+
+  function renderPills() {
+    var wrap = byId('engine-pills');
+    wrap.innerHTML = '';
+    if (!HAS_DATA) return;
+    engines().forEach(function (e) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      var on = !!state.active[e.id];
+      b.className = 'pill' + (on ? ' active' : '');
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.textContent = e.name;
+      b.addEventListener('click', function () {
+        if (state.active[e.id] && activeIds().length === 1) return; /* keep at least one engine on */
+        state.active[e.id] = !state.active[e.id];
+        renderPills();
+        renderAll(true);
+      });
+      wrap.appendChild(b);
+    });
+  }
+
+  /* ---------- KPI cards ---------- */
+  function renderKpis() {
+    var snap = DATA.snapshots[selectedSnapshotIndex()];
+    var m = overallMetrics(snap);
+    byId('kpi-month-label').textContent = periodLabel();
+    var ids = activeIds();
+    var nEngines = ids.length;
+    var nRows = rowsFor(snap, ids).length;
+    var expected = nEngines * queries().length;
+    var subText = 'Selected period: ' + periodLabel() + ' — computed across ' + nEngines + ' active engine' +
+      (nEngines === 1 ? '' : 's') + ' (' + nRows + ' tracked query row' + (nRows === 1 ? '' : 's') + ')';
+    if (expected > 0 && nRows < expected) {
+      subText += ' — ' + (expected - nRows) + ' of ' + expected + ' expected rows not yet captured';
+    }
+    subText += '.';
+    byId('kpi-sub').textContent = subText;
+    byId('kpi-visibility').textContent = fmtPct(m.visibility);
+    byId('kpi-rank').textContent = fmtRank(m.avgRank);
+    byId('kpi-citation').textContent = fmtPct(m.citationShare);
+    byId('kpi-rec').textContent = fmtPct(m.recRate);
+
+    var bestName = null, bestVal = -1;
+    activeIds().forEach(function (id) {
+      if (!hasEngineRows(snap, id)) return;
+      var v = engineMetrics(snap, id).visibility;
+      if (v > bestVal) { bestVal = v; bestName = engineName(id); }
+    });
+    byId('kpi-best-engine').textContent = bestName || '—';
+
+    var moverEl = byId('kpi-mover');
+    var moverNote = byId('kpi-mover-note');
+    moverEl.className = 'kpi-value';
+    var prevIdx = previousInWindowIndex();
+    if (prevIdx < 0) {
+      moverEl.textContent = '—';
+      moverNote.textContent = 'no prior snapshot in this period';
+      return;
+    }
+    var prev = DATA.snapshots[prevIdx];
+    var moverId = null, moverDelta = 0;
+    activeIds().forEach(function (id) {
+      if (!hasEngineRows(snap, id) || !hasEngineRows(prev, id)) return;
+      var d = engineMetrics(snap, id).visibility - engineMetrics(prev, id).visibility;
+      if (moverId === null || Math.abs(d) > Math.abs(moverDelta)) { moverId = id; moverDelta = d; }
+    });
+    if (moverId === null) {
+      moverEl.textContent = '—';
+      moverEl.className = 'kpi-value';
+      moverNote.textContent = activeIds().length ? 'no comparable engine data' : 'No engines selected';
+      return;
+    }
+    var moverClass = deltaClass(moverDelta);
+    moverEl.textContent = fmtDelta(moverDelta);
+    moverEl.className = 'kpi-value ' + moverClass;
+    if (moverClass === 'flat') {
+      moverEl.setAttribute('aria-label', 'no change');
+      moverNote.textContent = engineName(moverId) + ' · no change vs prior period';
+    } else {
+      moverEl.removeAttribute('aria-label');
+      moverNote.textContent = engineName(moverId) + ' · visibility vs prior period';
+    }
+  }
+
+  /* ---------- Charts plumbing ---------- */
+  function destroyChartsIn(list) {
+    list.forEach(function (c) { try { c.destroy(); } catch (e) { /* ignore */ } });
+    list.length = 0;
+  }
+
+  function addWatermark(holder, small) {
+    var wm = document.createElement('div');
+    wm.className = 'watermark' + (small ? ' watermark--sm' : '');
+    wm.textContent = 'SAMPLE';
+    wm.setAttribute('aria-hidden', 'true');
+    holder.appendChild(wm);
+  }
+
+  function baseTooltip() {
+    return {
+      backgroundColor: '#FFFFFF', titleColor: '#27253D', bodyColor: '#1A1830',
+      borderColor: '#E8E6F0', borderWidth: 1, padding: 10, cornerRadius: 6
+    };
+  }
+  function baseLegend() {
+    return { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8, padding: 14 } };
+  }
+
+  /* ---------- Trend charts ---------- */
+  function trendFallbackTable(m, winSnaps) {
+    var table = document.createElement('table');
+    table.className = 'data-table fallback-table';
+    var cap = document.createElement('caption');
+    cap.textContent = m.title + ' by period — table fallback';
+    table.appendChild(cap);
+    var thead = document.createElement('thead');
+    var tr = document.createElement('tr');
+    var th0 = document.createElement('th');
+    th0.scope = 'col';
+    th0.textContent = 'Series';
+    tr.appendChild(th0);
+    winSnaps.forEach(function (s) {
+      var th = document.createElement('th');
+      th.scope = 'col';
+      th.textContent = snapLabel(s);
+      tr.appendChild(th);
+    });
+    thead.appendChild(tr);
+    table.appendChild(thead);
+    var tbody = document.createElement('tbody');
+    function seriesRow(label, getValue) {
+      var row = document.createElement('tr');
+      var th = document.createElement('th');
+      th.scope = 'row';
+      th.textContent = label;
+      row.appendChild(th);
+      winSnaps.forEach(function (s) {
+        var td = document.createElement('td');
+        td.textContent = fmtCell(m.metric, getValue(s));
+        row.appendChild(td);
+      });
+      tbody.appendChild(row);
+    }
+    activeIds().forEach(function (id) {
+      seriesRow(engineName(id), function (s) { return hasEngineRows(s, id) ? engineMetrics(s, id)[m.metric] : null; });
+    });
+    seriesRow('Overall', function (s) {
+      return rowsFor(s, activeIds()).length ? overallMetrics(s)[m.metric] : null;
+    });
+    table.appendChild(tbody);
+    return table;
+  }
+
+  function renderTrends() {
+    destroyChartsIn(trendCharts);
+    var winSnaps = windowedSnapshots();
+    byId('trends-sub').textContent = 'Period: ' + periodLabel() + ' — showing ' + winSnaps.length +
+      ' of ' + DATA.snapshots.length + ' snapshot' + (DATA.snapshots.length === 1 ? '' : 's') +
+      ', one line per engine (gaps where an engine was not captured) plus a bold overall line. Engine pills filter these charts.';
+    var labels = winSnaps.map(snapLabel);
+    var ids = activeIds();
+    TRENDS_META.forEach(function (m) {
+      var holder = byId(m.id);
+      holder.innerHTML = '';
+      if (!CHART_OK) { holder.appendChild(trendFallbackTable(m, winSnaps)); return; }
+
+      var datasets = ids.map(function (id) {
+        var color = engineColor(id);
+        return {
+          label: engineName(id),
+          data: winSnaps.map(function (s, i) {
+            return { x: i, y: hasEngineRows(s, id) ? engineMetrics(s, id)[m.metric] : null };
+          }),
+          borderColor: color, backgroundColor: color,
+          borderWidth: 2, pointRadius: 3, pointHoverRadius: 6, pointHitRadius: 8, tension: 0.25,
+          spanGaps: false
+        };
+      });
+      datasets.push({
+        label: 'Overall',
+        data: winSnaps.map(function (s, i) {
+          return { x: i, y: rowsFor(s, ids).length ? overallMetrics(s)[m.metric] : null };
+        }),
+        borderColor: OVERALL_COLOR, backgroundColor: OVERALL_COLOR,
+        borderWidth: 4, pointRadius: 3, pointHoverRadius: 6, pointHitRadius: 8, tension: 0.25,
+        spanGaps: false
+      });
+
+      var canvas = document.createElement('canvas');
+      canvas.setAttribute('role', 'img');
+      canvas.setAttribute('aria-label', m.title + ' by period, one line per engine plus a bold overall line');
+      holder.appendChild(canvas);
+      if (isModelData()) addWatermark(holder);
+
+      var yScale;
+      if (m.rankAxis) {
+        yScale = { reverse: true, suggestedMin: 1, suggestedMax: 7, ticks: { stepSize: 1, precision: 0 } };
+      } else {
+        yScale = { suggestedMin: 0, suggestedMax: 100, ticks: { callback: function (v) { return v + '%'; } } };
+      }
+
+      var tooltipCfg = baseTooltip();
+      tooltipCfg.callbacks = {
+        title: function (items) {
+          if (!items || !items.length) return '';
+          var idx = Math.round(Number(items[0].parsed.x));
+          return (idx >= 0 && idx < winSnaps.length) ? snapTickLabel(winSnaps[idx]) : '';
+        }
+      };
+
+      try {
+        trendCharts.push(new Chart(canvas, {
+          type: 'line',
+          data: { labels: labels, datasets: datasets },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: { legend: baseLegend(), tooltip: tooltipCfg },
+            scales: {
+              x: {
+                type: 'linear',
+                /* x = snapshot index 0..N-1 so points span the full plot width:
+                   N=2 -> first point at the left edge, last at the right edge;
+                   N=1 -> centered (range -1..1). Ticks map index -> snapshot label. */
+                min: winSnaps.length === 1 ? -1 : 0,
+                max: winSnaps.length === 1 ? 1 : winSnaps.length - 1,
+                grid: { display: false },
+                ticks: {
+                  stepSize: 1,
+                  autoSkip: true,
+                  maxRotation: 0,
+                  font: { size: 11 },
+                  callback: function (value) {
+                    var idx = Math.round(Number(value));
+                    if (idx >= 0 && idx < winSnaps.length && Math.abs(idx - Number(value)) < 0.01) {
+                      return snapTickLabel(winSnaps[idx]);
+                    }
+                    return '';
+                  }
+                }
+              },
+              y: yScale
+            },
+            animation: { duration: 150 }
+          }
+        }));
+      } catch (err) {
+        holder.innerHTML = '';
+        holder.appendChild(trendFallbackTable(m, winSnaps));
+      }
+    });
+  }
+
+  /* ---------- Engine scorecard ---------- */
+  function sortValue(snap, prev, id, key) {
+    if (key === 'engine') return engineName(id).toLowerCase();
+    if (key === 'delta') {
+      if (!prev) return null;
+      if (!hasEngineRows(snap, id) || !hasEngineRows(prev, id)) return null;
+      return engineMetrics(snap, id).visibility - engineMetrics(prev, id).visibility;
+    }
+    if (!hasEngineRows(snap, id)) return null;
+    return engineMetrics(snap, id)[SORT_METRIC[key]];
+  }
+
+  function renderSparkline(holder, id) {
+    var selIdx = selectedSnapshotIndex();
+    if (!CHART_OK || !hasEngineRows(DATA.snapshots[selIdx], id)) { holder.textContent = '—'; return; }
+    var from = Math.max(0, selIdx - 5);
+    var snaps = DATA.snapshots.slice(from, selIdx + 1);
+    var data = snaps.map(function (s) { return hasEngineRows(s, id) ? engineMetrics(s, id).visibility : null; });
+    var canvas = document.createElement('canvas');
+    canvas.width = 132;
+    canvas.height = 40;
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label', engineName(id) + ' visibility over the last ' + data.length + ' snapshots');
+    holder.appendChild(canvas);
+    if (isModelData()) addWatermark(holder, true);
+    try {
+      sparkCharts.push(new Chart(canvas, {
+        type: 'line',
+        data: {
+          labels: snaps.map(snapLabel),
+          datasets: [{
+            data: data,
+            borderColor: engineColor(id), backgroundColor: engineColor(id),
+            borderWidth: 1.5, pointRadius: 0, tension: 0.3, fill: false
+          }]
+        },
+        options: {
+          responsive: false,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: { x: { display: false }, y: { display: false, min: 0, max: 100 } },
+          animation: false
+        }
+      }));
+    } catch (err) {
+      holder.textContent = '—';
+    }
+  }
+
+  function renderScorecard() {
+    destroyChartsIn(sparkCharts);
+    var tbody = byId('engine-table-body');
+    tbody.innerHTML = '';
+    if (!HAS_DATA) return;
+    var snap = DATA.snapshots[selectedSnapshotIndex()];
+    var prevIdx = previousInWindowIndex();
+    var prev = prevIdx >= 0 ? DATA.snapshots[prevIdx] : null;
+    var ids = activeIds().slice();
+    var key = state.sort.key;
+    var dir = state.sort.dir;
+    ids.sort(function (a, b) {
+      var va = sortValue(snap, prev, a, key);
+      var vb = sortValue(snap, prev, b, key);
+      var aNull = (va === null || va === undefined);
+      var bNull = (vb === null || vb === undefined);
+      if (aNull && bNull) return engineName(a).localeCompare(engineName(b));
+      if (aNull) return 1;
+      if (bNull) return -1;
+      if (va < vb) return -dir;
+      if (va > vb) return dir;
+      return engineName(a).localeCompare(engineName(b));
+    });
+
+    ids.forEach(function (id) {
+      var hasRows = hasEngineRows(snap, id);
+      var em = hasRows ? engineMetrics(snap, id) : null;
+      var row = document.createElement('tr');
+
+      var thName = document.createElement('th');
+      thName.scope = 'row';
+      thName.textContent = engineName(id);
+      var model = engineById(id).model;
+      if (model) {
+        var sub = document.createElement('span');
+        sub.className = 'row-sub';
+        sub.textContent = model;
+        thName.appendChild(document.createElement('br'));
+        thName.appendChild(sub);
+      }
+      if (!hasRows) {
+        var pend = document.createElement('span');
+        pend.className = 'row-sub row-sub--pending';
+        pend.textContent = 'pending';
+        thName.appendChild(document.createElement('br'));
+        thName.appendChild(pend);
+      }
+      row.appendChild(thName);
+
+      [hasRows ? fmtPct(em.visibility) : '—',
+       hasRows ? fmtRank(em.avgRank) : '—',
+       hasRows ? fmtPct(em.citationShare) : '—',
+       hasRows ? fmtPct(em.recRate) : '—'].forEach(function (txt) {
+        var td = document.createElement('td');
+        td.textContent = txt;
+        row.appendChild(td);
+      });
+
+      var tdDelta = document.createElement('td');
+      var d = null;
+      if (hasRows && prev && hasEngineRows(prev, id)) {
+        d = em.visibility - engineMetrics(prev, id).visibility;
+      }
+      var dClass = deltaClass(d);
+      tdDelta.className = 'delta ' + dClass;
+      if (d === null) {
+        tdDelta.textContent = '—';
+      } else {
+        tdDelta.textContent = fmtDelta(d);
+        if (dClass === 'flat') {
+          tdDelta.setAttribute('aria-label', 'no change');
+        } else {
+          tdDelta.setAttribute('aria-label', (d > 0 ? 'up ' : 'down ') + Math.abs(d).toFixed(1) + ' points vs prior period');
+        }
+      }
+      row.appendChild(tdDelta);
+
+      var tdSpark = document.createElement('td');
+      tdSpark.className = 'spark-cell';
+      renderSparkline(tdSpark, id);
+      row.appendChild(tdSpark);
+
+      tbody.appendChild(row);
+    });
+    var missing = ids.filter(function (id) { return !hasEngineRows(snap, id); });
+    var cov = byId('scorecard-coverage');
+    if (missing.length > 0) {
+      cov.textContent = (ids.length - missing.length) + ' of ' + ids.length + ' engines captured' +
+        ' · missing: ' + missing.map(engineName).join(', ');
+      cov.hidden = false;
+    } else {
+      cov.hidden = true;
+      cov.textContent = '';
+    }
+    byId('scorecard-caption').textContent = 'Engine performance — ' + snapLabel(snap) + ' · period: ' + periodLabel() + '. Click a column header to sort.';
+    updateSortIndicators();
+  }
+
+  function updateSortIndicators() {
+    var ths = document.querySelectorAll('#engine-table thead th[data-key]');
+    for (var i = 0; i < ths.length; i++) {
+      var th = ths[i];
+      var keyAttr = th.getAttribute('data-key');
+      var btn = th.querySelector('.sort-btn');
+      var arrow = th.querySelector('.arrow');
+      if (keyAttr === state.sort.key) {
+        th.setAttribute('aria-sort', state.sort.dir === 1 ? 'ascending' : 'descending');
+        arrow.textContent = state.sort.dir === 1 ? '▲' : '▼';
+        if (btn) {
+          var labelText = btn.textContent.replace(arrow.textContent, '').trim();
+          btn.setAttribute('aria-label', 'Sorted by ' + labelText + ', ' + (state.sort.dir === 1 ? 'ascending' : 'descending'));
+        }
+      } else {
+        th.setAttribute('aria-sort', 'none');
+        arrow.textContent = '';
+      }
+    }
+  }
+
+  /* ---------- Share of voice ---------- */
+  function sovOverallFallbackTable(m) {
+    var table = document.createElement('table');
+    table.className = 'data-table fallback-table';
+    var cap = document.createElement('caption');
+    cap.textContent = 'Share of voice — table fallback';
+    table.appendChild(cap);
+    var thead = document.createElement('thead');
+    thead.innerHTML = '<tr><th scope="col">Entity</th><th scope="col">Mentions</th><th scope="col">Share of voice</th></tr>';
+    table.appendChild(thead);
+    var tbody = document.createElement('tbody');
+    function row(label, count) {
+      var tr = document.createElement('tr');
+      var th = document.createElement('th');
+      th.scope = 'row';
+      th.textContent = label;
+      var td1 = document.createElement('td');
+      td1.textContent = String(count);
+      var td2 = document.createElement('td');
+      td2.textContent = m.sovTotal ? (count / m.sovTotal * 100).toFixed(1) + '%' : '—';
+      tr.appendChild(th);
+      tr.appendChild(td1);
+      tr.appendChild(td2);
+      tbody.appendChild(tr);
+    }
+    row(subjectName(), m.present);
+    competitors().forEach(function (c) { row(c.name, m.mentions[c.id] || 0); });
+    table.appendChild(tbody);
+    return table;
+  }
+
+  function renderSov() {
+    destroyChartsIn(sovCharts);
+    var h1 = byId('sov-overall');
+    h1.innerHTML = '';
+    if (!HAS_DATA) return;
+    /* Always the most recent snapshot overall — independent of the Time Period selector. */
+    var snap = DATA.snapshots[DATA.snapshots.length - 1];
+    var m = overallMetrics(snap);
+    byId('sov-caption').textContent = 'Share of Voice — Total tracked mentions · latest snapshot · ' + snapLabel(snap);
+
+    if (!CHART_OK || m.sovTotal === 0) {
+      h1.appendChild(sovOverallFallbackTable(m));
+      return;
+    }
+
+    /* One vertical bar per company: the subject + the tracked competitors.
+       Y-axis = share of total tracked mentions. Subject in the brand gold accent,
+       competitors in muted navy-tint shades. */
+    var names = [subjectName()].concat(competitors().map(function (c) { return c.name; }));
+    var counts = [m.present].concat(competitors().map(function (c) { return m.mentions[c.id] || 0; }));
+    var pcts = counts.map(function (v) { return v / m.sovTotal * 100; });
+    var colors = [WFP_COLOR].concat(competitors().map(function (c, i) { return SOV_TINTS[i % SOV_TINTS.length]; }));
+
+    var canvas = document.createElement('canvas');
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label', 'Share of voice: share of total tracked mentions for ' + subjectName() + ' and each tracked competitor, latest snapshot ' + snapLabel(snap));
+    h1.appendChild(canvas);
+    if (isModelData()) addWatermark(h1);
+    try {
+      sovCharts.push(new Chart(canvas, {
+        type: 'bar',
+        data: {
+          labels: names,
+          datasets: [{
+            label: 'Share of total tracked mentions',
+            data: pcts,
+            counts: counts,
+            backgroundColor: colors
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#FFFFFF', titleColor: '#27253D', bodyColor: '#1A1830',
+              borderColor: '#E8E6F0', borderWidth: 1, padding: 10, cornerRadius: 6,
+              callbacks: {
+                label: function (ctx) {
+                  var rawCount = ctx.dataset.counts[ctx.dataIndex];
+                  return ' ' + ctx.parsed.y.toFixed(1) + '% of tracked mentions (' + rawCount + ' mentions)';
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: {
+                align: 'center',
+                autoSkip: false,
+                maxRotation: 0,
+                font: { size: 11 },
+                callback: function (value) {
+                  /* Wrap long company names into at most two balanced lines;
+                     Chart.js draws multiline tick labels centered under the bar. */
+                  var name = this.getLabelForValue(value);
+                  if (name.length <= 18) return name;
+                  var words = name.split(' ');
+                  var line1 = '';
+                  var i = 0;
+                  while (i < words.length && (line1 + ' ' + words[i]).trim().length <= 20) {
+                    line1 = (line1 + ' ' + words[i]).trim();
+                    i++;
+                  }
+                  var line2 = words.slice(i).join(' ');
+                  return line2 ? [line1, line2] : name;
+                }
+              }
+            },
+            y: {
+              beginAtZero: true,
+              suggestedMax: 100,
+              ticks: { callback: function (v) { return v + '%'; } },
+              title: { display: true, text: 'Share of total tracked mentions' }
+            }
+          },
+          animation: { duration: 150 }
+        }
+      }));
+    } catch (err) {
+      h1.innerHTML = '';
+      h1.appendChild(sovOverallFallbackTable(m));
+    }
+  }
+
+  /* ---------- Query heatmap ---------- */
+  function queryGroups() {
+    var groups = [];
+    queries().forEach(function (q) {
+      var cat = (q.category !== undefined && q.category !== null && String(q.category).trim() !== '')
+        ? String(q.category).trim()
+        : 'Other';
+      var g = null;
+      for (var i = 0; i < groups.length; i++) {
+        if (groups[i].category === cat) { g = groups[i]; break; }
+      }
+      if (!g) { g = { category: cat, items: [] }; groups.push(g); }
+      g.items.push(q);
+    });
+    return groups;
+  }
+
+  function renderHeatmap() {
+    var tbody = byId('heatmap-body');
+    var thead = byId('heatmap-head');
+    tbody.innerHTML = '';
+    thead.innerHTML = '';
+    if (!HAS_DATA) return;
+    var snap = DATA.snapshots[selectedSnapshotIndex()];
+    var ids = activeIds().filter(function (id) { return hasEngineRows(snap, id); });
+
+    var tr = document.createElement('tr');
+    var thCat = document.createElement('th');
+    thCat.scope = 'col';
+    thCat.textContent = 'Category';
+    tr.appendChild(thCat);
+    var thQ = document.createElement('th');
+    thQ.scope = 'col';
+    thQ.textContent = 'Query';
+    tr.appendChild(thQ);
+    ids.forEach(function (id) {
+      var th = document.createElement('th');
+      th.scope = 'col';
+      th.textContent = engineName(id);
+      tr.appendChild(th);
+    });
+    thead.appendChild(tr);
+
+    queryGroups().forEach(function (g) {
+      g.items.forEach(function (q, idx) {
+        var row = document.createElement('tr');
+        if (idx === 0) {
+          var tdCat = document.createElement('th');
+          tdCat.scope = 'rowgroup';
+          tdCat.rowSpan = g.items.length;
+          tdCat.textContent = g.category;
+          tdCat.className = 'cat-cell';
+          row.appendChild(tdCat);
+        }
+        var thQ2 = document.createElement('th');
+        thQ2.scope = 'row';
+        thQ2.textContent = q.text;
+        row.appendChild(thQ2);
+        ids.forEach(function (id) {
+          var r = rowFor(snap, id, q.id);
+          var td = document.createElement('td');
+          var tip = engineName(id) + ' · "' + q.text + '" — ';
+          if (r && r.subjectPresent) {
+            var rawRank = r.subjectRank;
+            var dispRank = (typeof rawRank === 'number' && isFinite(rawRank))
+              ? Math.min(7, Math.max(1, Math.round(rawRank)))
+              : null;
+            if (dispRank === null) {
+              td.textContent = '—';
+              td.className = 'heat-cell absent';
+              tip += subjectName() + ' present but unranked';
+            } else {
+              td.textContent = String(dispRank);
+              td.className = 'heat-cell r' + dispRank;
+              if (r.subjectRecommended) {
+                td.classList.add('rec');
+                tip += 'Rank ' + dispRank + ' — recommended';
+              } else {
+                tip += 'Rank ' + dispRank;
+              }
+              if (typeof r.totalCitations === 'number' && isFinite(r.totalCitations)) tip += ' · ' + r.totalCitations + ' total citations';
+            }
+          } else {
+            td.textContent = '—';
+            td.className = 'heat-cell absent';
+            tip += subjectName() + ' not cited';
+          }
+          td.title = tip;
+          td.setAttribute('aria-label', tip);
+          row.appendChild(td);
+        });
+        tbody.appendChild(row);
+      });
+    });
+    byId('heatmap-caption').textContent = subjectName() + ' rank by engine and query — ' + snapLabel(snap) + ' · period: ' + periodLabel() +
+      '. Darker gold = higher position (1 = first citation). Navy outline = recommended. Grey dash = not cited.';
+  }
+
+  /* ---------- Methodology footer ---------- */
+  function renderMethod() {
+    if (!HAS_DATA) return;
+    var ulQ = byId('method-queries');
+    ulQ.innerHTML = '';
+    queryGroups().forEach(function (g) {
+      g.items.forEach(function (q) {
+        var li = document.createElement('li');
+        var strong = document.createElement('strong');
+        strong.textContent = g.category;
+        li.appendChild(strong);
+        li.appendChild(document.createTextNode(' — ' + q.text));
+        ulQ.appendChild(li);
+      });
+    });
+
+    var ulE = byId('method-engines');
+    ulE.innerHTML = '';
+    engines().forEach(function (e) {
+      var li = document.createElement('li');
+      li.textContent = e.name + (e.model ? ' — ' + e.model : '');
+      ulE.appendChild(li);
+    });
+    var snap = DATA.snapshots[selectedSnapshotIndex()];
+    byId('method-line').textContent = 'Evaluation method: ' + (snap.method || 'not specified') + ' · ' + snapLabel(snap) + ' · period: ' + periodLabel();
+    var notesEl = byId('method-month-notes');
+    if (snap.notes) {
+      notesEl.textContent = 'Period note: ' + snap.notes;
+      notesEl.hidden = false;
+    } else {
+      notesEl.hidden = true;
+      notesEl.textContent = '';
+    }
+    byId('method-note').textContent = DATA.meta.methodologyNote || '';
+    byId('dataset-label').textContent = (DATA.meta.datasetLabel || 'Unlabelled dataset') +
+      (DATA.meta.generatedAt ? ' · generated ' + DATA.meta.generatedAt : '') +
+      (DATA.meta.site ? ' · ' + DATA.meta.site : '');
+    var disc = byId('dataset-disclaimer');
+    if (isModelData()) {
+      disc.textContent = 'Sample dashboard — fictional data. This dashboard is populated with fictional agent data to demonstrate the layout and metrics. No live answer engines were queried to produce it. Replace this dataset with your own results before using it for any decisions.';
+      disc.hidden = false;
+    } else {
+      disc.textContent = '';
+      disc.hidden = true;
+    }
+  }
+
+  /* ---------- Subject-driven static labels ---------- */
+  function renderSubjectLabels() {
+    var name = subjectName();
+    var company = subjectCompany();
+    var note = {
+      'kpi-note-visibility': 'share of queries where ' + name + ' appeared',
+      'kpi-note-citation': name + ' citations ÷ total citations',
+      'kpi-note-rec': 'share of queries where ' + name + ' was recommended'
+    };
+    for (var id in note) {
+      if (note.hasOwnProperty(id)) {
+        var el = byId(id);
+        if (el) el.textContent = note[id];
+      }
+    }
+    var sub = byId('heatmap-sub');
+    if (sub) sub.textContent = name + ' citation rank by query and engine for the selected period. Hover a cell for details.';
+    var subEl = byId('subject-subtitle');
+    if (subEl) subEl.textContent = name + ' · ' + subjectSite();
+
+    /* Document title + meta description follow the subject in data.js. */
+    document.title = 'Answer Engine Visibility Report - ' + name;
+    var metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content',
+        'Answer engine visibility evaluation dashboard for ' + name +
+        (company ? ' (' + company + ').' : '.'));
+    }
+  }
+
+  /* ---------- Empty state (placeholder data.js) ---------- */
+  function renderEmptyState() {
+    ['chart-visibility', 'chart-rank', 'chart-citation', 'chart-rec', 'sov-overall'].forEach(function (id) {
+      var h = byId(id);
+      h.innerHTML = '';
+      var t = document.createElement('table');
+      t.className = 'data-table fallback-table';
+      t.innerHTML = '<caption>Awaiting dataset</caption>' +
+        '<thead><tr><th scope="col">Status</th></tr></thead>' +
+        '<tbody><tr><td>No dataset loaded — data.js placeholder. Waiting for evaluation data.</td></tr></tbody>';
+      h.appendChild(t);
+    });
+    byId('engine-table-body').innerHTML = '<tr><td colspan="7">No dataset loaded — data.js placeholder. Waiting for evaluation data.</td></tr>';
+    byId('heatmap-head').innerHTML = '<tr><th scope="col">Category</th><th scope="col">Query</th></tr>';
+    byId('heatmap-body').innerHTML = '<tr><td colspan="2">No dataset loaded — data.js placeholder. Waiting for evaluation data.</td></tr>';
+    ['kpi-visibility', 'kpi-rank', 'kpi-citation', 'kpi-rec', 'kpi-best-engine', 'kpi-mover'].forEach(function (id) {
+      byId(id).textContent = '—';
+    });
+    byId('kpi-mover-note').textContent = 'visibility vs prior period';
+    byId('kpi-month-label').textContent = 'no data';
+  }
+
+  /* ---------- Orchestration ---------- */
+  function renderAll(includeTrends) {
+    renderBadge();
+    renderPeriodSelect();
+    if (!HAS_DATA) { renderEmptyState(); return; }
+    renderKpis();
+    if (includeTrends) renderTrends();
+    renderScorecard();
+    renderSov();
+    renderHeatmap();
+    renderMethod();
+  }
+
+  function bind() {
+    byId('period-select').addEventListener('change', function (e) {
+      state.period = (e.target.value === '30d' || e.target.value === '90d' || e.target.value === '12m') ? e.target.value : 'ytd';
+      renderBadge();
+      renderTrends();
+      renderKpis();
+      renderScorecard();
+      renderSov();
+      renderHeatmap();
+      renderMethod();
+    });
+    var sortButtons = document.querySelectorAll('#engine-table thead .sort-btn');
+    for (var i = 0; i < sortButtons.length; i++) {
+      (function (btn) {
+        btn.addEventListener('click', function () {
+          var key = btn.getAttribute('data-key');
+          if (state.sort.key === key) {
+            state.sort.dir = -state.sort.dir;
+          } else {
+            state.sort.key = key;
+            state.sort.dir = (key === 'rank' || key === 'engine') ? 1 : -1;
+          }
+          renderScorecard();
+        });
+      })(sortButtons[i]);
+    }
+  }
+
+  function init() {
+    if (CHART_OK) {
+      Chart.defaults.font.family = "'Gotham','Segoe UI',Arial,sans-serif";
+      Chart.defaults.font.size = 12;
+      Chart.defaults.color = '#5A5770';
+      Chart.defaults.borderColor = '#EDEBF2';
+    }
+    if (HAS_DATA) {
+      engines().forEach(function (e) { state.active[e.id] = true; });
+      state.sort = { key: 'visibility', dir: -1 };
+    }
+    applySubjectTokens();
+    renderSubjectLabels();
+    updateNotice();
+    renderBadge();
+    renderPeriodSelect();
+    renderPills();
+    bind();
+    if (HAS_DATA) {
+      renderKpis();
+      renderTrends();
+      renderScorecard();
+      renderSov();
+      renderHeatmap();
+      renderMethod();
+    } else {
+      renderEmptyState();
+    }
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>

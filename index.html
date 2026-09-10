@@ -1,0 +1,496 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Answer Engine Optimization: A WFP Agent's Guide</title>
+<meta name="description" content="A practical, plain-language guide to answer engine optimization (AEO) for Washington Fine Properties agents - what it is, how it relates to SEO, and how to appear in AI answers.">
+<!--
+  Design read: educational editorial guide for non-technical luxury real estate
+  professionals; heritage-premium WFP language; restrained motion; print-first.
+  Dials: VARIANCE 4 / MOTION 3 / DENSITY 4.
+  Documented overrides (build spec s2): light only, no photography (logo + type
+  + brand color only), em-dashes kept (WFP house voice), static HTML/CSS.
+  Shape lock: one radius (6px). Accent lock: one accent (gold).
+-->
+<link rel="stylesheet" href="assets/guide.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="index.html" aria-label="Washington Fine Properties - Answer Engine Optimization guide">
+      <img class="brand__logo" src="assets/WFP-Logo-Blue-HiRes.png" alt="Washington Fine Properties" width="66" height="34">
+      <span class="brand__wordmark">AEO Guide
+        <span>Washington Fine Properties</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#what-is-aeo">What AEO is</a>
+      <a href="#principles">Principles</a>
+      <a href="#start">Sample dashboard</a>
+      <a href="setup.html">Setup guide</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- 1. HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero__inner">
+      <p class="hero__eyebrow">A WFP agent's guide</p>
+      <h1 class="hero__title" id="hero-title">Answer Engine Optimization</h1>
+      <p class="hero__subtitle">A practical guide for Washington Fine Properties agents — how AI assistants find, cite, and recommend you.</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="dashboard/index.html">Open the sample dashboard</a>
+        <a class="btn btn--secondary" href="setup.html">Set up your dashboard</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. WHAT AEO IS -->
+  <section class="section" id="what-is-aeo" aria-labelledby="what-is-aeo-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-head__title" id="what-is-aeo-title">What AEO is</h2>
+        <p class="section-head__lead">Optimizing so that AI answer engines name, cite, or recommend you when someone asks a question.</p>
+      </div>
+      <div class="prose">
+        <p>Answer engine optimization (AEO) is the practice of shaping your online presence so that AI assistants — ChatGPT, Gemini, Perplexity, Claude, and Google AI Overviews — can find you, understand you, and mention you in the answers they generate.</p>
+        <p>The shift is in how clients search. Instead of scrolling a page of links, an increasingly large share of buyers and sellers open an assistant and ask a full question out loud: "Who is the best real estate agent in Georgetown?" or "Find me a luxury agent in Northwest Washington DC." The assistant returns a synthesized answer — often naming a handful of agents and linking to the sources it drew from.</p>
+        <p>If you are not in that answer, you are invisible at the exact moment a client is deciding who to call. AEO is the work of making sure you are one of the names and sources the assistant can see and trust.</p>
+        <p>Unlike advertising, there is no placement to buy inside an AI answer. Visibility is earned by being findable, clearly described, and consistently corroborated by outside sources — which is why the rest of this guide focuses on fundamentals you control.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. AEO VS SEO -->
+  <section class="section" id="aeo-vs-seo" aria-labelledby="aeo-vs-seo-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-head__title" id="aeo-vs-seo-title">AEO vs SEO</h2>
+        <p class="section-head__lead">They are not opposites. Google states plainly that optimizing for AI features is still SEO.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="table table--keyed">
+          <caption>A side-by-side comparison of what changes and what does not.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Dimension</th>
+              <th scope="col">Traditional SEO</th>
+              <th scope="col">AEO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Goal</th>
+              <td>Rank a page high in a list of results.</td>
+              <td>Be included, cited, or recommended inside a synthesized answer.</td>
+            </tr>
+            <tr>
+              <th scope="row">What the user sees</th>
+              <td>A page of blue links they choose between.</td>
+              <td>A written answer, usually naming a few sources or people.</td>
+            </tr>
+            <tr>
+              <th scope="row">Key signals</th>
+              <td>Relevance, links, technical health, content quality.</td>
+              <td>The same, plus machine-readable facts, entity consistency, and third-party corroboration.</td>
+            </tr>
+            <tr>
+              <th scope="row">How success is measured</th>
+              <td>Rankings, impressions, clicks, sessions.</td>
+              <td>Presence in answers, position among competitors, citations, recommendations.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="prose">
+        <p><strong>They are not opposites.</strong> Google's guidance is that AI features on Search are governed by the same foundational requirements as regular search: helpful, people-first content plus technical eligibility. Google's own documentation says that AEO and GEO (generative engine optimization) remain SEO, and that no special schema markup or files are required to appear in AI Overviews. Treat AEO as an added layer of discipline on top of sound SEO — not a replacement for it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. HOW ANSWER ENGINES PRODUCE AN ANSWER -->
+  <section class="section section--soft" id="how-engines-answer" aria-labelledby="how-engines-answer-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-head__title" id="how-engines-answer-title">How answer engines produce an answer</h2>
+        <p class="section-head__lead">Three plain steps, plus one idea worth knowing: query fan-out.</p>
+      </div>
+      <div class="prose">
+        <ol>
+          <li><strong>Crawl and index.</strong> A crawler visits pages on the open web and stores what it finds. If a bot is blocked — by <code>robots.txt</code>, a firewall, or a login wall — that content cannot be used.</li>
+          <li><strong>Retrieve relevant passages (RAG).</strong> When a question arrives, the system searches its index and pulls back the passages most likely to help answer it. This approach is called retrieval-augmented generation, or RAG. The answer is grounded in retrieved text, not invented from memory alone.</li>
+          <li><strong>Generate an answer with citations.</strong> The model writes a response from those passages and points back to the sources it used.</li>
+        </ol>
+        <p>One more idea: <strong>query fan-out.</strong> Rather than searching your exact question once, an AI system often breaks it into several related sub-queries, retrieves for each, and combines the results. That is why a single page rarely wins an answer on its own — a spread of consistent, well-matched content across the web is what carries you into the response.</p>
+        <p>For Google Search specifically, Google has described this retrieval-and-fan-out pattern in its guidance on optimizing for generative AI features. (See sources 1 and 2 below.)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. THE PRINCIPLES OF AEO -->
+  <section class="section" id="principles" aria-labelledby="principles-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-head__title" id="principles-title">The 8 principles of AEO</h2>
+        <p class="section-head__lead">Each principle is tagged <em>Required for eligibility</em> or <em>Helps</em>, with the source it rests on.</p>
+      </div>
+      <ol class="principles">
+        <li class="principle">
+          <h3 class="principle__title">Be crawlable by the bots that feed answers</h3>
+          <p class="principle__why">If the crawlers cannot read your pages, no amount of good content will surface. Allow Googlebot, OAI-SearchBot (ChatGPT search), Claude-SearchBot (Claude search), and PerplexityBot — and check that your <code>robots.txt</code> and any firewall or WAF rules are not blocking them.</p>
+          <p class="principle__meta"><span class="tag tag--required">Required for eligibility</span> &middot; Sources: OpenAI, Anthropic, Perplexity, Google</p>
+        </li>
+        <li class="principle">
+          <h3 class="principle__title">Answer the question directly</h3>
+          <p class="principle__why">Use question-style headings and give a concise answer near the top of the page, before the supporting detail. Retrieved passages are short, so the cleanest direct answer is the one most likely to be picked up.</p>
+          <p class="principle__meta"><span class="tag tag--helps">Helps</span> &middot; Source: Google - Creating helpful, reliable, people-first content</p>
+        </li>
+        <li class="principle">
+          <h3 class="principle__title">Make your facts machine-readable</h3>
+          <p class="principle__why">Structured data such as schema.org <code>RealEstateAgent</code>, <code>Person</code>, and <code>FAQPage</code> (JSON-LD is Google's recommended format) helps search engines understand your page and can enable rich results. Google states this is not required to appear in AI features.</p>
+          <p class="principle__meta"><span class="tag tag--helps">Helps</span> &middot; Sources: Google - Intro to structured data; Schema.org - RealEstateAgent</p>
+        </li>
+        <li class="principle">
+          <h3 class="principle__title">Keep your entity facts consistent everywhere</h3>
+          <p class="principle__why">Your name, title, brokerage, license, service areas, and phone should match across every surface — your wfp.com bio, personal site, Google Business Profile, Zillow, LinkedIn, and more. Consistent facts help machines recognize you as one person, not several.</p>
+          <p class="principle__meta"><span class="tag tag--helps">Helps</span> &middot; Source: Google - Creating helpful, reliable, people-first content</p>
+        </li>
+        <li class="principle">
+          <h3 class="principle__title">Earn mentions, citations, and reviews from other sources</h3>
+          <p class="principle__why">Third-party corroboration carries weight. When other reputable sites mention you, link to you, or carry your reviews, the assistant has independent signals that you are real, relevant, and recommended — not just a self-description.</p>
+          <p class="principle__meta"><span class="tag tag--helps">Helps</span> &middot; Source: Google - Creating helpful, reliable, people-first content</p>
+        </li>
+        <li class="principle">
+          <h3 class="principle__title">Show first-hand expertise</h3>
+          <p class="principle__why">Original neighborhood knowledge, your own market data, and your sold and listing history are things no one else can copy. Google's people-first guidance emphasizes experience, expertise, authoritativeness, and trust — with trust as the most important.</p>
+          <p class="principle__meta"><span class="tag tag--helps">Helps</span> &middot; Source: Google - Creating helpful, reliable, people-first content</p>
+        </li>
+        <li class="principle">
+          <h3 class="principle__title">Keep it fresh and accurate</h3>
+          <p class="principle__why">Update your bios, listings, and service-area details when things change. Stale or conflicting facts are harder for an assistant to trust, and errors can persist long after you have fixed the underlying reality.</p>
+          <p class="principle__meta"><span class="tag tag--helps">Helps</span> &middot; Source: Google - Creating helpful, reliable, people-first content</p>
+        </li>
+        <li class="principle">
+          <h3 class="principle__title">Measure and iterate</h3>
+          <p class="principle__why">Run a fixed set of questions across the engines on a schedule and track how answers change over time. Trends over several snapshots are far more meaningful than any single result. Google's own guidance frames this as ongoing optimization, not a one-time fix.</p>
+          <p class="principle__meta"><span class="tag tag--helps">Helps</span> &middot; Source: Google - Optimizing your website for generative AI features</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 6. VOLATILITY AND WHAT TO EXPECT -->
+  <section class="section" aria-labelledby="expect-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-head__title" id="expect-title">Volatility and what to expect</h2>
+      </div>
+      <div class="prose">
+        <div class="callout callout--info">
+          <span class="callout__title">What to expect</span>
+          <p>Answers vary by engine, by model version, by user, by location, and by the day you ask. The same question can produce different names an hour apart.</p>
+          <p>A set of ten queries is a smoke test, not a measurement. Use it to spot direction and trends across snapshots, and resist reading too much into any single result — good or bad.</p>
+          <p>No one can guarantee a specific answer. Be cautious of anyone who promises you will be named, ranked, or recommended by an AI assistant.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. START - EXACT HEADING -->
+  <section class="section section--soft" id="start" aria-labelledby="start-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-head__title" id="start-title">Want to improve your AEO? The first step is knowing how you appear currently.</h2>
+      </div>
+      <div class="prose">
+        <p>The sample dashboard shows what a monthly AEO check looks like for a fictional agent, across five answer engines over three months. It tracks five metrics:</p>
+      </div>
+      <dl class="metric-list">
+        <dt>Visibility</dt>
+        <dd>The share of tracked questions where the agent appears in the answer at all.</dd>
+        <dt>Average Rank</dt>
+        <dd>Where the agent places among tracked competitors when they do appear.</dd>
+        <dt>Citation Share</dt>
+        <dd>How often the agent's pages are cited as a source, relative to competitors.</dd>
+        <dt>Recommendation Rate</dt>
+        <dd>How often the answer actively recommends the agent, not just mentions them.</dd>
+        <dt>Share of Voice</dt>
+        <dd>The agent's slice of all mentions across the tracked question set.</dd>
+      </dl>
+      <div class="card-grid">
+        <article class="card card--feature">
+          <h3 class="card__title">See the sample dashboard</h3>
+          <p class="card__body">A worked example for a fictional agent, clearly labeled <strong>SAMPLE</strong>. See the five metrics, the query-by-query detail, and how the trend reads across three monthly snapshots.</p>
+          <div class="card__cta">
+            <a class="btn btn--primary" href="dashboard/index.html">Open the sample dashboard</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Build your own</h3>
+          <p class="card__body">No coding and no API keys. About 30 to 60 minutes the first time, then a short monthly re-run you can automate with your AI assistant.</p>
+          <div class="card__cta">
+            <a class="btn btn--secondary" href="setup.html">Set up your dashboard</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. PROFILE CONSISTENCY CHECKLIST -->
+  <section class="section" id="profile-consistency" aria-labelledby="profile-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-head__title" id="profile-title">Profile consistency checklist</h2>
+        <p class="section-head__lead">Align these facts across every surface where clients and machines find you.</p>
+      </div>
+      <div class="checklist-wrap">
+        <table class="checklist">
+          <caption>Where to check each fact. A tick means the fact should be present and worded the same way everywhere.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Surface</th>
+              <th scope="col">Facts to align</th>
+              <th scope="col">Watch for</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">wfp.com agent bio</th>
+              <td>Name, title, brokerage, license, service areas, phone, photo</td>
+              <td>Keep this the canonical version others should match.</td>
+            </tr>
+            <tr>
+              <th scope="row">Personal website</th>
+              <td>Name, title, brokerage, license, service areas, phone, photo</td>
+              <td>Match the bio exactly; avoid alternate job titles.</td>
+            </tr>
+            <tr>
+              <th scope="row">Google Business Profile</th>
+              <td>Name, title, brokerage, service areas, phone, photo, reviews</td>
+              <td>Use the real-world name clients know, not a nickname alone.</td>
+            </tr>
+            <tr>
+              <th scope="row">Zillow</th>
+              <td>Name, brokerage, license, service areas, phone, photo, reviews</td>
+              <td>Confirm the brokerage string matches wfp.com.</td>
+            </tr>
+            <tr>
+              <th scope="row">Realtor.com</th>
+              <td>Name, brokerage, license, service areas, phone, photo, reviews</td>
+              <td>Check for outdated license or contact details.</td>
+            </tr>
+            <tr>
+              <th scope="row">LinkedIn</th>
+              <td>Name, title, brokerage, service areas</td>
+              <td>Keep the headline consistent with your public title.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="prose mt-4">
+        <p><strong>A note on common names.</strong> If your name is shared with other people or agents, consistency matters even more. Add your brokerage, license number, and service areas wherever they are allowed — those details are what let a machine tell you apart from a namesake. A linked photo, matching phone number, and a personal site with your own domain all help the same disambiguation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. SOURCES AND FURTHER READING -->
+  <section class="section" id="sources" aria-labelledby="sources-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-head__title" id="sources-title">Sources and further reading</h2>
+        <p class="section-head__lead">These ten sources ground every factual claim in this guide.</p>
+      </div>
+      <ol class="sources">
+        <li class="source">
+          <div class="source__body">
+          <p class="source__title"><a href="https://developers.google.com/search/docs/appearance/ai-overviews">AI features and your website</a></p>
+          <p class="source__meta">Google Search Central</p>
+          <p class="source__note">No additional requirements to appear in AI Overviews or AI Mode; standard SEO and technical eligibility govern, with no special files or schema needed.</p>
+        </div>
+        </li>
+        <li class="source">
+          <div class="source__body">
+          <p class="source__title"><a href="https://developers.google.com/search/docs/fundamentals/ai-optimization-guide">Optimizing your website for generative AI features on Google Search</a></p>
+          <p class="source__meta">Google Search Central</p>
+          <p class="source__note">SEO remains the foundation; explains retrieval-augmented generation and query fan-out, and states that AEO and GEO are still SEO.</p>
+        </div>
+        </li>
+        <li class="source">
+          <div class="source__body">
+          <p class="source__title"><a href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content">Creating helpful, reliable, people-first content</a></p>
+          <p class="source__meta">Google Search Central</p>
+          <p class="source__note">The E-E-A-T framing (trust is most important), YMYL topics, and the who/how/why test. Automation used to manipulate rankings violates spam policies.</p>
+        </div>
+        </li>
+        <li class="source">
+          <div class="source__body">
+          <p class="source__title"><a href="https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data">Introduction to structured data markup in Google Search</a></p>
+          <p class="source__meta">Google Search Central</p>
+          <p class="source__note">Structured data (JSON-LD recommended) helps search engines understand page content and enables rich results. Category: helpful, not required for AI features.</p>
+        </div>
+        </li>
+        <li class="source">
+          <div class="source__body">
+          <p class="source__title"><a href="https://developers.google.com/search/blog/2025/05/succeeding-in-ai-search">Top ways to ensure your content performs well in Google's AI experiences on Search</a></p>
+          <p class="source__meta">Google Search Central Blog (May 2025)</p>
+          <p class="source__note">Google's own summary of what helps content in AI-driven search experiences.</p>
+        </div>
+        </li>
+        <li class="source">
+          <div class="source__body">
+          <p class="source__title"><a href="https://platform.openai.com/docs/gptbot">Overview of OpenAI Crawlers</a></p>
+          <p class="source__meta">OpenAI (product/help documentation)</p>
+          <p class="source__note">OAI-SearchBot surfaces sites in ChatGPT search; GPTBot is used for training. The controls are independent robots.txt rules.</p>
+        </div>
+        </li>
+        <li class="source">
+          <div class="source__body">
+          <p class="source__title"><a href="https://help.openai.com/en/articles/9237897-chatgpt-search">Searching the web with ChatGPT</a></p>
+          <p class="source__meta">OpenAI Help Center</p>
+          <p class="source__note">To be eligible for ChatGPT search, a site must allow OAI-SearchBot.</p>
+        </div>
+        </li>
+        <li class="source">
+          <div class="source__body">
+          <p class="source__title"><a href="https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler">Does Anthropic crawl data from the web, and how can site owners block the crawler?</a></p>
+          <p class="source__meta">Anthropic (product/help documentation)</p>
+          <p class="source__note">ClaudeBot is used for training, Claude-User for user-initiated requests, and Claude-SearchBot for search indexing; disabling the search bot may reduce visibility.</p>
+        </div>
+        </li>
+        <li class="source">
+          <div class="source__body">
+          <p class="source__title"><a href="https://docs.perplexity.ai/guides/bots">Perplexity Crawlers</a></p>
+          <p class="source__meta">Perplexity (product/help documentation)</p>
+          <p class="source__note">PerplexityBot surfaces and links sites in Perplexity results; Perplexity-User is user-initiated and generally ignores robots.txt.</p>
+        </div>
+        </li>
+        <li class="source">
+          <div class="source__body">
+          <p class="source__title"><a href="https://schema.org/RealEstateAgent">RealEstateAgent</a></p>
+          <p class="source__meta">Schema.org</p>
+          <p class="source__note">A subtype of LocalBusiness and Organization; lists relevant properties such as address, telephone, areaServed, and sameAs.</p>
+        </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 10. GLOSSARY -->
+  <section class="section section--soft" id="glossary" aria-labelledby="glossary-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-head__title" id="glossary-title">Glossary</h2>
+        <p class="section-head__lead">Plain-language definitions for the terms used in this guide.</p>
+      </div>
+      <dl class="glossary">
+        <div>
+          <dt>AEO</dt>
+          <dd>Answer engine optimization — the practice of shaping your online presence so AI assistants can find, understand, and recommend you.</dd>
+        </div>
+        <div>
+          <dt>GEO</dt>
+          <dd>Generative engine optimization — a near-synonym for AEO, focused on generative AI systems. Google's guidance treats both as extensions of SEO.</dd>
+        </div>
+        <div>
+          <dt>Answer engine</dt>
+          <dd>A system that returns a direct, synthesized answer to a question rather than a list of links — for example ChatGPT, Gemini, Perplexity, Claude, or Google AI Overviews.</dd>
+        </div>
+        <div>
+          <dt>AI Overviews</dt>
+          <dd>Google's AI-generated summary shown above some search results. It does not appear for every query.</dd>
+        </div>
+        <div>
+          <dt>RAG</dt>
+          <dd>Retrieval-augmented generation — the technique of retrieving relevant passages from an index and grounding a generated answer in them, rather than relying on the model's memory alone.</dd>
+        </div>
+        <div>
+          <dt>Citation</dt>
+          <dd>A reference from an answer back to a source it used. Being cited means an assistant relied on your page.</dd>
+        </div>
+        <div>
+          <dt>Entity</dt>
+          <dd>A distinct thing the machine can recognize — in this context, you as a specific agent, with a name, role, brokerage, and service areas.</dd>
+        </div>
+        <div>
+          <dt>Structured data / schema</dt>
+          <dd>Standardized, machine-readable markup (often JSON-LD) that labels what a page is about. Google recommends JSON-LD, though it is not required for AI features.</dd>
+        </div>
+        <div>
+          <dt>Crawler</dt>
+          <dd>A program that visits and indexes pages on the web — for example Googlebot, OAI-SearchBot, Claude-SearchBot, or PerplexityBot. If a crawler is blocked, its content cannot be used.</dd>
+        </div>
+        <div>
+          <dt>Share of voice</dt>
+          <dd>Your portion of all mentions within a tracked set of questions, compared with competitors.</dd>
+        </div>
+        <div>
+          <dt>Visibility</dt>
+          <dd>The share of tracked questions where you appear in the answer at all, regardless of rank or recommendation.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+</main>
+
+<!-- 11. FOOTER -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__grid">
+      <div>
+        <div class="site-footer__brand">
+          <img src="assets/WFP-Logo-Blue-HiRes.png" alt="Washington Fine Properties" width="66" height="34">
+          <strong>AEO Guide</strong>
+        </div>
+        <p class="site-footer__notice">Provided for Washington Fine Properties agent use. The sample dashboard contains fictional data for illustration only. Results from any AEO check are directional, and no ranking outcome is guaranteed.</p>
+      </div>
+      <div>
+        <p class="site-footer__col-title">Guide</p>
+        <ul class="site-footer__links">
+          <li><a href="index.html">The guide</a></li>
+          <li><a href="setup.html">Setup guide</a></li>
+          <li><a href="dashboard/index.html">Sample dashboard</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="site-footer__col-title">Repository</p>
+        <ul class="site-footer__links">
+          <li><a href="https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide">Repository</a></li>
+          <li><a href="https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide/releases/latest/download/dashboard.zip">Download the dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="site-footer__legal">Version 1.0.0 &middot; September 10, 2026. &copy; Washington Fine Properties. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+/* Print-expansion for <details> reveals: a closed <details> hides its body
+   regardless of CSS, so open them all before printing. This page has no
+   reveals, so the hook is guarded and inert. Kept minimal and dependency-free. */
+(function () {
+  function openReveals() {
+    var all = document.querySelectorAll("details.reveal");
+    for (var i = 0; i < all.length; i++) { all[i].open = true; }
+  }
+  if (window.matchMedia) {
+    try {
+      if (window.matchMedia("print").addEventListener) {
+        window.matchMedia("print").addEventListener("change", function (e) { if (e.matches) openReveals(); });
+      } else if (window.matchMedia("print").addListener) {
+        window.matchMedia("print").addListener(function (e) { if (e.matches) openReveals(); });
+      }
+    } catch (err) { /* no-op: reveals remain native */ }
+  }
+  window.addEventListener("beforeprint", openReveals);
+})();
+</script>
+
+</body>
+</html>
