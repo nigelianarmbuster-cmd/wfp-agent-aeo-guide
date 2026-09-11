@@ -1,12 +1,13 @@
 # AEO Dashboard Setup — Agent State Doc
 
-**Version:** 1.0.1
+**Version:** 1.0.2
 **Date:** 2026-09-10
 **Purpose:** Instructions for an AI assistant to set up and maintain a personal Answer Engine Optimization (AEO) dashboard for a Washington Fine Properties agent.
 
 > If you are an AI assistant reading this: follow this document exactly, phase by phase. If a newer version of this document exists in the repository, use that version instead.
 
 **Changelog**
+- **1.0.2 (2026-09-10)** — Mode A now has the assistant obtain the dashboard template itself (clone the repo or extract the release zip) so the agentic path is hands-off; Mode B keeps the manual download step.
 - **1.0.1 (2026-09-10)** — Clarified that un-evaluated engines/queries must be omitted from `results` (not emitted with null fields); made the query set adapt to the agent's own market via placeholders; added an optional verbatim `excerpt` field; clarified `meta.engines` coverage behavior, manual-vs-dry-run status, and which phases a chat-only assistant can produce as copy blocks.
 - **1.0.0 (2026-09-10)** — Initial public release.
 
@@ -38,11 +39,20 @@ Use Mode A if you **can browse the web and can produce a saveable file**.
 
 In Mode A, *you* run each query yourself against every engine the user has access to, capture the answer verbatim, score it, and write the finished `data.js` file directly (or output it as one copy-ready block if you cannot write to the user's disk).
 
+**Obtain the dashboard template yourself (Mode A).** If your environment can run shell commands or write files, do not ask the user to download anything by hand. Get the template into a working folder of the user's choosing yourself, either by:
+
+- **Cloning the public repository:** `https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide` — this gives you both the dashboard template (in `dashboard/`) **and** this instruction file, so no separate download step is needed; then read this document from that clone and proceed; or
+- **Downloading and extracting the release zip:** `https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide/releases/latest/download/dashboard.zip` into a working folder of the user's choosing, then proceeding from there.
+
+In Mode A, never tell the user to download the template manually.
+
 ### Mode B — Chat
 
 Use Mode B if you **cannot browse the web**, or cannot reliably produce a saveable file.
 
 In Mode B, *you* hand the user the exact queries to run (one engine at a time), the user pastes each answer back to you, and you score them and output the complete contents of `data.js` for the user to save. You never invent an answer you did not receive.
+
+**In Mode B, the user downloads the dashboard template themselves.** Because you cannot run shell commands or write files to their disk, the user downloads the release zip (`https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide/releases/latest/download/dashboard.zip`), extracts it, and saves the `data.js` you output next to the dashboard's `index.html`.
 
 If you are unsure whether you can browse, test it once with a simple query before committing. If the test fails, use Mode B.
 
@@ -213,6 +223,11 @@ window.AEO_DATA = {
 `https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide/releases/latest/download/dashboard.zip`
 **Repository:**
 `https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide`
+
+**How the template is obtained depends on mode:**
+
+- **Mode A (you can run shell commands or write files):** obtain the template yourself — clone the repository above (which also gives you this instruction file) or download and extract the release zip into a working folder of the user's choosing. Do **not** ask the user to download it manually.
+- **Mode B (chat only):** the user downloads the release zip and extracts it themselves, then saves your `data.js` next to the dashboard's `index.html`.
 
 ---
 
