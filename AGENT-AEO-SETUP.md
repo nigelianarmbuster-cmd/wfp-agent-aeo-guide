@@ -41,8 +41,8 @@ In Mode A, *you* run each query yourself against every engine the user has acces
 
 **Obtain the dashboard template yourself (Mode A).** If your environment can run shell commands or write files, do not ask the user to download anything by hand. Get the template into a working folder of the user's choosing yourself, either by:
 
-- **Cloning the public repository:** `https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide` — this gives you both the dashboard template (in `dashboard/`) **and** this instruction file, so no separate download step is needed; then read this document from that clone and proceed; or
-- **Downloading and extracting the release zip:** `https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide/releases/latest/download/dashboard.zip` into a working folder of the user's choosing, then proceeding from there.
+- **Cloning the public repository:** `https://github.com/nigelianarmbuster-cmd/wfp-agent-aeo-guide` — this gives you both the dashboard template (in `dashboard/`) **and** this instruction file, so no separate download step is needed; then read this document from that clone and proceed; or
+- **Downloading and extracting the release zip:** `https://github.com/nigelianarmbuster-cmd/wfp-agent-aeo-guide/releases/latest/download/dashboard.zip` into a working folder of the user's choosing, then proceeding from there.
 
 In Mode A, never tell the user to download the template manually.
 
@@ -52,7 +52,7 @@ Use Mode B if you **cannot browse the web**, or cannot reliably produce a saveab
 
 In Mode B, *you* hand the user the exact queries to run (one engine at a time), the user pastes each answer back to you, and you score them and output the complete contents of `data.js` for the user to save. You never invent an answer you did not receive.
 
-**In Mode B, the user downloads the dashboard template themselves.** Because you cannot run shell commands or write files to their disk, the user downloads the release zip (`https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide/releases/latest/download/dashboard.zip`), extracts it, and saves the `data.js` you output next to the dashboard's `index.html`.
+**In Mode B, the user downloads the dashboard template themselves.** Because you cannot run shell commands or write files to their disk, the user downloads the release zip (`https://github.com/nigelianarmbuster-cmd/wfp-agent-aeo-guide/releases/latest/download/dashboard.zip`), extracts it, and saves the `data.js` you output next to the dashboard's `index.html`.
 
 If you are unsure whether you can browse, test it once with a simple query before committing. If the test fails, use Mode B.
 
@@ -220,9 +220,9 @@ window.AEO_DATA = {
 - Keep `data.js` **ASCII-only**: straight quotes and hyphens, no smart quotes, no em-dashes.
 
 **Dashboard download:**
-`https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide/releases/latest/download/dashboard.zip`
+`https://github.com/nigelianarmbuster-cmd/wfp-agent-aeo-guide/releases/latest/download/dashboard.zip`
 **Repository:**
-`https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide`
+`https://github.com/nigelianarmbuster-cmd/wfp-agent-aeo-guide`
 
 **How the template is obtained depends on mode:**
 

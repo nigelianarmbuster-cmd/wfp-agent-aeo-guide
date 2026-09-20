@@ -4,11 +4,11 @@ A beginner's guide to Answer Engine Optimization (AEO) for Washington Fine Prope
 
 ## Start here
 
-- Main guide: https://nigelianarmbuster-cmd.github.io/wfp-aeo-guide/
-- Setup guide: https://nigelianarmbuster-cmd.github.io/wfp-aeo-guide/setup.html
-- Sample dashboard: https://nigelianarmbuster-cmd.github.io/wfp-aeo-guide/dashboard/
-- State doc (raw): https://raw.githubusercontent.com/nigelianarmbuster-cmd/wfp-aeo-guide/main/AGENT-AEO-SETUP.md
-- Download the dashboard template: https://github.com/nigelianarmbuster-cmd/wfp-aeo-guide/releases/latest/download/dashboard.zip
+- Main guide: https://nigelianarmbuster-cmd.github.io/wfp-agent-aeo-guide/
+- Setup guide: https://nigelianarmbuster-cmd.github.io/wfp-agent-aeo-guide/setup.html
+- Sample dashboard: https://nigelianarmbuster-cmd.github.io/wfp-agent-aeo-guide/dashboard/
+- State doc (raw): https://raw.githubusercontent.com/nigelianarmbuster-cmd/wfp-agent-aeo-guide/main/AGENT-AEO-SETUP.md
+- Download the dashboard template: https://github.com/nigelianarmbuster-cmd/wfp-agent-aeo-guide/releases/latest/download/dashboard.zip
 
 ## How the agent workflow works
 
