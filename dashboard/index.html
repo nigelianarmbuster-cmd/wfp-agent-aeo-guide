@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="description" content="Answer engine visibility evaluation dashboard for Alexandra Rivera.">
 <title>Answer Engine Visibility Report — Alexandra Rivera</title>
 <link rel="icon" type="image/png" href="assets/WFP-Logo-Blue-HiRes.png">
@@ -245,8 +246,32 @@ select#period-select:hover { border-color: var(--gold); }
   margin-bottom: 10px;
   text-wrap: balance;
 }
+.chart-note {
+  margin: -6px 0 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
 .chart-holder { position: relative; height: 300px; }
 .chart-holder--sov { height: 340px; }
+
+/* Inline note over a chart with axes but no plotted data (see chartEmptyOverlay). */
+.chart-empty {
+  position: absolute;
+  left: 56px;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  z-index: 3;
+  padding: 10px 14px;
+  border: 1px solid #E6C98A;
+  background: #FFF7E8;
+  color: #6B4A00;
+  border-radius: var(--radius);
+  font-size: 13px;
+  line-height: 1.45;
+  pointer-events: none;
+}
 
 .watermark {
   position: absolute; inset: 0;
@@ -337,7 +362,6 @@ select#period-select:hover { border-color: var(--gold); }
 .heat-cell.r5 { background: #E9DCD1; }
 .heat-cell.r6 { background: #EFE7DF; }
 .heat-cell.r7 { background: #F6F2ED; }
-.heat-cell.rec { box-shadow: inset 0 0 0 2px var(--navy); }
 .heat-cell.absent { background: #F1F0F5; color: var(--muted-2); font-weight: 500; }
 .cat-cell {
   font-size: 12px; font-weight: 500;
@@ -350,7 +374,6 @@ select#period-select:hover { border-color: var(--gold); }
 .legend-item { display: inline-flex; align-items: center; gap: 6px; }
 .legend-swatch { display: inline-block; width: 10px; height: 10px; flex: none; }
 .legend-swatch--rank { background: #CDB198; border: 1px solid var(--gold); }
-.legend-swatch--rec { background: var(--white); box-shadow: inset 0 0 0 2px var(--navy); border: 1px solid var(--border); }
 .legend-swatch--absent { background: #F1F0F5; border: 1px solid var(--border-strong); }
 
 /* ---------- Methodology ---------- */
@@ -453,22 +476,22 @@ select#period-select:hover { border-color: var(--gold); }
       <article class="kpi-card">
         <p class="kpi-label">Visibility</p>
         <p class="kpi-value" id="kpi-visibility">—</p>
-        <p class="kpi-note" id="kpi-note-visibility">share of queries where the subject appeared</p>
+        <p class="kpi-note" id="kpi-note-visibility">share of engine-answers where the subject appeared</p>
       </article>
       <article class="kpi-card">
         <p class="kpi-label">Average Rank</p>
         <p class="kpi-value" id="kpi-rank">—</p>
-        <p class="kpi-note">lower is better · among queries where present</p>
+        <p class="kpi-note">lower is better · among engine-answers where present</p>
       </article>
       <article class="kpi-card">
-        <p class="kpi-label">Citation Share</p>
+        <p class="kpi-label" id="kpi-label-citation">Own-Domain Cited</p>
         <p class="kpi-value" id="kpi-citation">—</p>
-        <p class="kpi-note" id="kpi-note-citation">subject citations ÷ total citations</p>
+        <p class="kpi-note" id="kpi-note-citation">engine-answers citing the subject's own site</p>
       </article>
       <article class="kpi-card">
         <p class="kpi-label">Recommendation Rate</p>
         <p class="kpi-value" id="kpi-rec">—</p>
-        <p class="kpi-note" id="kpi-note-rec">share of queries where the subject was recommended</p>
+        <p class="kpi-note" id="kpi-note-rec">share of engine-answers where the subject appeared as #1</p>
       </article>
       <article class="kpi-card">
         <p class="kpi-label">Best-Performing Engine</p>
@@ -489,20 +512,24 @@ select#period-select:hover { border-color: var(--gold); }
     <p class="section-sub" id="trends-sub">Selected period, one line per engine plus a bold overall line. Engine pills filter these charts.</p>
     <div class="trend-grid">
       <figure class="chart-box">
-        <figcaption>Visibility %</figcaption>
-        <div class="chart-holder" id="chart-visibility"></div>
+        <figcaption>Recommendation Rate %</figcaption>
+        <p class="chart-note">Share of engine-answers where {{subject}} appeared as #1.</p>
+        <div class="chart-holder" id="chart-rec"></div>
       </figure>
       <figure class="chart-box">
-        <figcaption>Average Rank (axis inverted — 1 = first citation)</figcaption>
+        <figcaption>Average Rank</figcaption>
+        <p class="chart-note">Typical position when {{subject}} appears - 1 is best.</p>
         <div class="chart-holder" id="chart-rank"></div>
       </figure>
       <figure class="chart-box">
-        <figcaption>Citation Share %</figcaption>
+        <figcaption id="chart-caption-citation">Own-Domain Cited</figcaption>
+        <p class="chart-note" id="chart-note-citation">Share of each engine’s answers across the period that cited the subject's own site — one bar per engine.</p>
         <div class="chart-holder" id="chart-citation"></div>
       </figure>
       <figure class="chart-box">
-        <figcaption>Recommendation Rate %</figcaption>
-        <div class="chart-holder" id="chart-rec"></div>
+        <figcaption>Visibility %</figcaption>
+        <p class="chart-note">Share of answers that name {{subject}}.</p>
+        <div class="chart-holder" id="chart-visibility"></div>
       </figure>
     </div>
   </section>
@@ -519,7 +546,7 @@ select#period-select:hover { border-color: var(--gold); }
             <th scope="col" data-key="engine" aria-sort="none"><button type="button" class="sort-btn" data-key="engine">Engine<span class="arrow" aria-hidden="true"></span></button></th>
             <th scope="col" data-key="visibility" aria-sort="descending"><button type="button" class="sort-btn" data-key="visibility">Visibility<span class="arrow" aria-hidden="true"></span></button></th>
             <th scope="col" data-key="rank" aria-sort="none"><button type="button" class="sort-btn" data-key="rank">Avg Rank<span class="arrow" aria-hidden="true"></span></button></th>
-            <th scope="col" data-key="citation" aria-sort="none"><button type="button" class="sort-btn" data-key="citation">Citation Share<span class="arrow" aria-hidden="true"></span></button></th>
+            <th scope="col" data-key="citation" aria-sort="none"><button type="button" class="sort-btn" data-key="citation" id="th-citation">Own-Domain Cited<span class="arrow" aria-hidden="true"></span></button></th>
             <th scope="col" data-key="rec" aria-sort="none"><button type="button" class="sort-btn" data-key="rec">Rec Rate<span class="arrow" aria-hidden="true"></span></button></th>
             <th scope="col" data-key="delta" aria-sort="none"><button type="button" class="sort-btn" data-key="delta">Δ vs Prior<span class="arrow" aria-hidden="true"></span></button></th>
             <th scope="col">Recent Trend</th>
@@ -554,7 +581,6 @@ select#period-select:hover { border-color: var(--gold); }
     </div>
     <p class="heat-legend">
       <span class="legend-item"><span class="legend-swatch legend-swatch--rank" aria-hidden="true"></span>Darker gold = higher citation position (1 = first)</span>
-      <span class="legend-item"><span class="legend-swatch legend-swatch--rec" aria-hidden="true"></span>Navy outline = engine recommended the subject</span>
       <span class="legend-item"><span class="legend-swatch legend-swatch--absent" aria-hidden="true"></span>Grey dash = subject not cited</span>
     </p>
   </section>
@@ -577,17 +603,17 @@ select#period-select:hover { border-color: var(--gold); }
       <div class="method-block">
         <h3>Metric Definitions</h3>
         <ul>
-          <li><strong>Visibility</strong> — share of the tracked queries captured in that period in which {{subject}} appeared anywhere in the answer's citations.</li>
-          <li><strong>Average Rank</strong> — mean position of {{subject}} among citations, counting only queries where {{subject}} appeared. 1 = first citation; lower is better.</li>
-          <li><strong>Citation Share</strong> — {{subject}} appearances as a percentage of all citations surfaced across the tracked queries.</li>
-          <li><strong>Recommendation Rate</strong> — share of queries in which the engine recommended {{subject}} (a {{subject}} property, agent, or office).</li>
+          <li><strong>Visibility</strong> — share of the engine-answers captured in that period in which {{subject}} appeared in the answer's citations.</li>
+          <li><strong>Average Rank</strong> — mean position of {{subject}} among citations, counting only engine-answers where {{subject}} appeared. 1 = first citation; lower is better.</li>
+          <li><strong>Own-Domain Cited</strong> — share (percentage) of engine-answers whose response cited {{subject}}'s own website ({{site}}) as a source, over the total number of engine-answers, aggregated across every snapshot in the selected period. Engine-answers that do not record this field are excluded from both counts, matching the per-engine trend chart.</li>
+          <li><strong>Recommendation Rate</strong> — share of engine-answers in which {{subject}} appeared as the #1 cited position.</li>
           <li><strong>Share of Voice</strong> — {{subject}} entity mentions versus mentions of the tracked competitors, across all responses.</li>
           <li><strong>Per-engine figures</strong> — each engine is asked the same query set; engine-level metrics are computed over that engine's captured rows for the period.</li>
         </ul>
       </div>
       <div class="method-block">
         <h3>Rank Convention &amp; Dataset</h3>
-        <p>Rank is the position of {{subject}} in the answer's citations for a given query: 1 = first citation. Ranks above 7 are shown as 7. Queries where {{subject}} was not cited are excluded from Average Rank and shown as a grey dash in the heatmap.</p>
+        <p>Rank is the position of {{subject}} in the answer's citations for a given query: 1 = first citation. Ranks above 7 are shown as 7. Engine-answers where {{subject}} was not cited are excluded from Average Rank and shown as a grey dash in the heatmap.</p>
         <p id="dataset-label"></p>
         <p class="disclaimer" id="dataset-disclaimer" hidden></p>
       </div>
@@ -611,15 +637,17 @@ select#period-select:hover { border-color: var(--gold); }
   var ENGINE_COLORS = ['#27253D', '#A9794D', '#2E7D6E', '#2C5F8A', '#B3261E', '#6B5B8E'];
   var SOV_TINTS = ['#5A5770', '#8B87A0', '#B9B5C9', '#D8D5E3', '#EDEBF2'];
   var OVERALL_COLOR = '#1A1830';
-  var WFP_COLOR = '#A9794D';
+  var SUBJECT_COLOR = '#A9794D';
 
   var TRENDS_META = [
-    { id: 'chart-visibility', title: 'Visibility', metric: 'visibility', rankAxis: false },
+    { id: 'chart-rec', title: 'Recommendation Rate', metric: 'recRate', rankAxis: false },
     { id: 'chart-rank', title: 'Average Rank', metric: 'avgRank', rankAxis: true },
-    { id: 'chart-citation', title: 'Citation Share', metric: 'citationShare', rankAxis: false },
-    { id: 'chart-rec', title: 'Recommendation Rate', metric: 'recRate', rankAxis: false }
+    /* type:'bar' = period aggregate, one bar per engine on a 0-100% axis (no date axis,
+       no overall series); the other entries stay index-based line trends. */
+    { id: 'chart-citation', title: 'Own-Domain Cited', metric: 'citationBool', rankAxis: false, boolAxis: true, type: 'bar' },
+    { id: 'chart-visibility', title: 'Visibility', metric: 'visibility', rankAxis: false }
   ];
-  var SORT_METRIC = { visibility: 'visibility', rank: 'avgRank', citation: 'citationShare', rec: 'recRate' };
+  var SORT_METRIC = { visibility: 'visibility', rank: 'avgRank', citation: 'citationBool', rec: 'recRate' };
 
   var state = { period: 'ytd', active: {}, sort: { key: 'visibility', dir: -1 } };
   var trendCharts = [];
@@ -645,6 +673,21 @@ select#period-select:hover { border-color: var(--gold); }
     var s = subject();
     return s.site || (DATA && DATA.meta && DATA.meta.site) || '';
   }
+  function subjectDomainLabel() {
+    /* Hostname of the subject's own site, for the Cited KPI + chart labels.
+       Strips scheme, a leading www., any path, and a trailing slash. Works for
+       bare hosts ("alexrivera.example.com") and full URLs
+       ("https://example.com/"); falls back to the raw site string. */
+    var raw = String(subjectSite() || '').trim();
+    if (!raw) return '';
+    var host = raw.replace(/^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//, ''); /* scheme:// */
+    host = host.replace(/^\/\//, '');                            /* protocol-relative */
+    host = host.split('/')[0];                                    /* drop path/query */
+    host = host.split('?')[0].split('#')[0];
+    host = host.replace(/^www\./i, '');                           /* drop leading www. */
+    host = host.replace(/\.$/, '');                               /* drop trailing dot */
+    return host || raw;
+  }
   function applySubjectTokens() {
     /* Replace {{subject}} / {{company}} / {{site}} tokens in static markup with
        values from DATA.meta.subject so no subject-specific string is hard-coded. */
@@ -654,11 +697,15 @@ select#period-select:hover { border-color: var(--gold); }
       '{{site}}': subjectSite()
     };
     var nodes = document.querySelectorAll('[data-subject-tokens]');
+    var siteValue = String(map['{{site}}'] || '').trim();
     for (var i = 0; i < nodes.length; i++) {
       var walker = document.createTreeWalker(nodes[i], 4 /* NodeFilter.SHOW_TEXT */, null, false);
       var node;
       while ((node = walker.nextNode())) {
         var text = node.nodeValue;
+        /* When {{site}} is blank, drop the segment (and its separating dotted
+           joiner) so no empty segment or doubled separator survives. */
+        if (siteValue === '') text = text.replace(/ \u00B7 \{\{site\}\}/g, '');
         var changed = false;
         for (var token in map) {
           if (map.hasOwnProperty(token) && text.indexOf(token) !== -1) {
@@ -772,16 +819,28 @@ select#period-select:hover { border-color: var(--gold); }
   /* ---------- Derived metrics (computed at load/render, never stored) ---------- */
   function compute(rows) {
     var n = rows.length;
-    var present = 0, ranked = 0, rankSum = 0, recommended = 0, totalCitations = 0;
+    var present = 0, ranked = 0, rankSum = 0, firstPlace = 0, totalCitations = 0;
+    var citedCount = 0, citedRows = 0;
     var mentions = {};
     competitors().forEach(function (c) { mentions[c.id] = 0; });
     rows.forEach(function (r) {
       if (!r) return;
+      var isRanked = (typeof r.subjectRank === 'number' && isFinite(r.subjectRank));
       if (r.subjectPresent) {
         present++;
-        if (typeof r.subjectRank === 'number' && !isNaN(r.subjectRank)) { ranked++; rankSum += r.subjectRank; }
+        if (isRanked) { ranked++; rankSum += r.subjectRank; }
       }
-      if (r.subjectRecommended) recommended++;
+      /* Recommendation Rate = appeared as the #1 cited position. A null rank
+         (citation-only presence) or any lower rank is NOT #1. The retired
+         recommendations flag is never read. */
+      if (r.subjectPresent && isRanked && r.subjectRank === 1) firstPlace++;
+      if (typeof r.subjectCited === 'boolean') {
+        /* Historical snapshots predate this field: only report a count when at
+           least one row in the set carries it. Rows missing it on a partially
+           populated set are treated as false. */
+        citedRows++;
+        if (r.subjectCited) citedCount++;
+      }
       if (typeof r.totalCitations === 'number' && isFinite(r.totalCitations)) totalCitations += r.totalCitations;
       var cm = r.competitorMentions || {};
       competitors().forEach(function (c) {
@@ -793,12 +852,19 @@ select#period-select:hover { border-color: var(--gold); }
     return {
       n: n,
       present: present,
-      recommended: recommended,
+      firstPlace: firstPlace,
       totalCitations: totalCitations,
       visibility: n ? present / n * 100 : 0,
       avgRank: ranked ? rankSum / ranked : null,
-      citationShare: totalCitations > 0 ? present / totalCitations * 100 : 0,
-      recRate: n ? recommended / n * 100 : 0,
+      /* null when no row carries subjectCited (historical snapshots); otherwise
+         a count over the total number of engine-answers. */
+      citedCount: citedRows ? citedCount : null,
+      citedTotal: citedRows ? n : null,
+      citationShare: citedRows ? (n ? citedCount / n * 100 : 0) : null,
+      /* Boolean per snapshot: 1 when any row in the set is cited, 0 when the set
+         has rows but none are cited, null (gap) when no row carries subjectCited. */
+      citationBool: citedRows ? (citedCount > 0 ? 1 : 0) : null,
+      recRate: n ? firstPlace / n * 100 : 0,
       mentions: mentions,
       sovTotal: sovTotal
     };
@@ -834,7 +900,11 @@ select#period-select:hover { border-color: var(--gold); }
     if (x < -0.05) return 'down';
     return 'flat';
   }
-  function fmtCell(metric, v) { return metric === 'avgRank' ? fmtRank(v) : fmtPct(v); }
+  function fmtCell(metric, v) {
+    if (metric === 'avgRank') return fmtRank(v);
+    if (metric === 'citationBool') return (v === null || v === undefined) ? '—' : (v ? 'YES' : 'NO');
+    return fmtPct(v);
+  }
 
   /* ---------- Header: badge, time period select, engine pills ---------- */
   function renderBadge() {
@@ -912,7 +982,13 @@ select#period-select:hover { border-color: var(--gold); }
     byId('kpi-sub').textContent = subText;
     byId('kpi-visibility').textContent = fmtPct(m.visibility);
     byId('kpi-rank').textContent = fmtRank(m.avgRank);
-    byId('kpi-citation').textContent = fmtPct(m.citationShare);
+    /* Own-Domain Cited is period-scoped, matching its trend chart: engine-answers
+       citing the site across EVERY snapshot in the selected period, over that period's
+       engine-answers. Rows that do not carry subjectCited are excluded from both the
+       numerator and the denominator, so a period mixing snapshots with and without the
+       field still reports a truthful rate. Uses the same helper as the bar chart. */
+    var cited = periodCitationTally(windowedSnapshots());
+    byId('kpi-citation').textContent = (cited.flagged === 0) ? '—' : fmtPct(cited.cited / cited.flagged * 100);
     byId('kpi-rec').textContent = fmtPct(m.recRate);
 
     var bestName = null, bestVal = -1;
@@ -937,12 +1013,13 @@ select#period-select:hover { border-color: var(--gold); }
     activeIds().forEach(function (id) {
       if (!hasEngineRows(snap, id) || !hasEngineRows(prev, id)) return;
       var d = engineMetrics(snap, id).visibility - engineMetrics(prev, id).visibility;
-      if (moverId === null || Math.abs(d) > Math.abs(moverDelta)) { moverId = id; moverDelta = d; }
+      /* Biggest Mover tracks the largest POSITIVE visibility gain only. */
+      if (d > moverDelta) { moverId = id; moverDelta = d; }
     });
     if (moverId === null) {
       moverEl.textContent = '—';
       moverEl.className = 'kpi-value';
-      moverNote.textContent = activeIds().length ? 'no comparable engine data' : 'No engines selected';
+      moverNote.textContent = 'no engine improved vs prior period';
       return;
     }
     var moverClass = deltaClass(moverDelta);
@@ -982,6 +1059,44 @@ select#period-select:hover { border-color: var(--gold); }
   }
 
   /* ---------- Trend charts ---------- */
+  function citedTally(rows) {
+    /* Period aggregate for Own-Domain Cited, shared by the bar chart and the
+       KPI so the two can never disagree. Scope is the whole selected period: every
+       row across every snapshot in the window. Rows that do not carry subjectCited
+       (historical snapshots that predate the field) are excluded from BOTH the
+       numerator and the denominator, so a partially populated period still reports
+       a truthful rate over the rows that do carry it. flagged === 0 when no row in
+       the period carries the field at all -> the caller shows its no-data state. */
+    var flagged = 0, cited = 0;
+    rows.forEach(function (r) {
+      if (r && typeof r.subjectCited === 'boolean') {
+        flagged++;
+        if (r.subjectCited) cited++;
+      }
+    });
+    return { cited: cited, flagged: flagged, rate: flagged ? (cited / flagged * 100) : null };
+  }
+  function periodRowsFor(winSnaps, ids) {
+    /* Every row for a set of engines across every snapshot in the window. */
+    var rows = [];
+    winSnaps.forEach(function (s) { rows = rows.concat(rowsFor(s, ids)); });
+    return rows;
+  }
+  function periodCitationTally(winSnaps) {
+    /* Own-Domain Cited across the window, restricted to the active engines. */
+    return citedTally(periodRowsFor(winSnaps, activeIds()));
+  }
+  function periodCitationSeries(winSnaps) {
+    /* [v0, v1, ...] in activeIds() order; null anywhere = no data for that engine. */
+    return activeIds().map(function (id) { return citedTally(periodRowsFor(winSnaps, [id])).rate; });
+  }
+  function hasSeriesValues(values) {
+    for (var i = 0; i < values.length; i++) {
+      if (values[i] !== null && values[i] !== undefined) return true;
+    }
+    return false;
+  }
+
   function trendFallbackTable(m, winSnaps) {
     var table = document.createElement('table');
     table.className = 'data-table fallback-table';
@@ -994,6 +1109,38 @@ select#period-select:hover { border-color: var(--gold); }
     th0.scope = 'col';
     th0.textContent = 'Series';
     tr.appendChild(th0);
+    if (m.type === 'bar') {
+      /* Period aggregate: one column per engine, no date columns. */
+      var thP = document.createElement('th');
+      thP.scope = 'col';
+      thP.textContent = 'Period ' + periodLabel() + ' (all snapshots)';
+      tr.appendChild(thP);
+      thead.appendChild(tr);
+      table.appendChild(thead);
+      var tbodyP = document.createElement('tbody');
+      activeIds().forEach(function (id) {
+        var row = document.createElement('tr');
+        var th = document.createElement('th');
+        th.scope = 'row';
+        th.textContent = engineName(id);
+        row.appendChild(th);
+        var td = document.createElement('td');
+        var v = citedTally(periodRowsFor(winSnaps, [id])).rate;
+        td.textContent = (v === null) ? '—' : (v.toFixed(1) + '%');
+        row.appendChild(td);
+        tbodyP.appendChild(row);
+      });
+      if (!hasSeriesValues(periodCitationSeries(winSnaps))) {
+        var trNone = document.createElement('tr');
+        var tdNone = document.createElement('td');
+        tdNone.colSpan = 2;
+        tdNone.textContent = 'No data — no engine-answer in this period records whether it cited the site.';
+        trNone.appendChild(tdNone);
+        tbodyP.appendChild(trNone);
+      }
+      table.appendChild(tbodyP);
+      return table;
+    }
     winSnaps.forEach(function (s) {
       var th = document.createElement('th');
       th.scope = 'col';
@@ -1026,18 +1173,91 @@ select#period-select:hover { border-color: var(--gold); }
     return table;
   }
 
+  function chartEmptyOverlay(holder, text) {
+    /* Inline note drawn over an otherwise empty chart area: the axes, gridlines
+       and engine labels stay visible, so the panel still reads as a chart. */
+    var el = document.createElement('p');
+    el.className = 'chart-empty';
+    el.textContent = text;
+    holder.appendChild(el);
+  }
+
   function renderTrends() {
     destroyChartsIn(trendCharts);
     var winSnaps = windowedSnapshots();
     byId('trends-sub').textContent = 'Period: ' + periodLabel() + ' — showing ' + winSnaps.length +
       ' of ' + DATA.snapshots.length + ' snapshot' + (DATA.snapshots.length === 1 ? '' : 's') +
-      ', one line per engine (gaps where an engine was not captured) plus a bold overall line. Engine pills filter these charts.';
+      ', one line per engine (gaps where an engine was not captured) plus a bold overall line. ' +
+      'Own-Domain Cited is a period aggregate: one bar per engine, no overall bar. Engine pills filter these charts.';
     var labels = winSnaps.map(snapLabel);
     var ids = activeIds();
     TRENDS_META.forEach(function (m) {
       var holder = byId(m.id);
       holder.innerHTML = '';
       if (!CHART_OK) { holder.appendChild(trendFallbackTable(m, winSnaps)); return; }
+
+      /* This chart is a period aggregate rather than an index-based trend: one bar
+         per engine over every snapshot in the window. It ALWAYS renders as a bar
+         chart - the engine x-axis labels and the 0-100% y-axis stay visible even
+         when the period has no data, with an inline note over the empty plot
+         instead of a table (which read as "chart never built"). The table path is
+         kept only for the case where Chart.js itself is unavailable (CHART_OK). */
+      if (m.type === 'bar') {
+        var series = periodCitationSeries(winSnaps);
+        var hasData = hasSeriesValues(series);
+        var barCanvas = document.createElement('canvas');
+        barCanvas.setAttribute('role', 'img');
+        barCanvas.setAttribute('aria-label', m.title + ' by engine — period aggregate, ' + periodLabel() +
+          (hasData ? '' : ', no data captured in this period'));
+        holder.appendChild(barCanvas);
+        if (isModelData()) addWatermark(holder);
+        if (!hasData) {
+          /* No bars at all: zero-height bars would read as "never cited", which is
+             a different claim from "not captured yet". The note states the latter. */
+          chartEmptyOverlay(holder, 'No data yet — no engine-answer in this period records whether it cited the site.');
+        }
+        var barTooltip = baseTooltip();
+        barTooltip.callbacks = {
+          title: function (items) {
+            if (!items || !items.length) return '';
+            var i = items[0].dataIndex;
+            return (i >= 0 && i < ids.length) ? engineName(ids[i]) : '';
+          },
+          label: function (ctx) {
+            return ' ' + Number(ctx.parsed.y).toFixed(1) + '% of this engine’s period answers cited the site';
+          }
+        };
+        try {
+          trendCharts.push(new Chart(barCanvas, {
+            type: 'bar',
+            data: {
+              labels: ids.map(engineName),
+              datasets: [{
+                label: 'Cited the site',
+                data: hasData ? series : ids.map(function () { return null; }),
+                backgroundColor: ids.map(engineColor)
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              /* With no bars there is nothing to hover, so the tooltip would
+                 otherwise fire blank on empty space. */
+              interaction: { mode: 'index', intersect: hasData },
+              plugins: { legend: { display: false }, tooltip: barTooltip },
+              scales: {
+                x: { grid: { display: false }, ticks: { maxRotation: 0, font: { size: 11 } } },
+                y: { min: 0, max: 100, ticks: { stepSize: 10, callback: function (v) { return v + '%'; } } }
+              },
+              animation: { duration: 150 }
+            }
+          }));
+        } catch (err) {
+          holder.innerHTML = '';
+          holder.appendChild(trendFallbackTable(m, winSnaps));
+        }
+        return;
+      }
 
       var datasets = ids.map(function (id) {
         var color = engineColor(id);
@@ -1070,6 +1290,20 @@ select#period-select:hover { border-color: var(--gold); }
       var yScale;
       if (m.rankAxis) {
         yScale = { reverse: true, suggestedMin: 1, suggestedMax: 7, ticks: { stepSize: 1, precision: 0 } };
+      } else if (m.boolAxis) {
+        /* Boolean series: NO = 0, YES = 1, one tick each. */
+        yScale = {
+          suggestedMin: 0, suggestedMax: 1,
+          ticks: {
+            stepSize: 1, precision: 0,
+            callback: function (v) {
+              var n = Number(v);
+              if (n === 0) return 'NO';
+              if (n === 1) return 'YES';
+              return '';
+            }
+          }
+        };
       } else {
         yScale = { suggestedMin: 0, suggestedMax: 100, ticks: { callback: function (v) { return v + '%'; } } };
       }
@@ -1091,18 +1325,29 @@ select#period-select:hover { border-color: var(--gold); }
             responsive: true,
             maintainAspectRatio: false,
             interaction: { mode: 'index', intersect: false },
+            /* Keep a small plot-area padding alongside the x-range inset above;
+               the range inset is what keeps the end markers whole. */
+            layout: { padding: { left: 6, right: 6 } },
             plugins: { legend: baseLegend(), tooltip: tooltipCfg },
             scales: {
               x: {
                 type: 'linear',
-                /* x = snapshot index 0..N-1 so points span the full plot width:
-                   N=2 -> first point at the left edge, last at the right edge;
-                   N=1 -> centered (range -1..1). Ticks map index -> snapshot label. */
-                min: winSnaps.length === 1 ? -1 : 0,
-                max: winSnaps.length === 1 ? 1 : winSnaps.length - 1,
+                /* x = snapshot index 0..N-1. The range is inset by half a step at
+                   each end (-0.5 .. N-0.5) so the first/last point markers sit a
+                   half-step inside the plot area: Chart.js clips point markers AT
+                   the plot-area boundary, so an exact 0..N-1 range renders the
+                   end markers as vertical half-circles. Canvas layout.padding
+                   cannot fix this - it pads the canvas, not the plot area.
+                   N=1 -> centered (range -1..1). Ticks map index -> snapshot label;
+                   the callback keeps only integer positions, so date ticks still
+                   land on the snapshots. */
+                min: winSnaps.length === 1 ? -1 : -0.5,
+                max: winSnaps.length === 1 ? 1 : winSnaps.length - 0.5,
                 grid: { display: false },
+                afterBuildTicks: function (axis) {
+                  axis.ticks = winSnaps.map(function (_, i) { return { value: i }; });
+                },
                 ticks: {
-                  stepSize: 1,
                   autoSkip: true,
                   maxRotation: 0,
                   font: { size: 11 },
@@ -1225,9 +1470,10 @@ select#period-select:hover { border-color: var(--gold); }
       }
       row.appendChild(thName);
 
+      /* Own-Domain Cited renders as YES / NO / — (boolean), matching the chart. */
       [hasRows ? fmtPct(em.visibility) : '—',
        hasRows ? fmtRank(em.avgRank) : '—',
-       hasRows ? fmtPct(em.citationShare) : '—',
+       hasRows ? ((em.citationBool === null) ? '—' : (em.citationBool ? 'YES' : 'NO')) : '—',
        hasRows ? fmtPct(em.recRate) : '—'].forEach(function (txt) {
         var td = document.createElement('td');
         td.textContent = txt;
@@ -1347,7 +1593,7 @@ select#period-select:hover { border-color: var(--gold); }
     var names = [subjectName()].concat(competitors().map(function (c) { return c.name; }));
     var counts = [m.present].concat(competitors().map(function (c) { return m.mentions[c.id] || 0; }));
     var pcts = counts.map(function (v) { return v / m.sovTotal * 100; });
-    var colors = [WFP_COLOR].concat(competitors().map(function (c, i) { return SOV_TINTS[i % SOV_TINTS.length]; }));
+    var colors = [SUBJECT_COLOR].concat(competitors().map(function (c, i) { return SOV_TINTS[i % SOV_TINTS.length]; }));
 
     var canvas = document.createElement('canvas');
     canvas.setAttribute('role', 'img');
@@ -1497,12 +1743,7 @@ select#period-select:hover { border-color: var(--gold); }
             } else {
               td.textContent = String(dispRank);
               td.className = 'heat-cell r' + dispRank;
-              if (r.subjectRecommended) {
-                td.classList.add('rec');
-                tip += 'Rank ' + dispRank + ' — recommended';
-              } else {
-                tip += 'Rank ' + dispRank;
-              }
+              tip += 'Rank ' + dispRank;
               if (typeof r.totalCitations === 'number' && isFinite(r.totalCitations)) tip += ' · ' + r.totalCitations + ' total citations';
             }
           } else {
@@ -1518,7 +1759,7 @@ select#period-select:hover { border-color: var(--gold); }
       });
     });
     byId('heatmap-caption').textContent = subjectName() + ' rank by engine and query — ' + snapLabel(snap) + ' · period: ' + periodLabel() +
-      '. Darker gold = higher position (1 = first citation). Navy outline = recommended. Grey dash = not cited.';
+      '. Darker gold = higher position (1 = first citation). Grey dash = not cited.';
   }
 
   /* ---------- Methodology footer ---------- */
@@ -1572,10 +1813,15 @@ select#period-select:hover { border-color: var(--gold); }
   function renderSubjectLabels() {
     var name = subjectName();
     var company = subjectCompany();
+    /* KPI notes use the SHORT name (e.g. a first name or initialism) to match the
+       chart notes; the header, document title and meta description keep the full
+       legal name. */
+    var short = subjectShortName();
+    var domain = subjectDomainLabel();
     var note = {
-      'kpi-note-visibility': 'share of queries where ' + name + ' appeared',
-      'kpi-note-citation': name + ' citations ÷ total citations',
-      'kpi-note-rec': 'share of queries where ' + name + ' was recommended'
+      'kpi-note-visibility': 'share of engine-answers where ' + short + ' appeared',
+      'kpi-note-citation': 'engine-answers citing ' + (domain || 'the subject\u2019s own site'),
+      'kpi-note-rec': 'share of engine-answers where ' + short + ' appeared as #1'
     };
     for (var id in note) {
       if (note.hasOwnProperty(id)) {
@@ -1583,10 +1829,29 @@ select#period-select:hover { border-color: var(--gold); }
         if (el) el.textContent = note[id];
       }
     }
+    /* Own-Domain Cited labels are subject-driven: derive the label text from the
+       hostname of the subject's site rather than hard-coding a domain. */
+    if (domain) {
+      var citLabel = byId('kpi-label-citation');
+      if (citLabel) citLabel.textContent = domain + ' Cited';
+      var thCit = byId('th-citation');
+      if (thCit) {
+        var arrow = thCit.querySelector('.arrow');
+        thCit.textContent = domain + ' Cited';
+        if (arrow) thCit.appendChild(arrow);
+      }
+      var chartCap = byId('chart-caption-citation');
+      if (chartCap) chartCap.textContent = domain + ' Cited';
+      var noteCit = byId('chart-note-citation');
+      if (noteCit) noteCit.textContent = 'Share of each engine\u2019s answers across the period that cited ' + domain + ' — one bar per engine.';
+    }
     var sub = byId('heatmap-sub');
     if (sub) sub.textContent = name + ' citation rank by query and engine for the selected period. Hover a cell for details.';
     var subEl = byId('subject-subtitle');
-    if (subEl) subEl.textContent = name + ' · ' + subjectSite();
+    if (subEl) {
+      var subParts = [name, subjectSite()].filter(function (p) { return String(p || '').trim() !== ''; });
+      subEl.textContent = subParts.join(' · ').trim();
+    }
 
     /* Document title + meta description follow the subject in data.js. */
     document.title = 'Answer Engine Visibility Report - ' + name;

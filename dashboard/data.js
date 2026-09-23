@@ -2,7 +2,7 @@ window.AEO_DATA = {
   "meta": {
     "site": "alexrivera.example.com",
     "subject": {
-      "name": "Alexandra \"Alex\" Rivera",
+      "name": "Alexandra Rivera",
       "shortName": "Rivera",
       "company": "Washington Fine Properties",
       "site": "alexrivera.example.com"
@@ -57,42 +57,42 @@ window.AEO_DATA = {
     "queries": [
       {
         "id": "q01",
-        "text": "Who is Alexandra Rivera?",
-        "category": "profile"
+        "text": "Luxury realtor in Georgetown",
+        "category": "discovery"
       },
       {
         "id": "q02",
-        "text": "Best real estate agent in Georgetown DC",
+        "text": "Best real estate agent in Georgetown",
         "category": "ranking"
       },
       {
         "id": "q03",
-        "text": "Top luxury real estate agents in Washington DC",
+        "text": "Best real estate agent in Kalorama",
         "category": "ranking"
       },
       {
         "id": "q04",
-        "text": "Alexandra Rivera vs Dana Okonkwo",
-        "category": "comparison"
+        "text": "Best real estate agent in Wesley Heights or Kent",
+        "category": "ranking"
       },
       {
         "id": "q05",
-        "text": "Top real estate agents in Northwest Washington DC",
-        "category": "ranking"
+        "text": "Best realtor in Washington DC for homes over $5 million",
+        "category": "price"
       },
       {
         "id": "q06",
-        "text": "Alexandra Rivera real estate reviews",
-        "category": "reputation"
-      },
-      {
-        "id": "q07",
-        "text": "Best real estate agent in DC for luxury homes",
+        "text": "Best real estate agent in Logan or Dupont",
         "category": "ranking"
       },
       {
+        "id": "q07",
+        "text": "Best off market realtor",
+        "category": "specialty"
+      },
+      {
         "id": "q08",
-        "text": "Who is the top selling agent in Georgetown?",
+        "text": "Best real estate agent in AU Park",
         "category": "ranking"
       },
       {
@@ -102,11 +102,26 @@ window.AEO_DATA = {
       },
       {
         "id": "q10",
-        "text": "Alexandra Rivera Washington Fine Properties profile",
-        "category": "profile"
+        "text": "Best real estate agent in Chevy Chase or Chevy Chase Village",
+        "category": "ranking"
+      },
+      {
+        "id": "q11",
+        "text": "Best real estate agent in Woodacres Bethesda",
+        "category": "ranking"
+      },
+      {
+        "id": "q12",
+        "text": "Best real estate agent in Massachusetts Avenue Heights",
+        "category": "ranking"
+      },
+      {
+        "id": "q13",
+        "text": "Best buyer's agent in Washington DC",
+        "category": "buyer"
       }
     ],
-    "methodologyNote": "Sample data: a fictional agent evaluated on 10 agent-focused questions across answer engines using a manual, LLM-assisted capture. Metrics derived from response scoring (presence, position among tracked competitors, citations, explicit recommendation). Rank convention: rank-when-present (absent = null)."
+    "methodologyNote": "Sample data: a fictional agent evaluated on 13 non-branded questions across answer engines using a manual, LLM-assisted capture. Metrics derived from response scoring (presence, position among tracked competitors, own-domain citations). Rank convention: rank-when-present (absent = null)."
   },
   "snapshots": [
     {
@@ -118,57 +133,12 @@ window.AEO_DATA = {
           "engine": "chatgpt",
           "queryId": "q01",
           "subjectPresent": true,
-          "subjectRank": 5,
-          "subjectRecommended": false,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 1,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q02",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q03",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
+          "subjectRank": 3,
+          "subjectCited": false,
           "totalCitations": 9,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 3,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q04",
-          "subjectPresent": true,
-          "subjectRank": 4,
-          "subjectRecommended": false,
-          "totalCitations": 6,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 3,
+            "hargrove": 1,
+            "okonkwo": 0,
             "meridian": 0,
             "bellandco": 0,
             "whitfield": 0
@@ -176,28 +146,73 @@ window.AEO_DATA = {
         },
         {
           "engine": "chatgpt",
-          "queryId": "q05",
+          "queryId": "q02",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
+          "subjectCited": false,
+          "totalCitations": 7,
+          "competitorMentions": {
+            "hargrove": 2,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q03",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q04",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
           "totalCitations": 8,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 2,
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
             "bellandco": 1,
             "whitfield": 0
           }
         },
         {
           "engine": "chatgpt",
-          "queryId": "q06",
-          "subjectPresent": true,
-          "subjectRank": 6,
-          "subjectRecommended": false,
-          "totalCitations": 5,
+          "queryId": "q05",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 6,
           "competitorMentions": {
             "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q06",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 9,
+          "competitorMentions": {
+            "hargrove": 0,
             "okonkwo": 0,
             "meridian": 1,
             "bellandco": 0,
@@ -209,14 +224,14 @@ window.AEO_DATA = {
           "queryId": "q07",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 9,
+          "subjectCited": false,
+          "totalCitations": 7,
           "competitorMentions": {
-            "hargrove": 4,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 1,
-            "whitfield": 0
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
           }
         },
         {
@@ -224,12 +239,12 @@ window.AEO_DATA = {
           "queryId": "q08",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 7,
+          "subjectCited": false,
+          "totalCitations": 10,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
             "bellandco": 0,
             "whitfield": 0
           }
@@ -237,16 +252,16 @@ window.AEO_DATA = {
         {
           "engine": "chatgpt",
           "queryId": "q09",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 9,
+          "subjectPresent": true,
+          "subjectRank": 4,
+          "subjectCited": false,
+          "totalCitations": 8,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 3,
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 1,
             "bellandco": 0,
-            "whitfield": 1
+            "whitfield": 0
           }
         },
         {
@@ -254,71 +269,56 @@ window.AEO_DATA = {
           "queryId": "q10",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
+          "subjectCited": false,
           "totalCitations": 6,
           "competitorMentions": {
-            "hargrove": 1,
+            "hargrove": 0,
             "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q11",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 9,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q12",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 7,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
             "meridian": 1,
             "bellandco": 0,
             "whitfield": 1
           }
         },
         {
-          "engine": "gemini",
-          "queryId": "q01",
-          "subjectPresent": true,
-          "subjectRank": 6,
-          "subjectRecommended": false,
-          "totalCitations": 6,
+          "engine": "chatgpt",
+          "queryId": "q13",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 10,
           "competitorMentions": {
-            "hargrove": 2,
+            "hargrove": 0,
             "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q02",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q03",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q04",
-          "subjectPresent": true,
-          "subjectRank": 5,
-          "subjectRecommended": false,
-          "totalCitations": 5,
-          "competitorMentions": {
-            "hargrove": 1,
-            "okonkwo": 3,
             "meridian": 0,
             "bellandco": 0,
             "whitfield": 0
@@ -326,17 +326,77 @@ window.AEO_DATA = {
         },
         {
           "engine": "gemini",
-          "queryId": "q05",
+          "queryId": "q01",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 7,
+          "subjectCited": false,
+          "totalCitations": 11,
           "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 2,
-            "meridian": 2,
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q02",
+          "subjectPresent": true,
+          "subjectRank": 1,
+          "subjectCited": true,
+          "totalCitations": 9,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q03",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 12,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q04",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
             "bellandco": 1,
             "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q05",
+          "subjectPresent": true,
+          "subjectRank": 3,
+          "subjectCited": false,
+          "totalCitations": 8,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
           }
         },
         {
@@ -344,10 +404,10 @@ window.AEO_DATA = {
           "queryId": "q06",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 4,
+          "subjectCited": false,
+          "totalCitations": 11,
           "competitorMentions": {
-            "hargrove": 1,
+            "hargrove": 0,
             "okonkwo": 0,
             "meridian": 1,
             "bellandco": 0,
@@ -359,12 +419,12 @@ window.AEO_DATA = {
           "queryId": "q07",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 8,
+          "subjectCited": false,
+          "totalCitations": 9,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
             "bellandco": 0,
             "whitfield": 1
           }
@@ -374,11 +434,11 @@ window.AEO_DATA = {
           "queryId": "q08",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 6,
+          "subjectCited": false,
+          "totalCitations": 12,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
+            "hargrove": 0,
+            "okonkwo": 0,
             "meridian": 1,
             "bellandco": 0,
             "whitfield": 0
@@ -389,12 +449,12 @@ window.AEO_DATA = {
           "queryId": "q09",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 8,
+          "subjectCited": false,
+          "totalCitations": 10,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 3,
-            "meridian": 2,
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
             "bellandco": 0,
             "whitfield": 0
           }
@@ -404,27 +464,72 @@ window.AEO_DATA = {
           "queryId": "q10",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 5,
+          "subjectCited": false,
+          "totalCitations": 8,
           "competitorMentions": {
-            "hargrove": 1,
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q11",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 11,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q12",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 9,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q13",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 12,
+          "competitorMentions": {
+            "hargrove": 0,
             "okonkwo": 1,
             "meridian": 1,
             "bellandco": 0,
-            "whitfield": 1
+            "whitfield": 0
           }
         },
         {
           "engine": "perplexity",
           "queryId": "q01",
           "subjectPresent": true,
-          "subjectRank": 4,
-          "subjectRecommended": false,
-          "totalCitations": 7,
+          "subjectRank": 1,
+          "subjectCited": true,
+          "totalCitations": 13,
           "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 2,
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
             "bellandco": 0,
             "whitfield": 1
           }
@@ -434,27 +539,27 @@ window.AEO_DATA = {
           "queryId": "q02",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 9,
+          "subjectCited": false,
+          "totalCitations": 11,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 3,
+            "hargrove": 2,
+            "okonkwo": 0,
+            "meridian": 1,
             "bellandco": 0,
-            "whitfield": 1
+            "whitfield": 0
           }
         },
         {
           "engine": "perplexity",
           "queryId": "q03",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 9,
+          "subjectPresent": true,
+          "subjectRank": 3,
+          "subjectCited": false,
+          "totalCitations": 14,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 3,
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
             "bellandco": 0,
             "whitfield": 1
           }
@@ -464,13 +569,13 @@ window.AEO_DATA = {
           "queryId": "q04",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 6,
+          "subjectCited": false,
+          "totalCitations": 12,
           "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 3,
-            "meridian": 1,
-            "bellandco": 0,
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 1,
             "whitfield": 0
           }
         },
@@ -479,14 +584,14 @@ window.AEO_DATA = {
           "queryId": "q05",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 8,
+          "subjectCited": false,
+          "totalCitations": 10,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 3,
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
             "bellandco": 0,
-            "whitfield": 0
+            "whitfield": 1
           }
         },
         {
@@ -494,12 +599,12 @@ window.AEO_DATA = {
           "queryId": "q06",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 5,
+          "subjectCited": false,
+          "totalCitations": 13,
           "competitorMentions": {
-            "hargrove": 1,
-            "okonkwo": 1,
-            "meridian": 2,
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
             "bellandco": 0,
             "whitfield": 0
           }
@@ -509,14 +614,14 @@ window.AEO_DATA = {
           "queryId": "q07",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 9,
+          "subjectCited": false,
+          "totalCitations": 11,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 3,
-            "bellandco": 1,
-            "whitfield": 0
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
           }
         },
         {
@@ -524,12 +629,12 @@ window.AEO_DATA = {
           "queryId": "q08",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 7,
+          "subjectCited": false,
+          "totalCitations": 14,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
             "bellandco": 0,
             "whitfield": 0
           }
@@ -537,15 +642,15 @@ window.AEO_DATA = {
         {
           "engine": "perplexity",
           "queryId": "q09",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 9,
+          "subjectPresent": true,
+          "subjectRank": 2,
+          "subjectCited": true,
+          "totalCitations": 12,
           "competitorMentions": {
-            "hargrove": 3,
+            "hargrove": 2,
             "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 1,
+            "meridian": 0,
+            "bellandco": 0,
             "whitfield": 1
           }
         },
@@ -554,14 +659,59 @@ window.AEO_DATA = {
           "queryId": "q10",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 6,
+          "subjectCited": false,
+          "totalCitations": 10,
           "competitorMentions": {
-            "hargrove": 2,
+            "hargrove": 0,
             "okonkwo": 1,
-            "meridian": 2,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q11",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 13,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q12",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 11,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
             "bellandco": 0,
             "whitfield": 1
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q13",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 14,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
           }
         },
         {
@@ -569,12 +719,12 @@ window.AEO_DATA = {
           "queryId": "q01",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
+          "subjectCited": false,
           "totalCitations": 6,
           "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 2,
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
             "bellandco": 0,
             "whitfield": 0
           }
@@ -582,14 +732,14 @@ window.AEO_DATA = {
         {
           "engine": "claude",
           "queryId": "q02",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 7,
+          "subjectPresent": true,
+          "subjectRank": 1,
+          "subjectCited": false,
+          "totalCitations": 4,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
             "bellandco": 0,
             "whitfield": 0
           }
@@ -597,16 +747,16 @@ window.AEO_DATA = {
         {
           "engine": "claude",
           "queryId": "q03",
-          "subjectPresent": true,
-          "subjectRank": 7,
-          "subjectRecommended": false,
-          "totalCitations": 8,
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 7,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 2,
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
             "bellandco": 0,
-            "whitfield": 1
+            "whitfield": 0
           }
         },
         {
@@ -614,13 +764,13 @@ window.AEO_DATA = {
           "queryId": "q04",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
+          "subjectCited": false,
           "totalCitations": 5,
           "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 2,
-            "meridian": 1,
-            "bellandco": 0,
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 1,
             "whitfield": 0
           }
         },
@@ -629,14 +779,14 @@ window.AEO_DATA = {
           "queryId": "q05",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 6,
+          "subjectCited": false,
+          "totalCitations": 3,
           "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 2,
-            "meridian": 2,
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
             "bellandco": 0,
-            "whitfield": 0
+            "whitfield": 1
           }
         },
         {
@@ -644,10 +794,10 @@ window.AEO_DATA = {
           "queryId": "q06",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 4,
+          "subjectCited": false,
+          "totalCitations": 6,
           "competitorMentions": {
-            "hargrove": 1,
+            "hargrove": 0,
             "okonkwo": 0,
             "meridian": 1,
             "bellandco": 0,
@@ -659,12 +809,12 @@ window.AEO_DATA = {
           "queryId": "q07",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 8,
+          "subjectCited": false,
+          "totalCitations": 4,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
             "bellandco": 0,
             "whitfield": 1
           }
@@ -674,12 +824,12 @@ window.AEO_DATA = {
           "queryId": "q08",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 6,
+          "subjectCited": false,
+          "totalCitations": 7,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 2,
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
             "bellandco": 0,
             "whitfield": 0
           }
@@ -689,14 +839,14 @@ window.AEO_DATA = {
           "queryId": "q09",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 8,
+          "subjectCited": false,
+          "totalCitations": 5,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 2,
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
             "bellandco": 0,
-            "whitfield": 1
+            "whitfield": 0
           }
         },
         {
@@ -704,14 +854,59 @@ window.AEO_DATA = {
           "queryId": "q10",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 5,
+          "subjectCited": false,
+          "totalCitations": 3,
           "competitorMentions": {
-            "hargrove": 1,
+            "hargrove": 0,
             "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q11",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 6,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q12",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 4,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
             "meridian": 1,
             "bellandco": 0,
-            "whitfield": 1
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q13",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 7,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
           }
         }
       ]
@@ -725,538 +920,673 @@ window.AEO_DATA = {
           "engine": "chatgpt",
           "queryId": "q01",
           "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": true,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q02",
-          "subjectPresent": true,
-          "subjectRank": 4,
-          "subjectRecommended": false,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q03",
-          "subjectPresent": true,
-          "subjectRank": 5,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q04",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": true,
-          "totalCitations": 6,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 2,
-            "meridian": 1,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q05",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 2,
-            "bellandco": 1,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q06",
-          "subjectPresent": true,
-          "subjectRank": 4,
-          "subjectRecommended": false,
-          "totalCitations": 6,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q07",
-          "subjectPresent": true,
-          "subjectRank": 5,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 1,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q08",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q09",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q10",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": true,
-          "totalCitations": 6,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 1,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q01",
-          "subjectPresent": true,
-          "subjectRank": 4,
-          "subjectRecommended": true,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 2,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q02",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": false,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q03",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q04",
-          "subjectPresent": true,
           "subjectRank": 2,
-          "subjectRecommended": true,
+          "subjectCited": true,
           "totalCitations": 6,
           "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 3,
+            "hargrove": 1,
+            "okonkwo": 0,
             "meridian": 0,
             "bellandco": 0,
             "whitfield": 0
           }
         },
         {
-          "engine": "gemini",
-          "queryId": "q05",
-          "subjectPresent": true,
-          "subjectRank": 4,
-          "subjectRecommended": false,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q06",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 5,
-          "competitorMentions": {
-            "hargrove": 1,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q07",
-          "subjectPresent": true,
-          "subjectRank": 5,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 1,
-            "bellandco": 1,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q08",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q09",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 1,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q10",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 6,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q01",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": true,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 1,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "perplexity",
+          "engine": "chatgpt",
           "queryId": "q02",
-          "subjectPresent": true,
-          "subjectRank": 4,
-          "subjectRecommended": false,
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
           "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q03",
-          "subjectPresent": true,
-          "subjectRank": 5,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q04",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 6,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 3,
-            "meridian": 1,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q05",
-          "subjectPresent": true,
-          "subjectRank": 4,
-          "subjectRecommended": false,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 2,
-            "meridian": 2,
-            "bellandco": 1,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q06",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 5,
-          "competitorMentions": {
-            "hargrove": 1,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q07",
-          "subjectPresent": true,
-          "subjectRank": 5,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 1,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q08",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q09",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 1,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q10",
-          "subjectPresent": true,
-          "subjectRank": 4,
-          "subjectRecommended": true,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "claude",
-          "queryId": "q01",
-          "subjectPresent": true,
-          "subjectRank": 4,
-          "subjectRecommended": true,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "claude",
-          "queryId": "q02",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": false,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "claude",
-          "queryId": "q03",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "claude",
-          "queryId": "q04",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": true,
-          "totalCitations": 6,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 3,
-            "meridian": 0,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "claude",
-          "queryId": "q05",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "claude",
-          "queryId": "q06",
-          "subjectPresent": true,
-          "subjectRank": 4,
-          "subjectRecommended": false,
-          "totalCitations": 5,
           "competitorMentions": {
             "hargrove": 2,
             "okonkwo": 0,
-            "meridian": 2,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q03",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 7,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q04",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q05",
+          "subjectPresent": true,
+          "subjectRank": 3,
+          "subjectCited": false,
+          "totalCitations": 8,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q06",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 6,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q07",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 9,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q08",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 7,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q09",
+          "subjectPresent": true,
+          "subjectRank": 3,
+          "subjectCited": false,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q10",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 8,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q11",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 6,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q12",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 9,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q13",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 7,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q01",
+          "subjectPresent": true,
+          "subjectRank": 2,
+          "subjectCited": true,
+          "totalCitations": 8,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q02",
+          "subjectPresent": true,
+          "subjectRank": 1,
+          "subjectCited": false,
+          "totalCitations": 11,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q03",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 9,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q04",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 12,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q05",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q06",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 8,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q07",
+          "subjectPresent": true,
+          "subjectRank": 3,
+          "subjectCited": false,
+          "totalCitations": 11,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q08",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 9,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q09",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 12,
+          "competitorMentions": {
+            "hargrove": 2,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q10",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q11",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 8,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q12",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 11,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q13",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 9,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q01",
+          "subjectPresent": true,
+          "subjectRank": 1,
+          "subjectCited": true,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q02",
+          "subjectPresent": true,
+          "subjectRank": 1,
+          "subjectCited": true,
+          "totalCitations": 13,
+          "competitorMentions": {
+            "hargrove": 2,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q03",
+          "subjectPresent": true,
+          "subjectRank": 2,
+          "subjectCited": false,
+          "totalCitations": 11,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q04",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 14,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q05",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 12,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q06",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q07",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 13,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q08",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 11,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q09",
+          "subjectPresent": true,
+          "subjectRank": 2,
+          "subjectCited": true,
+          "totalCitations": 14,
+          "competitorMentions": {
+            "hargrove": 2,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q10",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 12,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q11",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q12",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 13,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q13",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 11,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q01",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 3,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q02",
+          "subjectPresent": true,
+          "subjectRank": 1,
+          "subjectCited": false,
+          "totalCitations": 6,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q03",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 4,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q04",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 7,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q05",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 5,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q06",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 3,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
             "bellandco": 0,
             "whitfield": 0
           }
@@ -1264,16 +1594,16 @@ window.AEO_DATA = {
         {
           "engine": "claude",
           "queryId": "q07",
-          "subjectPresent": true,
-          "subjectRank": 5,
-          "subjectRecommended": false,
-          "totalCitations": 9,
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 6,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 1,
-            "whitfield": 0
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
           }
         },
         {
@@ -1281,12 +1611,12 @@ window.AEO_DATA = {
           "queryId": "q08",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 7,
+          "subjectCited": false,
+          "totalCitations": 4,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
             "bellandco": 0,
             "whitfield": 0
           }
@@ -1296,14 +1626,14 @@ window.AEO_DATA = {
           "queryId": "q09",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 9,
+          "subjectCited": false,
+          "totalCitations": 7,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 3,
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
             "bellandco": 0,
-            "whitfield": 1
+            "whitfield": 0
           }
         },
         {
@@ -1311,14 +1641,59 @@ window.AEO_DATA = {
           "queryId": "q10",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
+          "subjectCited": false,
+          "totalCitations": 5,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q11",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 3,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q12",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
           "totalCitations": 6,
           "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 2,
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
             "bellandco": 0,
-            "whitfield": 1
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q13",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 4,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
           }
         }
       ]
@@ -1333,537 +1708,672 @@ window.AEO_DATA = {
           "queryId": "q01",
           "subjectPresent": true,
           "subjectRank": 1,
-          "subjectRecommended": true,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q02",
-          "subjectPresent": true,
-          "subjectRank": 2,
-          "subjectRecommended": true,
+          "subjectCited": true,
           "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q03",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q04",
-          "subjectPresent": true,
-          "subjectRank": 1,
-          "subjectRecommended": true,
-          "totalCitations": 6,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 3,
-            "meridian": 0,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q05",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": false,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q06",
-          "subjectPresent": true,
-          "subjectRank": 2,
-          "subjectRecommended": true,
-          "totalCitations": 6,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q07",
-          "subjectPresent": true,
-          "subjectRank": 2,
-          "subjectRecommended": true,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 1,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q08",
-          "subjectPresent": true,
-          "subjectRank": 4,
-          "subjectRecommended": false,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q09",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 1,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "chatgpt",
-          "queryId": "q10",
-          "subjectPresent": true,
-          "subjectRank": 1,
-          "subjectRecommended": true,
-          "totalCitations": 6,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 1,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q01",
-          "subjectPresent": true,
-          "subjectRank": 2,
-          "subjectRecommended": true,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 2,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q02",
-          "subjectPresent": true,
-          "subjectRank": 2,
-          "subjectRecommended": true,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q03",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q04",
-          "subjectPresent": true,
-          "subjectRank": 1,
-          "subjectRecommended": true,
-          "totalCitations": 6,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 3,
-            "meridian": 0,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q05",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": false,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q06",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": false,
-          "totalCitations": 6,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q07",
-          "subjectPresent": true,
-          "subjectRank": 4,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 1,
-            "bellandco": 1,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q08",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q09",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 1,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "gemini",
-          "queryId": "q10",
-          "subjectPresent": true,
-          "subjectRank": 2,
-          "subjectRecommended": true,
-          "totalCitations": 6,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q01",
-          "subjectPresent": true,
-          "subjectRank": 2,
-          "subjectRecommended": true,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 1,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q02",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q03",
-          "subjectPresent": true,
-          "subjectRank": 2,
-          "subjectRecommended": true,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q04",
-          "subjectPresent": true,
-          "subjectRank": 2,
-          "subjectRecommended": true,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 3,
-            "meridian": 1,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q05",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": false,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 2,
-            "meridian": 2,
-            "bellandco": 1,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q06",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 5,
           "competitorMentions": {
             "hargrove": 1,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q07",
-          "subjectPresent": true,
-          "subjectRank": 4,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 1,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q08",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": false,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q09",
-          "subjectPresent": false,
-          "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 9,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 1,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "perplexity",
-          "queryId": "q10",
-          "subjectPresent": true,
-          "subjectRank": 2,
-          "subjectRecommended": true,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "claude",
-          "queryId": "q01",
-          "subjectPresent": true,
-          "subjectRank": 2,
-          "subjectRecommended": true,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "claude",
-          "queryId": "q02",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": false,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "claude",
-          "queryId": "q03",
-          "subjectPresent": true,
-          "subjectRank": 2,
-          "subjectRecommended": true,
-          "totalCitations": 8,
-          "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 1
-          }
-        },
-        {
-          "engine": "claude",
-          "queryId": "q04",
-          "subjectPresent": true,
-          "subjectRank": 1,
-          "subjectRecommended": true,
-          "totalCitations": 6,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 3,
+            "okonkwo": 0,
             "meridian": 0,
             "bellandco": 0,
             "whitfield": 0
           }
         },
         {
-          "engine": "claude",
-          "queryId": "q05",
-          "subjectPresent": true,
-          "subjectRank": 4,
-          "subjectRecommended": false,
-          "totalCitations": 7,
-          "competitorMentions": {
-            "hargrove": 2,
-            "okonkwo": 2,
-            "meridian": 2,
-            "bellandco": 0,
-            "whitfield": 0
-          }
-        },
-        {
-          "engine": "claude",
-          "queryId": "q06",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": false,
-          "totalCitations": 5,
+          "engine": "chatgpt",
+          "queryId": "q02",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 6,
           "competitorMentions": {
             "hargrove": 2,
             "okonkwo": 0,
-            "meridian": 2,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q03",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 9,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q04",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 7,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q05",
+          "subjectPresent": true,
+          "subjectRank": 3,
+          "subjectCited": false,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q06",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 8,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q07",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 6,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q08",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 9,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q09",
+          "subjectPresent": true,
+          "subjectRank": 2,
+          "subjectCited": false,
+          "totalCitations": 7,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q10",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q11",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 8,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q12",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 6,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "chatgpt",
+          "queryId": "q13",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 9,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q01",
+          "subjectPresent": true,
+          "subjectRank": 1,
+          "subjectCited": true,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q02",
+          "subjectPresent": true,
+          "subjectRank": 2,
+          "subjectCited": false,
+          "totalCitations": 8,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q03",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 11,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q04",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 9,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q05",
+          "subjectPresent": true,
+          "subjectRank": 2,
+          "subjectCited": false,
+          "totalCitations": 12,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q06",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q07",
+          "subjectPresent": true,
+          "subjectRank": 3,
+          "subjectCited": true,
+          "totalCitations": 8,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q08",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 11,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q09",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 9,
+          "competitorMentions": {
+            "hargrove": 2,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q10",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 12,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q11",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q12",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 8,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "gemini",
+          "queryId": "q13",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 11,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q01",
+          "subjectPresent": true,
+          "subjectRank": 1,
+          "subjectCited": true,
+          "totalCitations": 12,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q02",
+          "subjectPresent": true,
+          "subjectRank": 1,
+          "subjectCited": true,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 2,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q03",
+          "subjectPresent": true,
+          "subjectRank": 2,
+          "subjectCited": false,
+          "totalCitations": 13,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q04",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 11,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q05",
+          "subjectPresent": true,
+          "subjectRank": 2,
+          "subjectCited": true,
+          "totalCitations": 14,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q06",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 12,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q07",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q08",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 13,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q09",
+          "subjectPresent": true,
+          "subjectRank": 3,
+          "subjectCited": false,
+          "totalCitations": 11,
+          "competitorMentions": {
+            "hargrove": 2,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q10",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 14,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q11",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 12,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q12",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 10,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "perplexity",
+          "queryId": "q13",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 13,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q01",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 5,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q02",
+          "subjectPresent": true,
+          "subjectRank": 1,
+          "subjectCited": false,
+          "totalCitations": 3,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q03",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 6,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q04",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 4,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 1,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q05",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 7,
+          "competitorMentions": {
+            "hargrove": 1,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q06",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 5,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
             "bellandco": 0,
             "whitfield": 0
           }
@@ -1871,16 +2381,16 @@ window.AEO_DATA = {
         {
           "engine": "claude",
           "queryId": "q07",
-          "subjectPresent": true,
-          "subjectRank": 3,
-          "subjectRecommended": false,
-          "totalCitations": 9,
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 3,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
-            "bellandco": 1,
-            "whitfield": 0
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 1
           }
         },
         {
@@ -1888,12 +2398,12 @@ window.AEO_DATA = {
           "queryId": "q08",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 7,
+          "subjectCited": false,
+          "totalCitations": 6,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 1,
-            "meridian": 3,
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
             "bellandco": 0,
             "whitfield": 0
           }
@@ -1903,27 +2413,72 @@ window.AEO_DATA = {
           "queryId": "q09",
           "subjectPresent": false,
           "subjectRank": null,
-          "subjectRecommended": false,
-          "totalCitations": 9,
+          "subjectCited": false,
+          "totalCitations": 4,
           "competitorMentions": {
-            "hargrove": 3,
-            "okonkwo": 2,
-            "meridian": 3,
+            "hargrove": 1,
+            "okonkwo": 1,
+            "meridian": 0,
             "bellandco": 0,
-            "whitfield": 1
+            "whitfield": 0
           }
         },
         {
           "engine": "claude",
           "queryId": "q10",
-          "subjectPresent": true,
-          "subjectRank": 2,
-          "subjectRecommended": true,
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 7,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q11",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 5,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 1,
+            "meridian": 0,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q12",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
+          "totalCitations": 3,
+          "competitorMentions": {
+            "hargrove": 0,
+            "okonkwo": 0,
+            "meridian": 1,
+            "bellandco": 0,
+            "whitfield": 0
+          }
+        },
+        {
+          "engine": "claude",
+          "queryId": "q13",
+          "subjectPresent": false,
+          "subjectRank": null,
+          "subjectCited": false,
           "totalCitations": 6,
           "competitorMentions": {
-            "hargrove": 2,
+            "hargrove": 0,
             "okonkwo": 1,
-            "meridian": 2,
+            "meridian": 0,
             "bellandco": 0,
             "whitfield": 0
           }
