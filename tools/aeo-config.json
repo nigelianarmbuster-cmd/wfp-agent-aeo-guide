@@ -1,0 +1,41 @@
+{
+  "site": "alexrivera.example.com",
+  "subject": {
+    "name": "Alexandra Rivera",
+    "shortName": "Rivera",
+    "company": "Washington Fine Properties",
+    "site": "alexrivera.example.com"
+  },
+  "aliases": "(?i)(alexandra\\s+rivera|rivera)",
+  "domains": ["alexrivera.example.com"],
+  "preamble": "Answer the following question about the Washington DC real estate market.",
+  "engines": [
+    {"id": "chatgpt", "name": "ChatGPT", "model": ""},
+    {"id": "gemini", "name": "Gemini", "model": ""},
+    {"id": "perplexity", "name": "Perplexity", "model": ""},
+    {"id": "claude", "name": "Claude", "model": ""}
+  ],
+  "competitors": [
+    {"id": "hargrove", "name": "Whitmore Hargrove"},
+    {"id": "okonkwo", "name": "Daniela Okonkwo"},
+    {"id": "meridian", "name": "The Meridian Group"},
+    {"id": "bellandco", "name": "Bell & Co."},
+    {"id": "whitfield", "name": "Marcus Whitfield"}
+  ],
+  "queries": [
+    {"id": "q01", "text": "Luxury realtor in Georgetown", "category": "discovery"},
+    {"id": "q02", "text": "Best real estate agent in Georgetown", "category": "ranking"},
+    {"id": "q03", "text": "Best real estate agent in Kalorama", "category": "ranking"},
+    {"id": "q04", "text": "Best real estate agent in Wesley Heights or Kent", "category": "ranking"},
+    {"id": "q05", "text": "Best realtor in Washington DC for homes over $5 million", "category": "price"},
+    {"id": "q06", "text": "Best real estate agent in Logan or Dupont", "category": "ranking"},
+    {"id": "q07", "text": "Best off market realtor", "category": "specialty"},
+    {"id": "q08", "text": "Best real estate agent in AU Park", "category": "ranking"},
+    {"id": "q09", "text": "Washington DC luxury real estate agent rankings", "category": "ranking"},
+    {"id": "q10", "text": "Best real estate agent in Chevy Chase or Chevy Chase Village", "category": "ranking"},
+    {"id": "q11", "text": "Best real estate agent in Woodacres Bethesda", "category": "ranking"},
+    {"id": "q12", "text": "Best real estate agent in Massachusetts Avenue Heights", "category": "ranking"},
+    {"id": "q13", "text": "Best buyer's agent in Washington DC", "category": "buyer"}
+  ],
+  "datasetLabel": "Alexandra Rivera - Washington DC luxury market"
+}
