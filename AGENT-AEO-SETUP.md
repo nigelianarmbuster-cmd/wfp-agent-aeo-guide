@@ -1,12 +1,13 @@
 # AEO Dashboard Setup - Agent State Doc
 
-**Version:** 1.0.2
-**Date:** 2026-09-10
+**Version:** 1.1.0
+**Date:** 2026-09-23
 **Purpose:** Instructions for an AI assistant to set up and maintain a personal Answer Engine Optimization (AEO) dashboard for a Washington Fine Properties agent.
 
 > If you are an AI assistant reading this: follow this document exactly, phase by phase. If a newer version of this document exists in the repository, use that version instead.
 
 **Changelog**
+- **1.1.0 (2026-09-23)** - Metric redefinitions: Own-Domain Cited replaces Citation Share; Recommendation Rate defined downstream as appearing at #1 position; `subjectRecommended` retired as a raw field; `excerpt` renamed `responseExcerpt`; 13 non-branded queries replace the 10 (partly branded) questions; `subjectCited` added to result rows; `dataStatus` gains `live` alongside `manual` and `model`.
 - **1.0.2 (2026-09-10)** - Mode A now has the assistant obtain the dashboard template itself (clone the repo or extract the release zip) so the agentic path is hands-off; Mode B keeps the manual download step.
 - **1.0.1 (2026-09-10)** - Clarified that un-evaluated engines/queries must be omitted from `results` (not emitted with null fields); made the query set adapt to the agent's own market via placeholders; added an optional verbatim `excerpt` field; clarified `meta.engines` coverage behavior, manual-vs-dry-run status, and which phases a chat-only assistant can produce as copy blocks.
 - **1.0.0 (2026-09-10)** - Initial public release.
@@ -75,11 +76,12 @@ Ask the user the following, **one at a time**, and confirm each answer before mo
 1. **Full name** - exactly as it should appear in an answer (include how they want a common name disambiguated, if relevant).
 2. **Company / brokerage** - for WFP agents this is usually "Washington Fine Properties".
 3. **Do you have your own website?** If yes, the URL.
-4. **Where do your testimonials / reviews live?** (Google Business Profile, Zillow, Realtor.com, personal site, other - list all that apply.)
-5. **Service areas / neighborhoods** - the specific places they want to be known for (e.g., Georgetown, Kalorama, Cleveland Park).
-6. **Main competitors** - 2 to 5, ideally other individual agents or teams competing for the same listings in the same neighborhoods. (These become the tracked competitors in the dashboard.)
-7. **Which answer engines can you access?** The default set is the four API-queryable engines: ChatGPT, Gemini, Perplexity, Claude. You will only evaluate engines the user can actually reach. Google AI Overviews is **not** one of those four - it is an **optional manual addition** the user may choose to observe separately (see Phase 2). Only include it if the user actually wants to run the manual check.
-8. **Do you have a wfp.com agent bio URL?** If yes, capture it. If not, note "none" - the user may still have other profiles.
+4. **Own website / domain for citation tracking** - the primary domain or URL to count for the Own-Domain Cited metric (matches `meta.subject.site`; if no personal domain, note "none" or specify bio URL).
+5. **Where do your testimonials / reviews live?** (Google Business Profile, Zillow, Realtor.com, personal site, other - list all that apply.)
+6. **Service areas / neighborhoods** - the specific places they want to be known for (e.g., Georgetown, Kalorama, Cleveland Park). Used to fill the neighborhood slots in the query set.
+7. **Main competitors** - 2 to 5, ideally other individual agents or teams competing for the same listings in the same neighborhoods. (These become the tracked competitors in the dashboard.)
+8. **Which answer engines can you access?** The default set is the four API-queryable engines: ChatGPT, Gemini, Perplexity, Claude. You will only evaluate engines the user can actually reach. Google AI Overviews is **not** one of those four - it is an **optional manual addition (off by default)** the user may choose to observe separately (see Phase 2). Only include it if the user explicitly opts in to the manual check.
+9. **Do you have a wfp.com agent bio URL?** If yes, capture it. If not, note "none" - the user may still have other profiles.
 
 Record all of this. You will reuse it every run.
 
@@ -87,22 +89,25 @@ Record all of this. You will reuse it every run.
 
 ## Phase 2 - Run the query set
 
-Run the frozen 10-query set below. The queries below are **templates**, shown with Washington DC examples as illustrations. You **must adapt them to the agent's actual market** by substituting their name, service areas, neighborhoods, and company (from Phase 1). Keep the **10-question structure and categories stable** across runs so trends stay comparable.
+Run the frozen 13-query set below. The queries below are **templates**, shown with Washington DC examples as illustrations. You **must adapt them to the agent's actual market** by substituting their service areas, price band, and neighborhoods (from Phase 1). None of the queries name the subject (all 13 are non-branded). Keep the **13-question structure and categories stable** across runs so trends stay comparable.
 
 | id | Query (template) | Category | DC example (illustration) |
 |---|---|---|---|
-| q01 | Who is `{Full Name}`? | profile | Who is Alexandra Rivera? |
-| q02 | Best real estate agent in `{Neighborhood}` | ranking | Best real estate agent in Georgetown DC |
-| q03 | Top luxury real estate agents in `{Service Area}` | ranking | Top luxury real estate agents in Washington DC |
-| q04 | `{Full Name}` vs `{Competitor 1}` | comparison | Alexandra Rivera vs Dana Okonkwo |
-| q05 | Top real estate agents in `{Service Area}` | ranking | Top real estate agents in Northwest Washington DC |
-| q06 | `{Full Name}` real estate reviews | reputation | Alexandra Rivera real estate reviews |
-| q07 | Best real estate agent in `{Service Area}` for luxury homes | ranking | Best real estate agent in DC for luxury homes |
-| q08 | Who is the top selling agent in `{Neighborhood}`? | ranking | Who is the top selling agent in Georgetown? |
+| q01 | Luxury realtor in `{Neighborhood}` | discovery | Luxury realtor in Georgetown |
+| q02 | Best real estate agent in `{Neighborhood}` | ranking | Best real estate agent in Georgetown |
+| q03 | Best real estate agent in `{Neighborhood}` | ranking | Best real estate agent in Kalorama |
+| q04 | Best real estate agent in `{Neighborhood}` or `{Neighborhood}` | ranking | Best real estate agent in Dupont Circle or Logan Circle |
+| q05 | Best realtor in `{Service Area}` for homes over `{Price Band}` | price | Best realtor in Washington DC for homes over $5 million |
+| q06 | Best real estate agent in `{Neighborhood}` or `{Neighborhood}` | ranking | Best real estate agent in Cleveland Park or Woodley Park |
+| q07 | Best off market realtor | specialty | Best off market realtor |
+| q08 | Best real estate agent in `{Neighborhood}` | ranking | Best real estate agent in Capitol Hill |
 | q09 | `{Service Area}` luxury real estate agent rankings | ranking | Washington DC luxury real estate agent rankings |
-| q10 | `{Full Name}` `{Company}` profile | profile | Alexandra Rivera Washington Fine Properties profile |
+| q10 | Best real estate agent in `{Neighborhood}` or `{Neighborhood}` | ranking | Best real estate agent in Spring Valley or Wesley Heights |
+| q11 | Best real estate agent in `{Neighborhood}` | ranking | Best real estate agent in Georgetown |
+| q12 | Best real estate agent in `{Neighborhood}` | ranking | Best real estate agent in Foggy Bottom |
+| q13 | Best buyer's agent in `{Service Area}` | buyer | Best buyer's agent in Washington DC |
 
-On the first run, fill in every placeholder: `{Full Name}`, `{Company}`, `{Service Area}`, and `{Neighborhood}` (the specific place the agent wants to be known for). `{Competitor 1}` is the first tracked competitor. The user may add or change **a few** queries on the first run, but once chosen, **keep the set stable across every subsequent run**.
+On the first run, fill in the placeholders: `{Service Area}`, `{Price Band}` (e.g., `$5 million`), and `{Neighborhood}`. Neighborhood slots are filled from the agent's own neighborhood list (Phase 1); the agent may cycle their neighborhoods across the ranking slots. The user may adjust the neighborhood choices on the first run, but once chosen, **keep the set stable across every subsequent run**.
 
 ### Query-syntax guidance
 
@@ -126,18 +131,18 @@ If a preamble is used:
 
 For **each accessible engine**, and **each query**, record:
 
-- The answer **verbatim** as an excerpt of **200 characters or fewer** (store it in the optional `excerpt` field - see Phase 4). Never paraphrase inside quotation marks.
-- Whether the agent **appears** in the answer (yes/no).
-- The agent's **rank** among the tracked competitors (1 = named first; `null` if absent).
-- Whether the agent is **explicitly recommended** (yes/no).
-- The **number of distinct cited domains** in the answer (an integer).
-- How many times each tracked **competitor** is mentioned.
+- The answer **verbatim** as an excerpt of **200 characters or fewer** (store it in the optional `responseExcerpt` field - see Phase 4). Never paraphrase inside quotation marks.
+- Whether the agent **appears** in the answer (`subjectPresent`: `true`/`false`).
+- The agent's **rank** among the tracked competitors (`subjectRank`: `1` = named first; `null` if absent). Rank convention: rank-when-present (absent = `null`).
+- Whether the answer **cited the agent's own website/domain** (`subjectCited`: `true`/`false`/`null`).
+- The **total number of citations / cited domains** in the answer (`totalCitations`: integer).
+- How many times each tracked **competitor** is mentioned (`competitorMentions`: object).
 
 **If an engine or query was NOT evaluated, omit its row entirely from `results`.** If an engine cannot be checked for any reason, do not emit a row for it, and do not emit rows with `null` metric fields - a partial or placeholder row would be counted by the dashboard as 0% visibility and silently corrupt the metrics. Simply leave the engine's rows out; the dashboard shows un-evaluated engines as **"pending"/missing via its coverage note**, so the omission is visible and correct. Do not guess.
 
 ### Manual Google AI Overviews check (optional)
 
-This check is **optional** and **not one of the four API-queryable engines**. Google AI Overviews has no official API - it is a Search SERP feature - so it can only ever be captured by hand. Treat it as an **optional manual addition** the user enables deliberately: run it only if the user chooses to, and only then should `google_ai_overviews` appear in `meta.engines` (see Phase 4). If the user does not want it, skip this section entirely and track the four API engines only.
+This check is **optional and off by default** - Google AI Overviews is **not** one of the four default API-queryable engines. Google AI Overviews has no official API - it is a Search SERP feature - so it can only ever be captured by hand. Treat it as an **optional manual addition** the user enables deliberately: run it only if the user chooses to, and only then should `google_ai_overviews` appear in `meta.engines` (see Phase 4). If the user does not want it, skip this section entirely and track the four API engines only.
 
 Google AI Overviews must be checked **manually** in a normal Google search - it is not the same as asking Gemini.
 
@@ -164,20 +169,20 @@ Derive every dashboard metric from the raw answers using this rubric. Rank conve
 
 Only score rows that were actually evaluated. Un-evaluated engines/queries have **no rows** in `results` (see Phase 2), so they are naturally excluded from the denominator. Do not substitute zeros for them.
 
-- **Presence** - treat as 1 if the agent is named in the answer, else 0.
-- **Rank** - position of the agent among the tracked competitors named in the answer (1 = first). `null` if absent.
-- **Recommendation** - 1 if the answer explicitly recommends the agent (not merely mentions them), else 0.
-- **Citations** - count of **distinct cited domains** in the answer.
+- **Presence (`subjectPresent`)** - `true` if the agent is named in the answer, else `false`.
+- **Rank (`subjectRank`)** - position of the agent among the tracked competitors named in the answer (`1` = first). `null` if absent.
+- **Own Site Cited (`subjectCited`)** - `true` if the answer cited the agent's own website (`meta.subject.site`) as a source, else `false`.
+- **Total Citations (`totalCitations`)** - count of distinct cited domains/sources in the answer.
 
 From these, the dashboard computes:
 
 | Metric | Meaning |
 |---|---|
 | **Visibility** | Share of evaluated answers where the agent is present. |
-| **Average Rank** | Mean rank across answers where the agent is present (`null` rows excluded). |
-| **Citation Share** | The agent's share of citations relative to tracked competitors. |
-| **Recommendation Rate** | Share of answers where the agent is explicitly recommended. |
-| **Share of Voice** | The agent's mentions as a share of all tracked mentions. |
+| **Average Rank** | Mean rank across answers where the agent is present (`null` rows excluded). Rank convention: rank-when-present (absent = `null`). |
+| **Own-Domain Cited** | Share of answers that cited the agent's own website (`meta.subject.site`) as a source. Computed from the boolean `subjectCited`; only rows that carry the field count; shown per engine. |
+| **Recommendation Rate** | Share of answers where the agent appeared in the #1 position (appeared and ranked #1). |
+| **Share of Voice** | The agent's mentions as a share of all tracked mentions (agent + tracked competitors). |
 
 ---
 
@@ -196,7 +201,7 @@ window.AEO_DATA = {
       "site": "{{USER SITE}}"
     },
     "generatedAt": "{{YYYY-MM-DD}}",
-    "dataStatus": "manual",              // "manual" => no SAMPLE badge on a real run
+    "dataStatus": "manual",              // "live" | "manual" | "model"
     "datasetLabel": "{{Short description of this run}}",
     "engines": [
       {"id":"chatgpt","name":"ChatGPT","model":""},
@@ -210,11 +215,11 @@ window.AEO_DATA = {
     "queries": [
       {"id":"q01","text":"{{query text}}","category":"{{category}}"}
     ],
-    "methodologyNote": "Manual, LLM-assisted capture. Metrics derived from response scoring (presence, position among tracked competitors, citations, explicit recommendation). Rank convention: rank-when-present (absent = null)."
+    "methodologyNote": "Manual or API-assisted capture. Metrics derived from response scoring (presence, position among tracked competitors, own-domain citation, #1 recommendation). Rank convention: rank-when-present (absent = null)."
   },
   "snapshots": [
     {"id":"{{YYYY-MM-DD}}","label":"{{Mon YYYY}}","method":"manual","results":[
-      {"engine":"chatgpt","queryId":"q01","subjectPresent":true,"subjectRank":2,"subjectRecommended":false,"totalCitations":7,"competitorMentions":{"{{id}}":1},"excerpt":"verbatim quote of 200 characters or fewer"}
+      {"engine":"chatgpt","queryId":"q01","subjectPresent":true,"subjectRank":1,"subjectCited":true,"totalCitations":7,"competitorMentions":{"{{id}}":1},"responseExcerpt":"verbatim quote of 200 characters or fewer"}
     ]}
   ]
 }
@@ -225,19 +230,24 @@ window.AEO_DATA = {
 **Result row shape** (the keys the dashboard reads):
 
 ```js
-{"engine":"chatgpt","queryId":"q01","subjectPresent":true,"subjectRank":2,"subjectRecommended":false,"totalCitations":7,"competitorMentions":{"{{competitorId}}":1},"excerpt":"verbatim quote of 200 characters or fewer"}
+{"engine":"chatgpt","queryId":"q01","subjectPresent":true,"subjectRank":1,"subjectCited":true,"totalCitations":7,"competitorMentions":{"{{competitorId}}":1},"responseExcerpt":"verbatim quote of 200 characters or fewer"}
 ```
 
-- `subjectPresent` (bool), `subjectRank` (int or null; `null` when absent), `subjectRecommended` (bool), `totalCitations` (int), `competitorMentions` (object keyed by competitor id).
-- `excerpt` (**OPTIONAL**, string, 200 characters or fewer, **verbatim**). The dashboard ignores extra fields, so adding `excerpt` does not break it - but it preserves **auditability**: anyone can later see the exact answer a score came from. You may instead (or also) collect these excerpts in `aeo-state.md`. Do not make `excerpt` required.
+- `subjectPresent` (bool), `subjectRank` (int or null; `null` when absent), `subjectCited` (bool or null; whether the agent's own site `meta.subject.site` was cited), `totalCitations` (int), `competitorMentions` (object keyed by competitor id).
+- `responseExcerpt` (**OPTIONAL**, string, 200 characters or fewer, **verbatim**). The dashboard ignores extra fields, so adding `responseExcerpt` does not break it - but it preserves **auditability**: anyone can later see the exact answer a score came from. You may instead (or also) collect these excerpts in `aeo-state.md`. Do not make `responseExcerpt` required.
+- **`subjectRecommended` is RETIRED.** It no longer exists as a field. Recommendation is defined downstream as appeared AND ranked #1 (`subjectPresent: true` and `subjectRank: 1`).
 - **Omit un-evaluated rows.** For any engine or query that was **not evaluated**, emit **no row at all**. Do not emit rows with `null` metric fields. The dashboard treats a missing engine as "pending" via its coverage note; a row with null/zero metrics would instead be counted as 0% visibility and corrupt the numbers.
 - `meta.engines` should list the engines the agent is **tracking**. The default set is the four API engines (`chatgpt`, `gemini`, `perplexity`, `claude`). An engine in the list with **no rows** simply appears as **"pending"** in the dashboard's coverage note - that is expected and correct.
-- Every engine you evaluated should have 10 rows. The one exception is `google_ai_overviews` **if the user has opted into the optional manual check** (see Phase 2 and the `meta.engines` note above): it has only as many rows as queries where an overview actually appeared.
+- Every engine you evaluated should have 13 rows. The one exception is `google_ai_overviews` **if the user has opted into the optional manual check** (see Phase 2 and the `meta.engines` note above): it has only as many rows as queries where an overview actually appeared.
 - Partial coverage is normal and expected.
 
 **Critical settings:**
 
-- Set `dataStatus` to `"manual"` for a **real run** - one where you actually captured engine answers. (The value `"model"` triggers the SAMPLE badge and watermarks - do **not** use it for a real run.)
+- `dataStatus` must be set to one of three values:
+  - `"live"` for runs captured via engine APIs.
+  - `"manual"` for a **real run** captured by hand or interactive browsing (no SAMPLE badge).
+  - `"model"` for the shipped sample dataset (triggers the SAMPLE badge and watermark - do **not** use it for a real run).
+- Snapshot `method` should be `"live_api"` for API-driven runs or `"manual"` for manual / chat captures.
 - **There is no separate "dry-run" status.** If you are producing a file only to test the structure (a dry run, with no real captured answers), do **not** present it as captured data. Say so plainly in `datasetLabel` (for example, "Structural test file - no answers captured") and in the snapshot `notes`, and tell the user it is a layout test only. Never let a dry run read as real results.
 - Save `data.js` **next to `index.html`**, **overwriting the sample `data.js`** that ships with the dashboard. If a real run is saved correctly, the SAMPLE banner disappears.
 - **Remove the template's illustrative snapshots - do not mix them with real data.** The template ships fabricated snapshots purely to demonstrate the layout and metrics. A fabricated point left on the same trend line as real data corrupts the series. When real data arrives, **remove** the demo snapshots rather than leaving them in place. The dashboard shows a **SAMPLE** badge while `dataStatus` is `"model"`; that badge disappearing is the signal that real data has replaced the demo.
@@ -305,12 +315,12 @@ Produce a **prioritized 30 / 60 / 90-day action plan**: what to fix in the next 
 Write or update a file named **`aeo-state.md`** next to `data.js`. It is the memory of every run and must contain:
 
 - **Agent profile** - name, company, site, service areas.
-- **Query set** - the fixed 10 queries (with any user changes noted).
+- **Query set** - the fixed 13 non-branded queries (with any user changes noted).
 - **Competitors** - the tracked list.
-- **Snapshot history** - for each run: date plus headline metrics (Visibility, Average Rank, Citation Share, Recommendation Rate, Share of Voice).
+- **Snapshot history** - for each run: date plus headline metrics (Visibility, Average Rank, Own-Domain Cited, Recommendation Rate, Share of Voice).
 - **Sources reviewed** - which surfaces were checked and which were unverified.
 - **Open action items** - from the 30/60/90-day plan, with status.
-- **Verbatim excerpts (optional)** - if you collected answer excerpts here instead of (or in addition to) the `excerpt` field in `data.js`, keep them tagged by engine and query id so they remain auditable.
+- **Verbatim excerpts (optional)** - if you collected answer excerpts here instead of (or in addition to) the `responseExcerpt` field in `data.js`, keep them tagged by engine and query id so they remain auditable.
 - **Snapshot history starts clean.** The template's illustrative snapshots exist only to show the layout. Once real data is saved, the demo snapshots must be **removed**, not kept alongside real ones - a fabricated point on the same trend line corrupts the series. The dashboard's **SAMPLE** badge (shown while `dataStatus` is `"model"`) disappearing is the signal that real data has replaced the demo.
 
 ### The recurring run prompt
@@ -324,13 +334,13 @@ Run my weekly AEO check.
    answer engine I can access, capturing answers verbatim (<=200 characters).
 3. If I opted into the manual Google AI Overviews check, do it; mark "not shown"
    where absent. Otherwise skip this step.
-4. Score the results per the rubric.
-5. Append a new snapshot to data.js (dataStatus: "manual") and overwrite the file.
+4. Score the results per the rubric (presence, rank, own-domain cited, citations, competitors).
+5. Append a new snapshot to data.js (dataStatus: "manual" or "live") and overwrite the file.
 6. Update aeo-state.md with the new snapshot row and refreshed action items.
 Do not invent any answer I did not provide or that you did not receive.
 ```
 
-If the user chose a **monthly** cadence, change the first line to "Run my monthly AEO check." Keep the rest of the block unchanged.
+If the user chose a **monthly** cadence, change the first line to "Run my monthly AEO check." Keep the rest of the block unchanged. Weekly or monthly are both valid; pick one and keep it consistent.
 
 Tell the user how to reuse it: save it as a reusable prompt or custom command in whichever assistant they use, and re-attach both `aeo-state.md` and `data.js` at the start of each run so the assistant has continuity.
 
@@ -343,29 +353,34 @@ Tell the user how to reuse it: save it as a reusable prompt or custom command in
 | Metric | Meaning |
 |---|---|
 | **Visibility** | Share of evaluated answers where the agent is present. |
-| **Average Rank** | Mean rank across answers where the agent is present (`null` excluded). |
-| **Citation Share** | The agent's share of citations relative to tracked competitors. |
-| **Recommendation Rate** | Share of answers where the agent is explicitly recommended. |
-| **Share of Voice** | The agent's mentions as a share of all tracked mentions. |
-| **Presence** (raw) | 1 if named in the answer, else 0. |
-| **Rank** (raw) | Position among tracked competitors named in the answer (1 = first); `null` if absent. |
+| **Average Rank** | Mean rank across answers where the agent is present (`null` excluded). Rank convention: rank-when-present (absent = `null`). |
+| **Own-Domain Cited** | Share of answers that cited the agent's own website (`meta.subject.site`) as a source. Computed from the boolean `subjectCited`; only rows that carry the field count; shown per engine. |
+| **Recommendation Rate** | Share of answers where the agent appeared in the #1 position (appeared and ranked #1). |
+| **Share of Voice** | The agent's mentions as a share of all tracked mentions (agent + tracked competitors). |
+| **Presence** (raw `subjectPresent`) | `true` if named in the answer, else `false`. |
+| **Rank** (raw `subjectRank`) | Position among tracked competitors named in the answer (1 = first); `null` if absent. |
+| **Own Site Cited** (raw `subjectCited`) | `true` if the answer cited the agent's own website (`meta.subject.site`) as a source, else `false`. |
+| **Total Citations** (raw `totalCitations`) | Count of distinct cited domains/sources in the answer. |
 
 ### B. The query table
 
-Fill placeholders from Phase 1 (`{Full Name}`, `{Company}`, `{Service Area}`, `{Neighborhood}`, `{Competitor 1}`). Keep the structure and categories stable across runs. The DC column is an illustration only.
+Fill placeholders from Phase 1 (`{Service Area}`, `{Price Band}`, `{Neighborhood}`). Neighborhood slots are filled from the agent's own neighborhood list (Phase 1); the agent may cycle their neighborhoods across the ranking slots. None of the queries name the subject (all 13 are non-branded). Keep the structure and categories stable across runs. The DC column is an illustration only.
 
 | id | Query (template) | Category | DC example |
 |---|---|---|---|
-| q01 | Who is `{Full Name}`? | profile | Who is Alexandra Rivera? |
-| q02 | Best real estate agent in `{Neighborhood}` | ranking | Best real estate agent in Georgetown DC |
-| q03 | Top luxury real estate agents in `{Service Area}` | ranking | Top luxury real estate agents in Washington DC |
-| q04 | `{Full Name}` vs `{Competitor 1}` | comparison | Alexandra Rivera vs Dana Okonkwo |
-| q05 | Top real estate agents in `{Service Area}` | ranking | Top real estate agents in Northwest Washington DC |
-| q06 | `{Full Name}` real estate reviews | reputation | Alexandra Rivera real estate reviews |
-| q07 | Best real estate agent in `{Service Area}` for luxury homes | ranking | Best real estate agent in DC for luxury homes |
-| q08 | Who is the top selling agent in `{Neighborhood}`? | ranking | Who is the top selling agent in Georgetown? |
+| q01 | Luxury realtor in `{Neighborhood}` | discovery | Luxury realtor in Georgetown |
+| q02 | Best real estate agent in `{Neighborhood}` | ranking | Best real estate agent in Georgetown |
+| q03 | Best real estate agent in `{Neighborhood}` | ranking | Best real estate agent in Kalorama |
+| q04 | Best real estate agent in `{Neighborhood}` or `{Neighborhood}` | ranking | Best real estate agent in Dupont Circle or Logan Circle |
+| q05 | Best realtor in `{Service Area}` for homes over `{Price Band}` | price | Best realtor in Washington DC for homes over $5 million |
+| q06 | Best real estate agent in `{Neighborhood}` or `{Neighborhood}` | ranking | Best real estate agent in Cleveland Park or Woodley Park |
+| q07 | Best off market realtor | specialty | Best off market realtor |
+| q08 | Best real estate agent in `{Neighborhood}` | ranking | Best real estate agent in Capitol Hill |
 | q09 | `{Service Area}` luxury real estate agent rankings | ranking | Washington DC luxury real estate agent rankings |
-| q10 | `{Full Name}` `{Company}` profile | profile | Alexandra Rivera Washington Fine Properties profile |
+| q10 | Best real estate agent in `{Neighborhood}` or `{Neighborhood}` | ranking | Best real estate agent in Spring Valley or Wesley Heights |
+| q11 | Best real estate agent in `{Neighborhood}` | ranking | Best real estate agent in Georgetown |
+| q12 | Best real estate agent in `{Neighborhood}` | ranking | Best real estate agent in Foggy Bottom |
+| q13 | Best buyer's agent in `{Service Area}` | buyer | Best buyer's agent in Washington DC |
 
 ### C. Source links
 
@@ -393,16 +408,19 @@ Use only these. Label **official guidance** vs **common practice** where relevan
 
 ### D. Note on results
 
-All results in this workflow are **manual and LLM-assisted**. They are **directional**, not precise measurement. Answers vary by engine, model version, user, location, and day. Ten queries is a smoke test, not a measurement - track trends across snapshots and do not over-read a single result. **No one can guarantee a specific answer or ranking outcome.**
+All results in this workflow are **manual and LLM-assisted** (or API-assisted). They are **directional**, not precise measurement. Answers vary by engine, model version, user, location, and day. Thirteen queries is a smoke test, not a measurement - track trends across snapshots and do not over-read a single result. **No one can guarantee a specific answer or ranking outcome.**
 
 ### E. Notes for tool builders
 
 This section is for whoever writes the runner and validator that produce and check `data.js`. It is not for the end user.
 
-- **Use ONE alias regex for the subject.** If presence, rank, recommendation, and excerpt each use a different name pattern they will disagree, and a validator that enforces agreement will reject rows. A multi-name subject (for example a team known both by a principal's name and by a team brand) needs every form in **one** regex used by **every** scoring path.
-- **The validator's invariant is "a rank requires presence", not "presence requires a rank".** A subject can legitimately be present with a `null` rank when presence comes from a **cited domain** rather than a text mention. Keep the dangerous direction rejected: **absent-but-ranked** and **absent-but-recommended** must stay invalid.
+- **Use ONE alias regex for the subject.** If presence, rank, citation check, and response excerpt each use a different name pattern they will disagree, and a validator that enforces agreement will reject rows. A multi-name subject (for example a team known both by a principal's name and by a team brand) needs every form in **one** regex used by **every** scoring path.
+- **The validator's invariant is "a rank requires presence", not "presence requires a rank".** A subject can legitimately be present with a `null` rank when presence comes from a **cited domain** rather than a text mention. Keep the dangerous direction rejected: **absent-but-ranked** must stay invalid. (Recommendation is derived downstream from `subjectPresent: true` and `subjectRank: 1`).
 - **Chunked runs need merge-on-write.** A full run across four engines can exceed a per-invocation shell timeout, so runs get chunked per engine or per query group. If the runner overwrites its output file, each chunk destroys the previous one. Instead, **merge records keyed by `(engine, queryId)`**; **scope the merge to the run date** so a new run cannot clobber an old one; and **print a coverage line** (N of engines x queries, with a complete/incomplete verdict) so the operator can gate on completeness.
-- **Google AI Overviews is not API-queryable.** It is a Search SERP feature with no official API. A template that declares it as a fifth engine creates a permanent, uncloseable "missing engine" state. Either track the four API engines, or treat AI Overviews as an explicit **optional manual addition** the user enables themselves.
+- **Google AI Overviews is not API-queryable.** It is a Search SERP feature with no official API. A template that declares it as a fifth engine creates a permanent, uncloseable "missing engine" state. Track the four default API engines (`chatgpt`, `gemini`, `perplexity`, `claude`), or treat AI Overviews as an explicit **optional manual addition (off by default)** the user enables deliberately.
+- **Own-Domain Cited definition and denominator:** `subjectCited` tracks whether the subject's own website (`meta.subject.site`) is cited as a source in the engine response. The **Own-Domain Cited** metric is the percentage of evaluated answers that cited the subject's own domain (calculated per engine across evaluated rows where `subjectCited` is present). `totalCitations` is the count of all sources surfaced in that answer and is **NOT** the denominator for Own-Domain Cited; using `totalCitations` as a denominator would dilute own-site citations whenever an engine provides a large bibliography.
+- **Rationale for retiring the recommendation flag (`subjectRecommended`):** In a non-branded discovery query set, nearly every query is recommendation-primed (e.g., asking "Best real estate agent in..."). Therefore, appearing in the answer is already an endorsement. The legacy boolean flag `subjectRecommended` was brittle in automated scoring because it frequently false-positive triggered on the prompt's own word "best" or on structural headings like `**Best For:**`. Under v1.1.0, `subjectRecommended` is retired as a raw result field, and **Recommendation Rate** is cleanly defined downstream as appearing at rank **#1** (`subjectPresent: true` and `subjectRank: 1`).
+- **Response excerpt field rename:** The raw field formerly called `excerpt` is renamed **`responseExcerpt`**. It remains optional and verbatim (<=200 characters) to ensure reproducibility and auditability without inflating payload size. The dashboard ignores extra fields.
 
 ---
 
