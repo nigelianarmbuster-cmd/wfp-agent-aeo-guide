@@ -47,7 +47,7 @@
     <div class="wrap hero__inner">
       <p class="hero__eyebrow">AEO how-to</p>
       <h1 class="hero__title" id="hero-title">Set Up Your Own AEO Dashboard</h1>
-      <p class="hero__subtitle">Build a personal dashboard that tracks how answer engines describe you, and re-run it every month.</p>
+      <p class="hero__subtitle">Build a personal dashboard that tracks how answer engines describe you, and re-run it on a regular cadence (weekly or monthly).</p>
       <div class="btn-row">
         <a class="btn btn--primary" href="https://github.com/nigelianarmbuster-cmd/wfp-agent-aeo-guide/releases/latest/download/dashboard.zip">Download the dashboard</a>
         <a class="btn btn--secondary" href="dashboard/index.html" target="_blank" rel="noopener noreferrer">Open the sample dashboard</a>
@@ -64,8 +64,8 @@
         <h2 class="section-head__title" id="intro-title">What you will build</h2>
       </div>
       <div class="prose">
-        <p class="lead">A personal AEO dashboard. It is a single web page you open in your browser. It shows how often the major answer engines — ChatGPT, Gemini, Perplexity, Claude, and Google AI Overviews — name you, cite you, and recommend you when someone asks a real estate question in your market.</p>
-        <p>You will run it the same way each time, so you can compare this month to last month and see whether your visibility is improving. The first setup takes about <strong>30 to 60 minutes</strong>. After that, a monthly re-run is much faster.</p>
+        <p class="lead">A personal AEO dashboard. It is a single web page you open in your browser. It shows how often the four API answer engines — ChatGPT, Gemini, Perplexity, and Claude (with Google AI Overviews as an optional manual check) — name you, cite your website, and recommend you when someone asks a real estate question in your market.</p>
+        <p>You will run it the same way each time, so you can compare snapshot to snapshot and see whether your visibility is improving (weekly or monthly are both valid — pick one and keep it consistent). The first setup takes about <strong>30 to 60 minutes</strong>. After that, recurring re-runs are much faster.</p>
         <p>There is <strong>no coding and no API keys</strong>. You or your AI assistant produce one small data file, and the dashboard reads it.</p>
       </div>
       <div class="callout callout--info">
@@ -88,7 +88,7 @@
 
       <div class="prose prose--wide">
         <h3 class="subhead mt-0">An AI assistant</h3>
-        <p>The <strong>WFP enterprise Gemini account in the browser</strong> is the recommended path. It is the simplest to set up and the easiest to re-run each month. Any capable assistant works, including Claude Code or OpenCode if you already use them — the setup doc is written for all of them.</p>
+        <p>The <strong>WFP enterprise Gemini account in the browser</strong> is the recommended path. It is the simplest to set up and the easiest to re-run on your chosen cadence. Any capable assistant works, including Claude Code or OpenCode if you already use them — the setup doc is written for all of them.</p>
 
         <h3 class="subhead">The dashboard template</h3>
         <p>Download <code>dashboard.zip</code> from the repository's latest release. It contains the dashboard page, the sample data, and everything it needs to run offline.</p>
@@ -144,11 +144,11 @@
           <ol>
             <li>Your full name, exactly as it should appear in an answer.</li>
             <li>Your company or brokerage (usually Washington Fine Properties).</li>
-            <li>Whether you have your own website, and its address if so.</li>
+            <li>Your own website or domain, if you have one (used for the Own-Domain Cited metric).</li>
             <li>Where your testimonials and reviews live (Google Business Profile, Zillow, Realtor.com, your own site, or another place).</li>
             <li>Your service areas and neighborhoods — the places you want to be known for.</li>
             <li>Your main competitors, two to five of them, ideally other agents or teams in the same neighborhoods.</li>
-            <li>Which answer engines you can access from that list of five.</li>
+            <li>Which answer engines you can access from the four API-queryable engines (ChatGPT, Gemini, Perplexity, Claude), and whether to include the optional Google AI Overviews manual check.</li>
           </ol>
         </div>
       </article>
@@ -157,8 +157,8 @@
       <article class="step" aria-labelledby="step-4">
         <h3 class="step__title" id="step-4">Run the queries</h3>
         <div class="step__body prose">
-          <p>The assistant runs a fixed set of ten questions — or hands them to you to run and paste back, depending on what it can do. The questions cover how an agent is described, ranked, and compared in your market.</p>
-          <p>The set always includes a <strong>manual check of Google AI Overviews</strong>. AI Overviews do not appear for every query, so any that are not shown are recorded as "not shown."</p>
+          <p>The assistant runs a fixed set of thirteen non-branded questions — or hands them to you to run and paste back, depending on what it can do. The questions cover how an agent is described, ranked, and compared in your market.</p>
+          <p>The four API-queryable engines (ChatGPT, Gemini, Perplexity, Claude) are tracked by default. You can optionally include a <strong>manual check of Google AI Overviews</strong> (which has no API). AI Overviews do not appear for every query, so any that are not shown are recorded as "not shown."</p>
           <div class="callout callout--caution">
             <span class="callout__title">The honesty rule</span>
             <p>Answers must be quoted verbatim. If the assistant cannot check an engine, that engine is marked <strong>"not evaluated"</strong> and its fields are left blank. Nothing is invented, and nothing is guessed. An engine that cannot be checked is simply left out.</p>
@@ -186,7 +186,7 @@
           <details class="reveal">
             <summary>Gemini in the browser <span class="tag tag--helps">Recommended</span></summary>
             <div class="reveal__body">
-              <p>Save the run prompt as a Gem (or as a reusable prompt you can paste) so you do not retype it each month.</p>
+              <p>Save the run prompt as a Gem (or as a reusable prompt you can paste) so you do not retype it for each recurring run.</p>
               <ol>
                 <li>Create a Gem in the WFP enterprise Gemini workspace and paste in the recurring run prompt from the setup doc.</li>
                 <li>Keep your <code>aeo-state.md</code> and your latest <code>data.js</code> in one folder. Re-attach both each run so the assistant remembers your query set and history.</li>
@@ -200,7 +200,7 @@
           <details class="reveal">
             <summary>Claude Code</summary>
             <div class="reveal__body">
-              <p>Create a custom command file at <code>.claude/commands/wfp-aeo-run.md</code> in your project folder and paste in the recurring run prompt. You then type <code>/wfp-aeo-run</code> each month to re-run it.</p>
+              <p>Create a custom command file at <code>.claude/commands/wfp-aeo-run.md</code> in your project folder and paste in the recurring run prompt. You then type <code>/wfp-aeo-run</code> each time to re-run it.</p>
               <p class="text-muted mb-0">Note: Claude Code is moving custom commands into skills, so this path may change. The commands path still works today.</p>
             </div>
           </details>
@@ -217,7 +217,7 @@
             <div class="reveal__body">
               <p>Use this portable prompt. Paste it at the start of each run, along with your current <code>aeo-state.md</code> if you have one.</p>
               <pre><code>Read this setup doc and follow it to build my AEO dashboard.
-Then run the monthly follow-up: re-run the fixed query set,
+Then run the follow-up: re-run the fixed query set,
 score the results, and produce an updated data.js.
 Keep answers verbatim, mark anything you cannot check as
 "not evaluated", and do not invent results.</code></pre>
@@ -316,7 +316,7 @@ Keep answers verbatim, mark anything you cannot check as
       </div>
       <div class="prose prose--wide">
         <h3 class="subhead mt-0">How often should I run this?</h3>
-        <p>Monthly is recommended. Answer engines change often, and ten queries are a smoke test rather than a measurement. Track the trend across several months instead of over-reading a single run.</p>
+        <p>Weekly or monthly are both valid — pick one and keep it consistent. Answer engines change often, and thirteen non-branded queries are a smoke test rather than a measurement. Track the trend across several snapshots instead of over-reading a single run.</p>
 
         <h3 class="subhead">What should I do with the results?</h3>
         <p>Use them to find the questions where you are missing from the answer, and which sources are cited instead. Then work on the principles in the main guide — being crawlable, answering directly, keeping your facts consistent, and earning mentions and reviews from other sources. The setup doc also produces a prioritized action plan based on your own material.</p>
@@ -358,7 +358,7 @@ Keep answers verbatim, mark anything you cannot check as
         </ul>
       </div>
     </div>
-    <p class="site-footer__legal">Version 1.0.0 · © Washington Fine Properties. Provided for WFP agent use.</p>
+    <p class="site-footer__legal">Version 1.1.0 · © Washington Fine Properties. Provided for WFP agent use.</p>
   </div>
 </footer>
 

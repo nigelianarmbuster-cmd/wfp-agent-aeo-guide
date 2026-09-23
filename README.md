@@ -12,14 +12,14 @@ A beginner's guide to Answer Engine Optimization (AEO) for Washington Fine Prope
 
 ## How the agent workflow works
 
-Download the dashboard template and unzip it somewhere you can find it, then hand the state doc to your AI assistant and ask it to follow the document to build your dashboard. The assistant collects a short intake, runs the query set across the answer engines you can access, and produces a `data.js` file. Save that file next to `index.html`, overwriting the sample, and open `index.html` in your browser. Re-run the process monthly so you can track trends across snapshots rather than reading a single result.
+Download the dashboard template and unzip it somewhere you can find it, then hand the state doc to your AI assistant and ask it to follow the document to build your dashboard. The assistant collects a short intake, runs the query set across the answer engines you can access, and produces a `data.js` file. Save that file next to `index.html`, overwriting the sample, and open `index.html` in your browser. Re-run the process on a regular cadence (weekly or monthly are both valid — pick one and keep it consistent) so you can track trends across snapshots rather than reading a single result.
 
 ## What's in the repo
 
 | Item | Description |
 |---|---|
 | `index.html` | The main guide. Self-contained content that links the shared stylesheet in `assets/`. |
-| `setup.html` | The "Set up your own dashboard" how-to, from download through the recurring monthly run. |
+| `setup.html` | The "Set up your own dashboard" how-to, from download through recurring runs (weekly or monthly). |
 | `dashboard/` | The sample dashboard: `index.html` (a parameterized clone), `data.js` (fictional sample dataset), plus vendored `assets/` and local `fonts/` so it works offline. |
 | `AGENT-AEO-SETUP.md` | The state doc. LLM-agnostic instructions your AI assistant follows to run the process and generate your own `data.js`. |
 | `assets/` | Shared brand design system for the two guide pages: `guide.css` and `WFP-Logo-Blue-HiRes.png`. |
@@ -27,6 +27,7 @@ Download the dashboard template and unzip it somewhere you can find it, then han
 
 ## Version and changelog
 
+- v1.1.0 - 2026-09-23 - Own-Domain Cited and #1 Recommendation Rate metrics; 13 non-branded queries; four API engines by default (Google AI Overviews optional); weekly or monthly cadence.
 - v1.0.0 - 2026-09-10 - Initial release.
 
 ## Notice
