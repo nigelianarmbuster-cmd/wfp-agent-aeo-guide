@@ -27,6 +27,7 @@ Download the dashboard template and unzip it somewhere you can find it, then han
 
 ## Version and changelog
 
+- v1.1.1 - 2026-10-02 - Swapped the Visibility % and Average Rank trend charts in the sample dashboard template (Trends order is now Recommendation Rate %, Visibility %, Own-Domain Cited, Average Rank); documented the order in the state doc.
 - v1.1.0 - 2026-09-23 - Own-Domain Cited and #1 Recommendation Rate metrics; 13 non-branded queries; four API engines by default (Google AI Overviews optional); weekly or monthly cadence.
 - v1.0.0 - 2026-09-10 - Initial release.
 

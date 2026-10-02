@@ -1,12 +1,13 @@
 # AEO Dashboard Setup - Agent State Doc
 
-**Version:** 1.1.0
-**Date:** 2026-09-23
+**Version:** 1.1.1
+**Date:** 2026-10-02
 **Purpose:** Instructions for an AI assistant to set up and maintain a personal Answer Engine Optimization (AEO) dashboard for a Washington Fine Properties agent.
 
 > If you are an AI assistant reading this: follow this document exactly, phase by phase. If a newer version of this document exists in the repository, use that version instead.
 
 **Changelog**
+- **1.1.1 (2026-10-02)** - Dashboard template: swapped the **Visibility %** and **Average Rank** trend charts, so the Trends section now reads Recommendation Rate %, Visibility %, Own-Domain Cited, Average Rank. Documented that order in Appendix F.
 - **1.1.0 (2026-09-23)** - Metric redefinitions: Own-Domain Cited replaces Citation Share; Recommendation Rate defined downstream as appearing at #1 position; `subjectRecommended` retired as a raw field; `excerpt` renamed `responseExcerpt`; 13 non-branded queries replace the 10 (partly branded) questions; `subjectCited` added to result rows; `dataStatus` gains `live` alongside `manual` and `model`.
 - **1.0.2 (2026-09-10)** - Mode A now has the assistant obtain the dashboard template itself (clone the repo or extract the release zip) so the agentic path is hands-off; Mode B keeps the manual download step.
 - **1.0.1 (2026-09-10)** - Clarified that un-evaluated engines/queries must be omitted from `results` (not emitted with null fields); made the query set adapt to the agent's own market via placeholders; added an optional verbatim `excerpt` field; clarified `meta.engines` coverage behavior, manual-vs-dry-run status, and which phases a chat-only assistant can produce as copy blocks.
@@ -421,6 +422,17 @@ This section is for whoever writes the runner and validator that produce and che
 - **Own-Domain Cited definition and denominator:** `subjectCited` tracks whether the subject's own website (`meta.subject.site`) is cited as a source in the engine response. The **Own-Domain Cited** metric is the percentage of evaluated answers that cited the subject's own domain (calculated per engine across evaluated rows where `subjectCited` is present). `totalCitations` is the count of all sources surfaced in that answer and is **NOT** the denominator for Own-Domain Cited; using `totalCitations` as a denominator would dilute own-site citations whenever an engine provides a large bibliography.
 - **Rationale for retiring the recommendation flag (`subjectRecommended`):** In a non-branded discovery query set, nearly every query is recommendation-primed (e.g., asking "Best real estate agent in..."). Therefore, appearing in the answer is already an endorsement. The legacy boolean flag `subjectRecommended` was brittle in automated scoring because it frequently false-positive triggered on the prompt's own word "best" or on structural headings like `**Best For:**`. Under v1.1.0, `subjectRecommended` is retired as a raw result field, and **Recommendation Rate** is cleanly defined downstream as appearing at rank **#1** (`subjectPresent: true` and `subjectRank: 1`).
 - **Response excerpt field rename:** The raw field formerly called `excerpt` is renamed **`responseExcerpt`**. It remains optional and verbatim (<=200 characters) to ensure reproducibility and auditability without inflating payload size. The dashboard ignores extra fields.
+
+### F. Dashboard trend-chart order
+
+The dashboard's **Trends** section renders four charts. In reading order (left to right, top to bottom):
+
+1. Recommendation Rate %
+2. Visibility %
+3. Own-Domain Cited (period aggregate - one bar per engine)
+4. Average Rank
+
+This order is fixed by the template shipped in `dashboard.zip`. Keep these four charts in this order so every dashboard reads the same way.
 
 ---
 
