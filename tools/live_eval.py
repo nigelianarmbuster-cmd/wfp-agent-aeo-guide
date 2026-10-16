@@ -21,7 +21,8 @@ SENSITIVE-DATA POLICY
   auth.json contents, file paths, internal hostnames, private documents, PII,
   or any cross-provider data.
 * HTTP requests are built from only: URL, prompt, model name, max_tokens /
-  citation settings, and temperature 0.
+  citation settings, and temperature 0 (OpenAI, Anthropic and Perplexity
+  only; Gemini no longer sends sampling parameters).
 * Secrets are redacted everywhere: request headers are never printed; whenever
   an exception or a response body is printed, key=/token= query parameters and
   Authorization / x-api-key values are stripped (see _redact()).
