@@ -433,7 +433,7 @@ DEFAULT_MODELS: dict[str, str] = {
     "chatgpt": "",  # resolved at runtime via GET /v1/models
     "claude": "claude-sonnet-4-6",
     "perplexity": "sonar",
-    "gemini": "gemini-3.5-flash",
+    "gemini": "gemini-3.8-flash",
 }
 
 
@@ -547,7 +547,6 @@ def call_gemini(prompt: str, key: str, model_hint: str = "") -> dict:
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
     body = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"temperature": 0},
         "tools": [{"googleSearch": {}}],
     }
     raw = http_request(url, method="POST", headers={"Content-Type": "application/json"},
@@ -650,7 +649,6 @@ def _dry_entries_gemini(prompt: str, model_hint: str) -> list[tuple[str, str, di
            "?key=REDACTED")
     body = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"temperature": 0},
         "tools": [{"googleSearch": {}}],
     }
     label = "model from GEMINI_MODEL env" if os.environ.get("GEMINI_MODEL") else ""
